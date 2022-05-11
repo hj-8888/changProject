@@ -18,6 +18,6 @@ public class MemberDTO {
     private String job;
     private String profileURL;
     private String nickname;
-    private String sportsIndex;
+    private int sportsIndex;
     private int localInfoIndex;
 }
