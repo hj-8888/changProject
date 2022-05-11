@@ -13,7 +13,7 @@ public class LocalInfoDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<LocalInfoDTO> selectLocalInfo() {
+    public List<LocalInfoDTO> selectAll_LocalInfo() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<LocalInfoDTO> list = null;
         try {

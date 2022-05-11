@@ -28,10 +28,6 @@
         <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
     </resultMap>
 
-
-    <select id="selectAll" resultMap="MemberResultmap">
-        SELECT * FROM `회원`;
-
     <insert id="insertOne" parameterType="SportsFacilities">
         INSERT INTO `체육시설`(
         `id`,
@@ -60,37 +56,11 @@
 
     <select id="selectAll" resultMap="SportsFacilitiesResultmap">
         SELECT * FROM `체육시설`;
-
     </select>
 
     <select id="selectOne" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `회원인덱스` = #{memberIndex};
     </select>
-
-    <insert id="insertOne" parameterType="SportsFacilities">
-        INSERT INTO `회원`(
-        `id`,
-        `pw`,
-        `이름`,
-        `나이`,
-        `성별`,
-        `직업`,
-        `프로필사진`,
-        `닉네임`,
-        `관심종목_종목인덱스`,
-        `지역정보_지역정보인덱스`)
-        VALUES (
-        #{memberID},
-        #{memberPW},
-        #{memberName},
-        #{age},
-        #{gender},
-        #{job},
-        #{profileURL},
-        #{nickname},
-        #{sportsIndex},
-        #{localInfoIndex});
-    </insert>
 
     <update id="updateOne" parameterType="SportsFacilities">
         UPDATE 회원 SET
