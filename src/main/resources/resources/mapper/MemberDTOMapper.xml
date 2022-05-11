@@ -36,6 +36,7 @@
         SELECT * FROM `회원` WHERE `회원인덱스` = #{memberIndex};
     </select>
 
+
     <insert id="insertOne" parameterType="Member">
         INSERT INTO `회원`(
         `id`,

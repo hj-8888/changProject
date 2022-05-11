@@ -8,6 +8,6 @@ import lombok.*;
 
 public class JoinGroupDTO {
     private int joinGroupIndex;
-    private String memberID;
-    private String groupNumber;
+    private String memberIndex;
+    private String groupIndex;
 }
