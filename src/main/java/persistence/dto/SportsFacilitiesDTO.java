@@ -12,7 +12,6 @@ public class SportsFacilitiesDTO {
     private String longitude;
     private String latitude;
     private String sportsFacilitiesTel;
-    private String sportsFacilitiesTypeCode;
+    private int sportsFacilitiesTypeCode;
     private int localInfoIndex;
-
 }

@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="LocalInfoMapperResultmap">
-        SELECT * FROM `지역정보`;
+        SELECT `지역정보 대분류` FROM `지역정보`;
     </select>
 
     <select id="selectOne" resultMap="LocalInfoMapperResultmap">
