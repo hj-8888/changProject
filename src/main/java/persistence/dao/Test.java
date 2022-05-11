@@ -16,13 +16,10 @@ public class Test {
         sportsFacilitiesDTO.setSportsFacilitiesTel("010-9999-8888");
         sportsFacilitiesDTO.setSportsFacilitiesTypeCode("1");
         sportsFacilitiesDTO.setLocalInfoIndex(16679);
-jhghuyihiu
         sportsFacilitiesDAO.insertSportsFacilities(sportsFacilitiesDTO);
         List<SportsFacilitiesDTO> list = sportsFacilitiesDAO.selectAllSportsFacilities();
         for(int i=0; i<list.size(); i++) {
             System.out.println(list.get(i));
         }
     }
-dasdssdasfdw
-}dsdas
-d
+}
