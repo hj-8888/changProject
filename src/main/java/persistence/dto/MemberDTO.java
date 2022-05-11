@@ -19,5 +19,4 @@ public class MemberDTO {
     private String profileURL;
     private String nickname;
     private int localInfoIndex;
-
 }

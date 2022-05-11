@@ -16,4 +16,3 @@ public class BulletinDTO {
     private String bulletinPW;
     private Date uploadDate;
 }
-//test 김동희

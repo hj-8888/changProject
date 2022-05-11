@@ -24,6 +24,32 @@
         <result column="지역정보_지역정보 인덱스" property="localInfoIndex"/>
     </resultMap>
 
+    <insert id="insertOne" parameterType="SportsFacilities">
+        INSERT INTO `체육시설`(
+        `id`,
+        `pw`,
+        `이름`,
+        `나이`,
+        `성별`,
+        `직업`,
+        `프로필 사진`
+        `닉네임`
+        `관심종목 종목인덱스`
+        `지역정보_지역정보인덱스`
+        )
+        VALUES (
+        #{memberID},
+        #{memberPW},
+        #{memberName},
+        #{age},
+        #{gender},
+        #{job},
+        #{profileURL},
+        #{nickname},
+        #{localInfoIndex}
+        );
+    </insert>
+
     <select id="selectAll" resultMap="SportsFacilitiesResultmap">
         SELECT * FROM `체육시설`;
     </select>
@@ -31,37 +57,6 @@
     <select id="selectOne" resultMap="SportsFacilitiesResultmap">
         SELECT * FROM `체육시설` WHERE `체육시설인덱스` = #{sportsFacilitiesIndex};
     </select>
-
-    <insert id="insertOne" parameterType="SportsFacilities">
-        INSERT INTO `체육시설`(
-        `체육시설인덱스`,
-        `체육시설명`,
-        `시설좌표_경도`,
-        `시설좌표_위도`,
-        `시설 연락처`,
-        `시설 유형코드`,
-        `지역정보_지역정보 인덱스`)
-        VALUES (
-        #{sportsFacilitiesIndex},
-        #{sportsFacilitiesName},
-        #{longitude},
-        #{latitude},
-        #{sportsFacilitiesTel},
-        #{sportsFacilitiesTypeCode},
-        #{localInfoIndex});
-    </insert>
-
-    <update id="updateOne" parameterType="SportsFacilities">
-        UPDATE 체육시설 SET
-        `체육시설명` = #{sportsFacilitiesName},
-        `시설좌표_경도` = #{longitude},
-        `시설좌표_위도` = #{latitude},
-        `시설 연락처` = #{sportsFacilitiesTel},
-        `시설 유형코드` = #{sportsFacilitiesTypeCode},
-        `지역정보_지역정보 인덱스` = #{localInfoIndex}
-        WHERE
-        `체육시설인덱스` = #{sportsFacilitiesIndex};
-    </update>
 
     <delete id="deleteOne" parameterType="SportsFacilities">
         DELETE FROM 체육시설 WHERE `체육시설인덱스` = #{sportsFacilitiesIndex};

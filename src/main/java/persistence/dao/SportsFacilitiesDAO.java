@@ -3,7 +3,6 @@ package persistence.dao;
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.SportsFacilitiesDTO;
-
 import java.util.List;
 
 public class SportsFacilitiesDAO {
@@ -41,4 +40,5 @@ public class SportsFacilitiesDAO {
             sqlSession.close();
         }
     }
+
 }
