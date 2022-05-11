@@ -7,6 +7,8 @@
     <typeAliases>
         <typeAlias alias="SportsFacilities" type="persistence.dto.SportsFacilitiesDTO"></typeAlias>
         <typeAlias alias="Member" type="persistence.dto.MemberDTO"></typeAlias>
+        <typeAlias alias="LocalInfo" type="persistence.dto.LocalInfoDTO"></typeAlias>
+        <typeAlias alias="InterestingSports" type="persistence.dto.InterestingSportsDTO"></typeAlias>
     </typeAliases>
 
     <environments default="development">
@@ -24,5 +26,7 @@
     <mappers>
         <mapper resource="resources/mapper/SportsFacilitiesDTOMapper.xml"/>
         <mapper resource="resources/mapper/MemberDTOMapper.xml"/>
+        <mapper resource="resources/mapper/LocalInfoDTOMapper.xml"/>
+        <mapper resource="resources/mapper/InterestingSportsDTOMapper.xml"/>
     </mappers>
 </configuration>

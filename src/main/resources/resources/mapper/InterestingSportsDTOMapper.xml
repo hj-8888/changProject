@@ -4,14 +4,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.InterestingSportsMapper">
 
-    <resultMap id="InterestingSportsMapperResultmap" type="InterestingSports">
+    <resultMap id="InterestingSportsResultmap" type="InterestingSports">
         <result column="종목인덱스" property="sportIndex"/>
-        <result column="지역정보 대분류" property="sportName"/>
-
+        <result column="종목명" property="sportName"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="InterestingSportsMapperResultmap">
-        SELECT * FROM `관신종목`;
+    <select id="selectAll" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목`;
     </select>
+
+    <select id="selectOne" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목인덱스` = #{sportIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="LocalInfo">
+        INSERT INTO `관심종목`(
+        `종목명`,
+        )
+        VALUES (
+        #{sportName})
+        WHERE
+        `종목인덱스` = #{sportIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="LocalInfo">
+        UPDATE `관심종목` SET
+        `종목명` = #{sportName},
+        WHERE
+        `종목인덱스` = #{sportIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="LocalInfo">
+        DELETE FROM `관심종목` WHERE `종목인덱스` = #{sportIndex};
+    </delete>
 
 </mapper>
