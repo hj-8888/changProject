@@ -36,7 +36,7 @@
         SELECT * FROM `회원` WHERE `회원인덱스` = #{memberIndex};
     </select>
 
-    <insert id="insertOne" parameterType="SportsFacilities">
+    <insert id="insertOne" parameterType="Member">
         INSERT INTO `회원`(
         `id`,
         `pw`,
@@ -61,7 +61,7 @@
         #{localInfoIndex});
     </insert>
 
-    <update id="updateOne" parameterType="SportsFacilities">
+    <update id="updateOne" parameterType="Member">
         UPDATE 회원 SET
         `id` = #{memberID},
         `pw` = #{memberPW},
@@ -77,7 +77,7 @@
         `회원인덱스` = #{memberIndex};
     </update>
 
-    <delete id="deleteOne" parameterType="SportsFacilities">
+    <delete id="deleteOne" parameterType="Member">
         DELETE FROM 회원 WHERE `회원인덱스` = #{memberIndex};
     </delete>
 
