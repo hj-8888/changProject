@@ -13,7 +13,7 @@ public class InterestingSportsDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<InterestingSportsDTO> selectAll_InterestingSports() {
+    public List<InterestingSportsDTO> selectOneInterestingSports() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<InterestingSportsDTO> list = null;
         try {

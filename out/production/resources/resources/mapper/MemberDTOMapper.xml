@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MemberMapper">
+
+    <!--
+    resultMap
+        Mysql <-> Java 간의 column(db)과 property(java)를 mapping 해줌 / select 쿼리에 사용됨 / 서로의 네이밍이 다르거나, 데이터 타입이 다른 경우에 사용됨
+        id = 해당 resultMap을 식별하기 위한 id
+        type = java에 담길 DTO
+
+        result
+            column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
+    -->
+
+    <resultMap id="MemberResultmap" type="Member">
+        <result column="회원인덱스" property="memberIndex"/>
+        <result column="id" property="memberID"/>
+        <result column="pw" property="memberPW"/>
+        <result column="이름" property="memberName"/>
+        <result column="나이" property="age"/>
+        <result column="성별" property="gender"/>
+        <result column="직업" property="job"/>
+        <result column="프로필사진" property="profileURL"/>
+        <result column="닉네임" property="nickname"/>
+        <result column="관심종목_종목인덱스" property="sportsIndex"/>
+        <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="MemberResultmap">
+        SELECT * FROM `회원`;
+    </select>
+
+    <select id="selectOne" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `회원인덱스` = #{memberIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="Member">
+        INSERT INTO `회원`(
+        `id`,
+        `pw`,
+        `이름`,
+        `나이`,
+        `성별`,
+        `직업`,
+        `프로필사진`,
+        `닉네임`,
+        `관심종목_종목인덱스`,
+        `지역정보_지역정보인덱스`)
+        VALUES (
+        #{memberID},
+        #{memberPW},
+        #{memberName},
+        #{age},
+        #{gender},
+        #{job},
+        #{profileURL},
+        #{nickname},
+        #{sportsIndex},
+        #{localInfoIndex});
+    </insert>
+
+    <update id="updateOne" parameterType="Member">
+        UPDATE 회원 SET
+        `id` = #{memberID},
+        `pw` = #{memberPW},
+        `이름` = #{memberName},
+        `나이` = #{age},
+        `성별` = #{gender},
+        `직업` = #{job},
+        `프로필사진` = #{profileURL},
+        `닉네임` = #{nickname},
+        `관심종목_종목인덱스` = #{sportsIndex},
+        `지역정보_지역정보인덱스` = #{localInfoIndex}
+        WHERE
+        `회원인덱스` = #{memberIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="Member">
+        DELETE FROM 회원 WHERE `회원인덱스` = #{memberIndex};
+    </delete>
+
+</mapper>

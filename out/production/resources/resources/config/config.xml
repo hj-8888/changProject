@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Bulletin" type="persistence.dto.BulletinDTO"></typeAlias>
+        <typeAlias alias="ChatLog" type="persistence.dto.ChatLogDTO"></typeAlias>
+        <typeAlias alias="ChatRoom" type="persistence.dto.ChatRoomDTO"></typeAlias>
+        <typeAlias alias="Comments" type="persistence.dto.CommentsDTO"></typeAlias>
+        <typeAlias alias="CreatingBulletin" type="persistence.dto.CreatingBulletinDTO"></typeAlias>
+        <typeAlias alias="InterestingSports" type="persistence.dto.InterestingSportsDTO"></typeAlias>
+        <typeAlias alias="JoinChatRoom" type="persistence.dto.JoinChatRoomDTO"></typeAlias>
+        <typeAlias alias="JoinGroup" type="persistence.dto.JoinGroupDTO"></typeAlias>
+        <typeAlias alias="LocalInfo" type="persistence.dto.LocalInfoDTO"></typeAlias>
+        <typeAlias alias="Member" type="persistence.dto.MemberDTO"></typeAlias>
+        <typeAlias alias="SportsFacilities" type="persistence.dto.SportsFacilitiesDTO"></typeAlias>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--  connecting to Local MySql -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://202.31.202.172:80/changP?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"/>
+                <property name="username" value="dba"/>
+                <property name="password" value="1234"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="resources/mapper/BulletinDTOMapper.xml"/>
+        <mapper resource="resources/mapper/ChatLogDTOMapper.xml"/>
+        <mapper resource="resources/mapper/ChatRoomDTOMapper.xml"/>
+        <mapper resource="resources/mapper/CommentsDTOMapper.xml"/>
+        <mapper resource="resources/mapper/CreatingBulletinDTOMapper.xml"/>
+        <mapper resource="resources/mapper/InterestingSportsDTOMapper.xml"/>
+        <mapper resource="resources/mapper/JoinChatRoomDTOMapper.xml"/>
+        <mapper resource="resources/mapper/JoinGroupDTOMapper.xml"/>
+        <mapper resource="resources/mapper/LocalInfoDTOMapper.xml"/>
+        <mapper resource="resources/mapper/MemberDTOMapper.xml"/>
+        <mapper resource="resources/mapper/SportsFacilitiesDTOMapper.xml"/>
+    </mappers>
+</configuration>
