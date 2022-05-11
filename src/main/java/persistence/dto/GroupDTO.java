@@ -17,6 +17,9 @@ public class GroupDTO {
     private String groupName;
     private String groupLeader;
     private String sports;
-    private int localInfoIndex;
+    private String largeCategoryLocal;
+    private String middleCategoryLocal;
+    private String smallCategoryLocal;
     private int chatRoomNumber;
+
 }
