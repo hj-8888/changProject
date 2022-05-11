@@ -15,55 +15,71 @@
     -->
 
     <resultMap id="MemberResultmap" type="Member">
-        <result column="체육시설인덱스" property="sportsFacilitiesIndex"/>
-        <result column="체육시설명" property="sportsFacilitiesName"/>
-        <result column="시설좌표_경도" property="longitude"/>
-        <result column="시설좌표_위도" property="latitude"/>
-        <result column="시설 연락처" property="sportsFacilitiesTel"/>
-        <result column="시설 유형코드" property="sportsFacilitiesTypeCode"/>
-        <result column="지역정보_지역정보 인덱스" property="localInfoIndex"/>
+        <result column="회원인덱스" property="memberIndex"/>
+        <result column="id" property="memberID"/>
+        <result column="pw" property="memberPW"/>
+        <result column="이름" property="memberName"/>
+        <result column="나이" property="age"/>
+        <result column="성별" property="gender"/>
+        <result column="직업" property="job"/>
+        <result column="프로필사진" property="profileURL"/>
+        <result column="닉네임" property="nickname"/>
+        <result column="관심종목_종목인덱스" property="sportsIndex"/>
+        <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="SportsFacilitiesResultmap">
-        SELECT * FROM `체육시설`;
+    <select id="selectAll" resultMap="MemberResultmap">
+        SELECT * FROM `회원`;
     </select>
 
-    <select id="selectOne" resultMap="SportsFacilitiesResultmap">
-        SELECT * FROM `체육시설` WHERE `체육시설인덱스` = #{sportsFacilitiesIndex};
+    <select id="selectOne" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `회원인덱스` = #{memberIndex};
     </select>
 
-    <insert id="insertOne" parameterType="SportsFacilities">
-        INSERT INTO `체육시설`{
-        `체육시설명`,
-        `시설좌표_경도`,
-        `시설좌표_위도`,
-        `시설 연락처`,
-        `시설 유형코드`,
-        `지역정보_지역정보 인덱스`)
+
+    <insert id="insertOne" parameterType="Member">
+        INSERT INTO `회원`(
+        `id`,
+        `pw`,
+        `이름`,
+        `나이`,
+        `성별`,
+        `직업`,
+        `프로필사진`,
+        `닉네임`,
+        `관심종목_종목인덱스`,
+        `지역정보_지역정보인덱스`)
         VALUES (
-        #{sportsFacilitiesIndex},
-        #{sportsFacilitiesName},
-        #{longitude},
-        #{latitude},
-        #{sportsFacilitiesTel},
-        #{sportsFacilitiesTypeCode},
+        #{memberID},
+        #{memberPW},
+        #{memberName},
+        #{age},
+        #{gender},
+        #{job},
+        #{profileURL},
+        #{nickname},
+        #{sportsIndex},
         #{localInfoIndex});
     </insert>
 
-    <update id="updateOne" parameterType="SportsFacilities">
-        UPDATE 체육시설 SET
-        `체육시설명` = #{sportsFacilitiesName},
-        `시설좌표_경도` = #{longitude},
-        `시설좌표_위도` = #{latitude},
-        `시설 연락처` = #{sportsFacilitiesTel},
-        `시설 유형코드` = #{sportsFacilitiesTypeCode},
-        `지역정보_지역정보 인덱스` = #{localInfoIndex}
+    <update id="updateOne" parameterType="Member">
+        UPDATE 회원 SET
+        `id` = #{memberID},
+        `pw` = #{memberPW},
+        `이름` = #{memberName},
+        `나이` = #{age},
+        `성별` = #{gender},
+        `직업` = #{job},
+        `프로필사진` = #{profileURL},
+        `닉네임` = #{nickname},
+        `관심종목_종목인덱스` = #{sportsIndex},
+        `지역정보_지역정보인덱스` = #{localInfoIndex}
         WHERE
-        `체육시설인덱스` = #{sportsFacilitiesIndex};
+        `회원인덱스` = #{memberIndex};
     </update>
 
-    <delete id="deleteOne" parameterType="SportsFacilities">
-        DELETE FROM 체육시설 WHERE `체육시설인덱스` = #{sportsFacilitiesIndex};
+    <delete id="deleteOne" parameterType="Member">
+        DELETE FROM 회원 WHERE `회원인덱스` = #{memberIndex};
     </delete>
 
 </mapper>

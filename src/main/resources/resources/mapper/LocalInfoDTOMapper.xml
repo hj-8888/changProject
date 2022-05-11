@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LocalInfoMapper">
+
+    <resultMap id="LocalInfoResultmap" type="LocalInfo">
+        <result column="지역정보 인덱스" property="localInfoIndex"/>
+        <result column="지역정보 대분류" property="largeCategoryLocal"/>
+        <result column="지역정보 중분류" property="middleCategoryLocal"/>
+        <result column="지역정보 소분류" property="smallCategoryLocal"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="LocalInfoMapperResultmap">
+        SELECT * FROM `지역정보`;
+    </select>
+
+    <select id="selectOne" resultMap="LocalInfoMapperResultmap">
+        SELECT * FROM `지역정보` WHERE `지역정보 인덱스` = #{localInfoIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="LocalInfo">
+        INSERT INTO `지역정보`(
+        `지역정보 대분류`,
+        `지역정보 중분류`,
+        `지역정보 소분류`
+        )
+        VALUES (
+        #{largeCategoryLocal},
+        #{middleCategoryLocal},
+        #{smallCategoryLocal})
+        WHERE
+        `지역정보 인덱스` = #{localInfoIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="LocalInfo">
+        UPDATE `지역정보` SET
+        `지역정보 대분류` = #{largeCategoryLocal},
+        `지역정보 중분류` = #{middleCategoryLocal},
+        `지역정보 소분류` = #{smallCategoryLocal}
+        WHERE
+        `지역정보 인덱스` = #{localInfoIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="LocalInfo">
+        DELETE FROM `지역정보` WHERE `지역정보 인덱스` = #{localInfoIndex};
+    </delete>
+
+</mapper>
