@@ -20,5 +20,4 @@ public class MemberDTO {
     private String nickname;
     private String sportsIndex;
     private int localInfoIndex;
-
 }

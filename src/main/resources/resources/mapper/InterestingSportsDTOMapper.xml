@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.InterestingSportsMapper">
+
+    <resultMap id="InterestingSportsMapperResultmap" type="InterestingSports">
+        <result column="종목인덱스" property="sportIndex"/>
+        <result column="지역정보 대분류" property="sportName"/>
+
+    </resultMap>
+
+    <select id="selectAll" resultMap="InterestingSportsMapperResultmap">
+        SELECT * FROM `관신종목`;
+    </select>
+
+</mapper>

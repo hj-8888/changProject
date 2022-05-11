@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LocalInfoMapper">
+
+    <resultMap id="LocalInfoMapperResultmap" type="LocalInfo">
+        <result column="지역정보 인덱스" property="localInfoIndex"/>
+        <result column="지역정보 대분류" property="largeCategoryLocal"/>
+        <result column="지역정보 중분류" property="middleCategoryLocal"/>
+        <result column="지역정보 소분류" property="smallCategoryLocal"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="LocalInfoMapperResultmap">
+        SELECT * FROM `지역정보`;
+    </select>
+
+</mapper>

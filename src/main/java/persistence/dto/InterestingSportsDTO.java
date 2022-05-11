@@ -11,5 +11,4 @@ import lombok.ToString;
 public class InterestingSportsDTO {
     private int sportIndex;
     private String sportName;
-    private int memberIndex;
 }

@@ -28,8 +28,39 @@
         <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
     </resultMap>
 
+
     <select id="selectAll" resultMap="MemberResultmap">
         SELECT * FROM `회원`;
+
+    <insert id="insertOne" parameterType="SportsFacilities">
+        INSERT INTO `체육시설`(
+        `id`,
+        `pw`,
+        `이름`,
+        `나이`,
+        `성별`,
+        `직업`,
+        `프로필 사진`
+        `닉네임`
+        `관심종목 종목인덱스`
+        `지역정보_지역정보인덱스`
+        )
+        VALUES (
+        #{memberID},
+        #{memberPW},
+        #{memberName},
+        #{age},
+        #{gender},
+        #{job},
+        #{profileURL},
+        #{nickname},
+        #{localInfoIndex}
+        );
+    </insert>
+
+    <select id="selectAll" resultMap="SportsFacilitiesResultmap">
+        SELECT * FROM `체육시설`;
+
     </select>
 
     <select id="selectOne" resultMap="MemberResultmap">
