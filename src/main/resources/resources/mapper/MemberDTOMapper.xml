@@ -33,8 +33,7 @@
     </select>
 
     <insert id="insertOne" parameterType="SportsFacilities">
-        INSERT INTO `체육시설`(
-        `체육시설인덱스`,
+        INSERT INTO `체육시설`{
         `체육시설명`,
         `시설좌표_경도`,
         `시설좌표_위도`,
