@@ -15,7 +15,7 @@
     -->
     <resultMap id="GroupScheduleResultMap" type="GroupSchedule">
         <result column="그룹일정인덱스" property="groupScheduleIndex"/>
-        <result column="그룹_그룹번호" property="groupNumber"/>
+        <result column="그룹_그룹인덱스" property="groupIndex"/>
         <result column="일정명" property="scheduleName"/>
         <result column="시작날짜" property="startDay"/>
         <result column="종료날짜" property="endDay"/>
@@ -26,17 +26,17 @@
     </select>
 
     <select id="selectOne" resultMap="GroupScheduleResultMap">
-        SELECT * FROM `그룹 일정` WHERE `그룹_그룹번호` = #{groupNumber};
+        SELECT * FROM `그룹 일정` WHERE `그룹_그룹인덱스` = #{groupIndex};
     </select>
 
     <insert id="insertOne" parameterType="GroupSchedule">
         INSERT INTO `그룹 일정`{
-        `그룹_그룹번호`,
+        `그룹_그룹인덱스`,
         `일정명`,
         `시작날짜`,
         `종료날짜`)
         VALUES(
-        #{groupNumber},
+        #{groupIndex},
         #{scheduleName},
         #{StartDay}.
         #{endDay});
@@ -48,10 +48,10 @@
         `시작날짜` = #{startDay},
         `종료날짜` = #{endDay}
         WHERE
-        `그룹_그룹번호` = #{groupNumber};
+        `그룹_그룹인덱스` = #{groupIndex};
     </update>
 
     <delete id="deleteOne" parameterType="GroupSchedule">
-        DELETE FROM `그룹 일정` WHERE  `그룹_그룹번호` = #{groupNumber};
+        DELETE FROM `그룹 일정` WHERE  `그룹_그룹인덱스` = #{groupIndex};
     </delete>
 </mapper>
