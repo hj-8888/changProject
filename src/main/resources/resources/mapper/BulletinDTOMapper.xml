@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BulletinMapper">
+
+    <resultMap id="BulletinResultmap" type="Bulletin">
+        <result column="게시글인덱스" property="bulletinIndex"/>
+        <result column="게시글 제목" property="bulletinTitle"/>
+        <result column="게시글 내용" property="bulletinContent"/>
+        <result column="첨부 사진" property="attachedPicture"/>
+        <result column="게시글 비밀번호" property="bulletinPW"/>
+        <result column="작성날짜" property="uploadDate"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BulletinResultmap">
+        SELECT * FROM `게시글`;
+    </select>
+
+    <select id="selectOne" resultMap="BulletinResultmap">
+        SELECT * FROM `게시글` WHERE `게시글인덱스` = #{bulletinIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="Bulletin">
+        INSERT INTO `게시글`(
+        `게시글 제목`,
+        `게시글 내용`,
+        `첨부 사진`,
+        `게시글 비밀번호`,
+        `작성날짜` )
+        VALUES (
+        #{bulletinTitle},
+        #{bulletinContent},
+        #{attachedPicture},
+        #{bulletinPW},
+        #{uploadDate})
+        WHERE
+        `게시글인덱스` = #{bulletinIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="Bulletin">
+        UPDATE `게시글` SET
+        `게시글 제목` = #{bulletinTitle},
+        `게시글 내용` = #{bulletinContent},
+        `첨부 사진` = #{attachedPicture},
+        `게시글 비밀번호` = #{bulletinPW},
+        `작성날짜` = #{uploadDate}
+        WHERE
+        `게시글인덱스` = #{bulletinIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="Bulletin">
+        DELETE FROM `게시글` WHERE `게시글인덱스` = #{bulletinIndex};
+    </delete>
+
+</mapper>
