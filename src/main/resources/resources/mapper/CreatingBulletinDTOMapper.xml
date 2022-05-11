@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CreatingBulletinMapper">
+
+    <resultMap id="CreatingBulletinResultmap" type="CreatingBulletin">
+        <result column="게시글작성인덱스" property="creatingBulletinIndex"/>
+        <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="게시글_게시글인덱스" property="bulletinIndex"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="CreatingBulletinResultmap">
+        SELECT * FROM `게시글 작성`;
+    </select>
+
+    <select id="selectOne" resultMap="CreatingBulletinResultmap">
+        SELECT * FROM `게시글 작성` WHERE `게시글작성인덱스` = #{creatingBulletinIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="CreatingBulletin">
+        INSERT INTO `게시글 작성`(
+        `전송일자`,
+        `작성자`)
+        VALUES (
+        #{memberIndex},
+        #{bulletinIndex})
+        WHERE
+        `게시글작성인덱스` = #{creatingBulletinIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="CreatingBulletin">
+        UPDATE `게시글 작성` SET
+        `전송일자` = #{memberIndex},
+        `작성자` = #{bulletinIndex}
+        WHERE
+        `게시글작성인덱스` = #{creatingBulletinIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="CreatingBulletin">
+        DELETE FROM `게시글 작성` WHERE `게시글작성인덱스` = #{creatingBulletinIndex};
+    </delete>
+
+</mapper>
