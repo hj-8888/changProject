@@ -10,6 +10,6 @@ import lombok.ToString;
 
 public class JoinChatRoomDTO {
     private int joinChatRoomIndex;
-    private int chatRoomIndex;
     private int memberIndex;
+    private int chatRoomIndex;
 }
