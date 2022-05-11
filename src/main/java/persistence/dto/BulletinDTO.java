@@ -16,6 +16,3 @@ public class BulletinDTO {
     private String bulletinPW;
     private Date uploadDate;
 }
-
-//김주호 테스트
-//김주호 테스트 5시 30분
