@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CommentsMapper">
+
+    <resultMap id="CommentsResultmap" type="Comments">
+        <result column="댓글인덱스" property="commentsIndex"/>
+        <result column="댓글내용" property="commentsContent"/>
+        <result column="작성날짜" property="uploadDate"/>
+        <result column="댓글계층" property="commentsLayer"/>
+        <result column="댓글순서" property="commentsOrder"/>
+        <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="게시글_게시글인덱스" property="bulletinIndex"/>
+
+    </resultMap>
+
+    <select id="selectAll" resultMap="CommentsResultmap">
+        SELECT * FROM `댓글`;
+    </select>
+
+    <select id="selectOne" resultMap="CommentsResultmap">
+        SELECT * FROM `댓글` WHERE `게시글_게시글인덱스` = #{bulletinIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="Comments">
+        INSERT INTO `댓글`(
+        `댓글내용`,
+        `작성날짜`,
+        `댓글계층`,
+        `댓글순서`,
+        `회원_회원인덱스`,
+        `게시글_게시글인덱스`)
+        VALUES (
+        #{commentsContent},
+        #{uploadDate},
+        #{commentsLayer}.
+        #{commentsOrder},
+        #{memberIndex},
+        #{bulletinIndex}
+    </insert>
+
+<!--    <update id="updateOne" parameterType="Comments">-->
+<!--    </update>-->
+
+    <delete id="deleteOne" parameterType="Comments">
+        DELETE FROM `댓글` WHERE `댓글인덱스` = #{commentsIndex};
+    </delete>
+
+</mapper>
