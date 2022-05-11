@@ -14,15 +14,13 @@
     <select id="selectLargeCategory" resultMap="LocalInfoMapperResultmap">
         SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
     </select>
+
     <select id="selectMiddleCategory" resultMap="LocalInfoMapperResultmap">
-        SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
-    </select>
-    <select id="selectSmallCategory" resultMap="LocalInfoMapperResultmap">
-        SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
+        SELECT DISTINCT `지역정보 중분류 `FROM `지역정보` WHERE `지역정보 인덱스` = #{localInfoIndex};
     </select>
 
-    <select id="selectOne" resultMap="LocalInfoMapperResultmap">
-        SELECT * FROM `지역정보` WHERE `지역정보 인덱스` = #{localInfoIndex};
+    <select id="selectSmallCategory" resultMap="LocalInfoMapperResultmap">
+        SELECT DISTINCT `지역정보 소분류` FROM `지역정보` WHERE `지역정보 인덱스` = #{localInfoIndex} AND `지역정보 인덱스` = #{localInfoIndex};
     </select>
 
     <insert id="insertOne" parameterType="LocalInfo">

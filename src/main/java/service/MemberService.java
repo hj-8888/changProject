@@ -3,8 +3,10 @@ package service;
 import persistence.dao.InterestingSportsDAO;
 import persistence.dao.LocalInfoDAO;
 import persistence.dao.MemberDAO;
+import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MemberService {
@@ -33,6 +35,12 @@ public class MemberService {
     }
 
     public void input_member(){
+        InterestingSportsDAO interestingSportsDAO = new InterestingSportsDAO();
+        LocalInfoDAO localInfoDAO = new LocalInfoDAO();
+        List<LocalInfoDTO>  Llist = localInfoDAO.selectLargeCategory();
+        List<LocalInfoDTO>  Mlist = localInfoDAO.selectMiddleCategory();
+        List<LocalInfoDTO>  Slist = localInfoDAO.selectSmallCategory();
+
         String id = sc.next();
         String pw = sc.next();
         String name = sc.next();
@@ -42,16 +50,16 @@ public class MemberService {
         String profileURL = sc.next();
         String nickname = sc.next();
 
-        InterestingSportsDAO interestingSportsDAO = new InterestingSportsDAO();
-        LocalInfoDAO localInfoDAO = new LocalInfoDAO();
         System.out.print("지역 대분류 입력: ");
-        // 대분류 출력
+        Llist.forEach(x -> x.getLargeCategoryLocal());
         String b = sc.next();
+
         System.out.print("지역 중분류 입력: ");
-        // 대분류에 해당하는 중분류 출력
+        Mlist.forEach(x -> x.getLargeCategoryLocal());
         String m = sc.next();
+
         System.out.print("지역소분류 입력: ");
-        // 중분류에 해당하는 소분류 출력
+        Slist.forEach(x -> x.getLargeCategoryLocal());
         String s = sc.next();
 
         int sportsIndex = sc.nextInt();
@@ -59,4 +67,11 @@ public class MemberService {
         create(id, pw, name, age, gender, job, profileURL, nickname, sportsIndex, localInfoIndex);
     }
 
+    public boolean equalList(List list, String str){
+        boolean result = true;
+        list.forEach(x ->
+                if()
+        );
+        return result;
+    }
 }
