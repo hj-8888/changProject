@@ -11,8 +11,14 @@
         <result column="지역정보 소분류" property="smallCategoryLocal"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="LocalInfoMapperResultmap">
-        SELECT `지역정보 대분류` FROM `지역정보`;
+    <select id="selectLargeCategory" resultMap="LocalInfoMapperResultmap">
+        SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
+    </select>
+    <select id="selectMiddleCategory" resultMap="LocalInfoMapperResultmap">
+        SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
+    </select>
+    <select id="selectSmallCategory" resultMap="LocalInfoMapperResultmap">
+        SELECT DISTINCT `지역정보 대분류` FROM `지역정보`;
     </select>
 
     <select id="selectOne" resultMap="LocalInfoMapperResultmap">

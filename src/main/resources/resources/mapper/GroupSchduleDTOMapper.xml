@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.JoinGroupMapper">
+
+    <!--
+    resultMap
+        Mysql <-> Java 간의 column(db)과 property(java)를 mapping 해줌 / select 쿼리에 사용됨 / 서로의 네이밍이 다르거나, 데이터 타입이 다른 경우에 사용됨
+        id = 해당 resultMap을 식별하기 위한 id
+        type = java에 담길 DTO
+        result
+            column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
+    -->
+    <resultMap id="JoinGroupResultMap" type="JoinGroup">
+        <result column="그룹가입인덱스" property="groupScheduleIndex"/>
+        <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="그룹_그룹인덱스" property="groupIndex"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="JoinGroupResultMap">
+        SELECT * FROM `그룹 가입`;
+    </select>
+
+    <select id="selectOne" resultMap="JoinGroupResultMap">
+        SELECT * FROM `그룹 가입`
+        WHERE 1 = 1
+        <if test="groupNumber != NULL">AND `그룹_그룹인덱스` = #{groupIndex}</if>
+        <if test="memberIndex != NULL">AND `회원_회원인덱스` = #{memberIndex}</if>
+
+    </select>
+
+    <insert id="insertOne" parameterType="JoinGroup">
+        INSERT INTO `그룹 가입`{
+        `회원_회원인덱스`,
+        `그룹_그룹인덱스`)
+        VALUES(
+        #{memberIndex},
+        #{groupIndex};
+    </insert>
+
+    <delete id="deleteOne" parameterType="GroupSchedule">
+        DELETE FROM `그룹 가입`
+        WHERE  `그룹_그룹인덱스` = #{groupIndex}
+        AND `회원_회원인덱스` = #{memberIndex};
+    </delete>
+</mapper>

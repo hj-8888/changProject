@@ -44,13 +44,16 @@ public class MemberService {
 
         InterestingSportsDAO interestingSportsDAO = new InterestingSportsDAO();
         LocalInfoDAO localInfoDAO = new LocalInfoDAO();
-        System.out.println("지역번호 선택");
+        System.out.print("지역 대분류 입력: ");
         // 대분류 출력
         String b = sc.next();
+        System.out.print("지역 중분류 입력: ");
         // 대분류에 해당하는 중분류 출력
         String m = sc.next();
+        System.out.print("지역소분류 입력: ");
         // 중분류에 해당하는 소분류 출력
         String s = sc.next();
+
         int sportsIndex = sc.nextInt();
         int localInfoIndex = sc.nextInt();
         create(id, pw, name, age, gender, job, profileURL, nickname, sportsIndex, localInfoIndex);
