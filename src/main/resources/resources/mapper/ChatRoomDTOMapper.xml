@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CharRoomMapper">
+
+    <resultMap id="ChatRoomResultmap" type="ChatRoom">
+        <result column="채팅방인덱스" property="chatRoomIndex"/>
+        <result column="채팅방이름" property="chatRoomName"/>
+        <result column="채팅방인원" property="chatRoomHeadCount"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="ChatRoomResultmap">
+        SELECT * FROM `채팅방`;
+    </select>
+
+    <select id="selectOne" resultMap="ChatRoomResultmap">
+        SELECT * FROM `채팅방` WHERE `채팅방이름` = #{charRoomName};
+    </select>
+
+    <insert id="insertOne" parameterType="ChatRoom">
+        INSERT INTO `채팅방`(
+        `채팅방이름`,
+        `채팅방인원`)
+        VALUES (
+        #{chatRoomName},
+        #{charRoomHeadCount}
+        WHERE
+        `채딩방인덱스` = #{charRoomIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="ChatRoom">
+        UPDATE `채팅방` SET
+        `채팅방이름` = #{chatRoomName},
+        `채팅방인원` = #{chatRoomHeadCount}
+        WHERE
+        `채팅방인덱스` = #{chatRoomIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="ChatRoom">
+        DELETE FROM `채팅방` WHERE `채팅방인덱스` = #{charRoomIndex};
+    </delete>
+
+</mapper>
