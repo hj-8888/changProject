@@ -15,4 +15,6 @@ public class BulletinDTO {
     private String attachedPicture;
     private String bulletinPW;
     private Date uploadDate;
+
 }
+
