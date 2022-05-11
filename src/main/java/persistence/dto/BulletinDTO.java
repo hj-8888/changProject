@@ -18,3 +18,4 @@ public class BulletinDTO {
 }
 
 //김주호 테스트
+//김주호 테스트 5시 30분
