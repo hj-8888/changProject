@@ -23,7 +23,7 @@ public class MemberService {
         sc = new Scanner(System.in);
     }
 
-    private void create(String id, String pw, String name, int age, String gender, String job, String profileURL, String nickname, int sportsIndex, int localInfoIndex){
+    public void create(String id, String pw, String name, int age, String gender, String job, String profileURL, String nickname, int sportsIndex, int localInfoIndex){
         memberDTO.setMemberID(id);
         memberDTO.setMemberPW(pw);
         memberDTO.setMemberName(name);
@@ -58,7 +58,7 @@ public class MemberService {
 
         List<InterestingSportsDTO> sList = interestingSportsDAO.selectOneInterestingSports();
         for (int i=0; i<sList.size(); i++){
-            System.out.printf("%d : %s", sList.get(i).getSportIndex(),sList.get(i).getSportName() );
+            System.out.printf(" %d : %s", sList.get(i).getSportIndex(),sList.get(i).getSportName() );
         }
         int sportsIndex = sc.nextInt();
 

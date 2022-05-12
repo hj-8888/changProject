@@ -21,7 +21,7 @@ public class LocalInfoDAO {
         try {
             local.setLargeCategoryLocal(lage);
             local.setMiddleCategoryLocal(middle);
-            list = sqlSession.selectList("mapper.LocalInfoDTOMapper.selectSmallCategory", local);
+            list = sqlSession.selectList("mapper.LocalInfoMapper.selectSmallCategory", local);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class LocalInfoDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<LocalInfoDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.LocalInfoDTOMapper.selectMiddleCategory", lage);
+            list = sqlSession.selectList("mapper.LocalInfoMapper.selectMiddleCategory", lage);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +51,8 @@ public class LocalInfoDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<LocalInfoDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.LocalInfoDTOMapper.selectLargeCategory");
+
+            list = sqlSession.selectList("mapper.LocalInfoMapper.selectLargeCategory");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,5 +63,22 @@ public class LocalInfoDAO {
         return list;
     }
 
-
+    public int selectID(String b, String m, String s) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<LocalInfoDTO> list = null;
+        LocalInfoDTO local = new LocalInfoDTO();
+        try {
+            local.setLargeCategoryLocal(b);
+            local.setMiddleCategoryLocal(m);
+            local.setSmallCategoryLocal(s);
+            list = sqlSession.selectList("mapper.LocalInfoMapper.selectID", local);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list.get(0).getLocalInfoIndex();
+    }
 }

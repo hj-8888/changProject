@@ -10,6 +10,8 @@
         <typeAlias alias="ChatRoom" type="persistence.dto.ChatRoomDTO"></typeAlias>
         <typeAlias alias="Comments" type="persistence.dto.CommentsDTO"></typeAlias>
         <typeAlias alias="CreatingBulletin" type="persistence.dto.CreatingBulletinDTO"></typeAlias>
+        <typeAlias alias="Group" type="persistence.dto.GroupDTO"></typeAlias>
+        <typeAlias alias="GroupSchedule" type="persistence.dto.GroupScheduleDTO"></typeAlias>
         <typeAlias alias="InterestingSports" type="persistence.dto.InterestingSportsDTO"></typeAlias>
         <typeAlias alias="JoinChatRoom" type="persistence.dto.JoinChatRoomDTO"></typeAlias>
         <typeAlias alias="JoinGroup" type="persistence.dto.JoinGroupDTO"></typeAlias>

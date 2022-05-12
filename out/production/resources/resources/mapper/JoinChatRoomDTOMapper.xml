@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.JoinChatRoomMapper">
+
+    <resultMap id="JoinChatRoomResultmap" type="JoinChatRoom">
+        <result column="채팅방 입장인덱스" property="joinChatRoomIndex"/>
+        <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="채팅방_채팅방인덱스" property="chatRoomIndex"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="JoinChatRoomResultmap">
+        SELECT * FROM `채팅방 입장`;
+    </select>
+
+    <select id="selectOne" resultMap="JoinChatRoomResultmap">
+        SELECT * FROM `채팅방 입장` WHERE `채팅방 입장인덱스` = #{joinChatRoomIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="JoinChatRoom">
+        INSERT INTO `채팅방 입장`(
+        `회원_회원인덱스`,
+        `채팅방_채팅방인덱스`)
+        VALUES (
+        #{memberIndex},
+        #{chatRoomIndex})
+        WHERE
+        `채팅방 입장인덱스` = #{joinChatRoomIndex};
+    </insert>
+
+    <update id="updateOne" parameterType="JoinChatRoom">
+        UPDATE `채팅방 입장인덱스` SET
+        `회원_회원인덱스` = #{memberIndex},
+        `채팅방_채팅방인덱스` = #{chatRoomIndex}
+        WHERE
+        `채팅방 입장인덱스` = #{joinChatRoomIndex};
+    </update>
+
+    <delete id="deleteOne" parameterType="JoinChatRoom">
+        DELETE FROM `채팅방 입장` WHERE `채팅방 입장인덱스` = #{joinChatRoomIndex};
+    </delete>
+
+</mapper>

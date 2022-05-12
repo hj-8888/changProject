@@ -1,17 +1,14 @@
 package persistence.dao;
 
+import persistence.dto.LocalInfoDTO;
 import persistence.dto.SportsFacilitiesDTO;
 import service.MemberService;
-
-import java.util.List;
 
 public class Test {
 
     public static void main(String[] args) {
-        System.out.println("회원 가입");
-        MemberService member = new MemberService();
-        member.input_member();
-
+        LocalInfoDAO localInfoDAO = new LocalInfoDAO();
+        System.out.println(localInfoDAO.selectID("경기도", "안산시 단원구", "초지동"));
     }
 
 }
