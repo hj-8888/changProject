@@ -1,9 +1,6 @@
 package service;
 
-import persistence.dao.InterestingSportsDAO;
-import persistence.dao.LocalInfoDAO;
-import persistence.dao.MemberDAO;
-import persistence.dao.SportsFacilitiesDAO;
+import persistence.dao.*;
 import persistence.dto.InterestingSportsDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
@@ -118,5 +115,40 @@ public class MemberService {
 
         int localInfoIndex = sc.nextInt();
         create(id, pw, name, age, gender, job, profileURL, nickname, sportsIndex, localInfoIndex);
+    }
+
+    public void login(){
+        Scanner sc = new Scanner(System.in);
+        // 로그인
+        LoginDAO loginDAO = new LoginDAO();
+
+        System.out.println("아이디를 입력하세요");
+        System.out.print("아이디 입력:");
+        String id = sc.next();
+
+        List<MemberDTO> list = loginDAO.login(id); // 로그인 하면 회원 정보 반환
+        String pw = null;
+        if(list.isEmpty()){
+            System.out.println("해당 아이디가 없습니다. 종료");
+        }
+        else{
+            System.out.println("아이디 일치");
+            for (int i=0; i<5; i++){
+                if (i==4){
+                    System.out.println("ㅄ비번도 못 외우노");
+                    break;
+                }
+                System.out.println("비번을 입력하세요");
+                System.out.print("비밀번호 :");
+                pw = sc.next();
+                if(pw.equals(list.get(0).getMemberPW())){
+                    System.out.println("로그인 성공");
+                    break;
+                }
+                else{
+                    System.out.printf("%d회 실패 ( 5회 실패시 종료 )\n", i+1);
+                }
+            }
+        }
     }
 }

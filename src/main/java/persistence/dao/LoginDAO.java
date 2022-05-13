@@ -6,21 +6,19 @@ import persistence.dto.MemberDTO;
 
 import java.util.List;
 
-public class MemberDAO {
-
+public class LoginDAO {
     private MyBatisConnectionFactory myBatisConnectionFactory = null;
 
-    public MemberDAO() {
+    public LoginDAO() {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
-    // 회원가입
-    // 지역 인덱스 가져오기
-    // 관심종목 인덱스 가져오기
-    // 중복 확인 하기
-    public void insertMember(MemberDTO memberDTO) {
+
+    // 로그인 아이디와 비번을 받아서 로그인 성공인지 실패인지만 결정
+    public List<MemberDTO> login(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
         try {
-            sqlSession.insert("mapper.MemberMapper.insertOne", memberDTO);
+            list = sqlSession.selectList("mapper.MemberMapper.selectAll_ID", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,5 +26,7 @@ public class MemberDAO {
         } finally {
             sqlSession.close();
         }
+        return list;
     }
+
 }
