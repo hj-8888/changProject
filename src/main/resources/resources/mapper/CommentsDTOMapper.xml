@@ -8,10 +8,10 @@
         <result column="댓글인덱스" property="commentsIndex"/>
         <result column="댓글내용" property="commentsContent"/>
         <result column="작성날짜" property="uploadDate"/>
-        <result column="댓글계층" property="commentsLayer"/>
-        <result column="댓글순서" property="commentsOrder"/>
+        <result column="삭제여부" property="deleteStatus"/>
         <result column="회원_회원인덱스" property="memberIndex"/>
         <result column="게시글_게시글인덱스" property="bulletinIndex"/>
+        <result column="상위댓글_댓글인덱스" property="parentCommentsIndex"/>
 
     </resultMap>
 
@@ -27,21 +27,28 @@
         INSERT INTO `댓글`(
         `댓글내용`,
         `작성날짜`,
-        `댓글계층`,
-        `댓글순서`,
+        `삭제여부`,
         `회원_회원인덱스`,
-        `게시글_게시글인덱스`)
+        `게시글_게시글인덱스`,
+        `상위댓글_댓글인덱스`)
         VALUES (
         #{commentsContent},
         #{uploadDate},
-        #{commentsLayer}.
-        #{commentsOrder},
+        #{deleteStatus}.
         #{memberIndex},
-        #{bulletinIndex});
+        #{bulletinIndex},
+        #{parentCommentsIndex});
     </insert>
 
 <!--    <update id="updateOne" parameterType="Comments">-->
 <!--    </update>-->
+
+    <update id="updateOne" parameterType="Comments">
+        UPDATE `댓글` SET
+        `댓글내용` = #{commentsContent}
+        WHERE
+        `댓글인덱스` = #{commentsIndex};
+    </update>
 
     <delete id="deleteOne" parameterType="Comments">
         DELETE FROM `댓글` WHERE `댓글인덱스` = #{commentsIndex};

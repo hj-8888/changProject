@@ -6,32 +6,32 @@
 
     <resultMap id="LocalInfoResultmap" type="LocalInfo">
         <result column="지역정보인덱스" property="localInfoIndex"/>
-        <result column="지역 대분류" property="largeCategoryLocal"/>
-        <result column="지역 중분류" property="middleCategoryLocal"/>
-        <result column="지역 소분류" property="smallCategoryLocal"/>
+        <result column="지역대분류" property="largeCategoryLocal"/>
+        <result column="지역중분류" property="middleCategoryLocal"/>
+        <result column="지역 분류" property="smallCategoryLocal"/>
     </resultMap>
 
     <select id="selectID" resultMap="LocalInfoResultmap" parameterType="LocalInfo">
-        SELECT  `지역정보인덱스` FROM `지역정보` WHERE `지역 대분류` = #{largeCategoryLocal} AND `지역 중분류` = #{middleCategoryLocal} AND `지역 소분류` = #{smallCategoryLocal};
+        SELECT  `지역정보인덱스` FROM `지역정보` WHERE `지역대분류` = #{largeCategoryLocal} AND `지역중분류` = #{middleCategoryLocal} AND `지역소분류` = #{smallCategoryLocal};
     </select>
 
     <select id="selectLargeCategory" resultMap="LocalInfoResultmap">
-        SELECT DISTINCT `지역 대분류` FROM `지역정보`;
+        SELECT DISTINCT `지역대분류` FROM `지역정보`;
     </select>
 
     <select id="selectMiddleCategory" resultMap="LocalInfoResultmap">
-        SELECT DISTINCT `지역 중분류` FROM `지역정보` WHERE `지역 대분류` = #{largeCategoryLocal};
+        SELECT DISTINCT `지역중분류` FROM `지역정보` WHERE `지역대분류` = #{largeCategoryLocal};
     </select>
 
     <select id="selectSmallCategory" resultMap="LocalInfoResultmap" parameterType="LocalInfo">
-        SELECT DISTINCT `지역 소분류` FROM `지역정보` WHERE `지역 대분류` = #{largeCategoryLocal} AND `지역 중분류` = #{middleCategoryLocal};
+        SELECT DISTINCT `지역소분류` FROM `지역정보` WHERE `지역대분류` = #{largeCategoryLocal} AND `지역중분류` = #{middleCategoryLocal};
     </select>
 
     <insert id="insertOne" parameterType="LocalInfo">
         INSERT INTO `지역정보`(
-        `지역 대분류`,
-        `지역 중분류`,
-        `지역 소분류`
+        `지역대분류`,
+        `지역중분류`,
+        `지역소분류`
         )
         VALUES (
         #{largeCategoryLocal},
@@ -41,9 +41,9 @@
 
     <update id="updateOne" parameterType="LocalInfo">
         UPDATE `지역정보` SET
-        `지역 대분류` = #{largeCategoryLocal},
-        `지역 중분류` = #{middleCategoryLocal},
-        `지역 소분류` = #{smallCategoryLocal}
+        `지역대분류` = #{largeCategoryLocal},
+        `지역중분류` = #{middleCategoryLocal},
+        `지역소분류` = #{smallCategoryLocal}
         WHERE
         `지역정보인덱스` = #{localInfoIndex};
     </update>

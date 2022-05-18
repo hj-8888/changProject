@@ -14,8 +14,8 @@ public class CommentsDTO {
     private int commentsIndex;
     private String commentsContent;
     private Date uploadDate;
-    private int commentsLayer;
-    private int commentsOrder;
+    private int deleteStatus;
     private int memberIndex;
     private int bulletinIndex;
+    private int parentCommentsIndex;
 }
