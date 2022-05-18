@@ -24,9 +24,7 @@
         `작성자`)
         VALUES (
         #{memberIndex},
-        #{bulletinIndex})
-        WHERE
-        `게시글작성인덱스` = #{creatingBulletinIndex};
+        #{bulletinIndex});
     </insert>
 
     <update id="updateOne" parameterType="CreatingBulletin">

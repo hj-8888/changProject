@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.JoinGroupMapper">
+<mapper namespace="mapper.GroupScheduleMapper">
 
     <!--
     resultMap
@@ -12,36 +12,47 @@
         result
             column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
     -->
-    <resultMap id="JoinGroupResultMap" type="JoinGroup">
-        <result column="그룹가입인덱스" property="groupScheduleIndex"/>
-        <result column="회원_회원인덱스" property="memberIndex"/>
+    <resultMap id="GroupScheduleResultMap" type="GroupSchedule">
+        <result column="그룹일정인덱스" property="groupScheduleIndex"/>
         <result column="그룹_그룹인덱스" property="groupIndex"/>
+        <result column="일정명" property="scheduleName"/>
+        <result column="시작날짜" property="startDay"/>
+        <result column="종료날짜" property="endDay"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="JoinGroupResultMap">
-        SELECT * FROM `그룹 가입`;
+    <select id="selectAll" resultMap="GroupScheduleResultMap">
+        SELECT * FROM `그룹 일정`;
     </select>
 
-    <select id="selectOne" resultMap="JoinGroupResultMap">
-        SELECT * FROM `그룹 가입`
-        WHERE 1 = 1
-        <if test="groupNumber != NULL">AND `그룹_그룹인덱스` = #{groupIndex}</if>
-        <if test="memberIndex != NULL">AND `회원_회원인덱스` = #{memberIndex}</if>
-
+    <select id="selectOne" resultMap="GroupScheduleResultMap">
+        SELECT * FROM `그룹 일정`
+        WHERE `그룹_그룹인덱스` = #{groupIndex};
     </select>
 
-    <insert id="insertOne" parameterType="JoinGroup">
-        INSERT INTO `그룹 가입`{
-        `회원_회원인덱스`,
-        `그룹_그룹인덱스`)
+    <insert id="insertOne" parameterType="GroupSchedule">
+        INSERT INTO `그룹 일정`{
+        `그룹_그룹인덱스`,
+        `일정명`,
+        `시작날짜`,
+        `종료날짜`)
         VALUES(
-        #{memberIndex},
-        #{groupIndex};
+        #{groupIndex},
+        #{scheduleName},
+        #{startDay});
     </insert>
 
+    <update id="updateOne" parameterType="GroupSchedule">
+        UPDATE `그룹 일정` SET
+        `그룹_그룹인덱스` = #{groupIndex},
+        `일정명` = #{scheduleName},
+        `시작날짜` = #{startDay},
+        `종료날짜` = #{endDay}
+        WHERE
+        `그룹일정인덱스` = #{groupScheduleIndex};
+    </update>
+
     <delete id="deleteOne" parameterType="GroupSchedule">
-        DELETE FROM `그룹 가입`
-        WHERE  `그룹_그룹인덱스` = #{groupIndex}
-        AND `회원_회원인덱스` = #{memberIndex};
+        DELETE FROM `그룹 일정`
+        WHERE  `그룹일정인덱스` = #{groupScheduleIndex};
     </delete>
 </mapper>

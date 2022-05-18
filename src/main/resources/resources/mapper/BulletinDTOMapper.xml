@@ -37,9 +37,7 @@
         #{attachedPicture},
         #{bulletinPW},
         #{uploadDate}),
-        #{memberIndex})
-        WHERE
-        `게시글인덱스` = #{bulletinIndex};
+        #{memberIndex});
     </insert>
 
     <update id="updateOne" parameterType="Bulletin">

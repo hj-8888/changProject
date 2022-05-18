@@ -25,9 +25,12 @@
 
     <select id="selectOne" resultMap="JoinGroupResultMap">
         SELECT * FROM `그룹 가입`
-        WHERE 1 = 1
-        <if test="groupNumber != NULL">AND `그룹_그룹인덱스` = #{groupIndex}</if>
-        <if test="memberIndex != NULL">AND `회원_회원인덱스` = #{memberIndex}</if>
+        WHERE `그룹_그룹인덱스` = #{groupIndex};
+
+        <!--        1 = 1 수정-->
+        <!--        <if test="groupIndex != NULL">AND `그룹_그룹인덱스` = #{groupIndex}</if>-->
+        <!--        <if test="memberIndex != NULL">AND `회원_회원인덱스` = #{memberIndex}</if>-->
+
 
     </select>
 
