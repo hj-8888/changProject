@@ -1,27 +1,23 @@
 package persistence.dao;
 
-import persistence.dto.SportsFacilitiesDTO;
+import persistence.dto.BulletinDTO;
 
-import java.util.List;
+import java.util.Date;
 
 public class Test {
 
+
     public static void main(String[] args) {
-        SportsFacilitiesDAO sportsFacilitiesDAO = new SportsFacilitiesDAO();
-        SportsFacilitiesDTO sportsFacilitiesDTO = new SportsFacilitiesDTO();
+        Date date = new Date(System.currentTimeMillis());
+        BulletinDAO bulletinDAO = new BulletinDAO();
+        BulletinDTO bulletinDTO = new BulletinDTO();
+        bulletinDTO.setBulletinTitle("그그그금오");
+        bulletinDTO.setBulletinContent("내내요요용");
+        bulletinDTO.setAttachedPicture("사사진진");
+        bulletinDTO.setBulletinPW("비비번번");
+        bulletinDTO.setMemberIndex(1);
+        bulletinDAO.insertBulletin(bulletinDTO);
 
-        sportsFacilitiesDTO.setSportsFacilitiesName("현태체육관");
-        sportsFacilitiesDTO.setLongitude("111.11");
-        sportsFacilitiesDTO.setLatitude("11.11");
-        sportsFacilitiesDTO.setSportsFacilitiesTel("010-9999-8888");
-        sportsFacilitiesDTO.setSportsFacilitiesTypeCode("1");
-        sportsFacilitiesDTO.setLocalInfoIndex(16679);
-
-        sportsFacilitiesDAO.insertSportsFacilities(sportsFacilitiesDTO);
-        List<SportsFacilitiesDTO> list = sportsFacilitiesDAO.selectAllSportsFacilities();
-        for(int i=0; i<list.size(); i++) {
-            System.out.println(list.get(i));
-        }
     }
 
 }

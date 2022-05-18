@@ -1,6 +1,11 @@
 package persistence.dao;
 
+import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
+import persistence.dto.MemberDTO;
+import persistence.dto.MemberDTO;
+
+import java.util.List;
 
 public class MemberDAO {
 
@@ -9,8 +14,74 @@ public class MemberDAO {
     public MemberDAO() {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
-    // 회원가입
-    // 지역 인덱스 가져오기
-    // 관심종목 인덱스 가져오기
+
+    public List<MemberDTO> selectAllMember() {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.MemberMapper.selectAll");
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public MemberDTO selectOneMember(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        MemberDTO item = null;
+        try {
+            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", index);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item;
+    }
+
+    public void insertMember(MemberDTO memberDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.insert("mapper.MemberMapper.insertOne", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public void updateMember(MemberDTO memberDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.update("mapper.MemberMapper.updateOne", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public void deleteMember(MemberDTO memberDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.MemberMapper.updateOne", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
 
 }

@@ -27,6 +27,14 @@
         #{chatRoomIndex})
     </insert>
 
+    <update id="updateOne" parameterType="JoinChatRoom">
+        UPDATE `채팅방 입장인덱스` SET
+        `회원_회원인덱스` = #{memberIndex},
+        `채팅방_채팅방인덱스` = #{chatRoomIndex}
+        WHERE
+        `채팅방 입장인덱스` = #{joinChatRoomIndex};
+    </update>
+
     <delete id="deleteOne" parameterType="JoinChatRoom">
         DELETE FROM `채팅방 입장` WHERE `채팅방 입장인덱스` = #{joinChatRoomIndex};
     </delete>
