@@ -31,11 +31,11 @@ public class ChatLogDAO {
     }
 
     // 인자 조회
-    public List<ChatLogDTO> selectOneChatLog(ChatLogDTO chatLogDTO) {
+    public ChatLogDTO selectOneChatLog(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<ChatLogDTO> list = null;
+        ChatLogDTO item = null;
         try {
-            list = sqlSession.selectList("mapper.ChatLogMapper.selectOne", chatLogDTO);
+            item = sqlSession.selectOne("mapper.ChatLogMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class ChatLogDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
@@ -64,7 +64,7 @@ public class ChatLogDAO {
     public void updateChatLog(ChatLogDTO chatLogDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.ChatLogMapper.updateOne", chatLogDTO);
+            sqlSession.update("mapper.ChatLogMapper.updateOne", chatLogDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,10 +75,10 @@ public class ChatLogDAO {
     }
 
     // 삭제
-    public void deleteBulletin(ChatLogDTO chatLogDTO) {
+    public void deleteBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.ChatLogMapper.deleteOne", chatLogDTO);
+            sqlSession.delete("mapper.ChatLogMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

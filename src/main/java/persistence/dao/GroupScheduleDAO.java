@@ -70,10 +70,10 @@ public class GroupScheduleDAO {
         }
     }
 
-    public void deleteGroupSchedule(GroupScheduleDTO groupScheduleDTO) {
+    public void deleteGroupSchedule(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.GroupScheduleMapper.updateOne", groupScheduleDTO);
+            sqlSession.delete("mapper.GroupScheduleMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class CreatingBulletinDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<CreatingBulletinDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper. creatingBulletinMapper.selectAll");
+            list = sqlSession.selectList("mapper.creatingBulletinMapper.selectAll");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,11 +29,11 @@ public class CreatingBulletinDAO {
     }
 
     // 인자 조회
-    public List<CreatingBulletinDTO> selectOneCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
+    public CreatingBulletinDTO selectOneCreatingBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<CreatingBulletinDTO> list = null;
+        CreatingBulletinDTO item = null;
         try {
-            list = sqlSession.selectList("mapper. creatingBulletinMapper.selectOne", creatingBulletinDTO);
+            item = sqlSession.selectOne("mapper.creatingBulletinMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,14 +41,14 @@ public class CreatingBulletinDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
     public void insertCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. creatingBulletinMapper.insertOne", creatingBulletinDTO);
+            sqlSession.insert("mapper.creatingBulletinMapper.insertOne", creatingBulletinDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class CreatingBulletinDAO {
     public void updateCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. creatingBulletinMapper.updateOne", creatingBulletinDTO);
+            sqlSession.update("mapper.creatingBulletinMapper.updateOne", creatingBulletinDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,10 +73,10 @@ public class CreatingBulletinDAO {
     }
 
     // 삭제
-    public void deleteCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
+    public void deleteCreatingBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. creatingBulletinMapper.deleteOne", creatingBulletinDTO);
+            sqlSession.delete("mapper.creatingBulletinMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

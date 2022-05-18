@@ -70,10 +70,10 @@ public class JoinChatRoomDAO {
         }
     }
 
-    public void deleteJoinChatRoom(JoinChatRoomDTO joinChatRoomDTO) {
+    public void deleteJoinChatRoom(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.JoinChatRoomMapper.updateOne", joinChatRoomDTO);
+            sqlSession.delete("mapper.JoinChatRoomMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

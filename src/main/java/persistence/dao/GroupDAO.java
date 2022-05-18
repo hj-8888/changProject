@@ -13,11 +13,11 @@ public class GroupDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<GroupDTO> selectAllCreatingBulletin() {
+    public List<GroupDTO> selectAllGroup() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<GroupDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper. GroupMapper.selectAll");
+            list = sqlSession.selectList("mapper.GroupMapper.selectAll");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,11 +29,11 @@ public class GroupDAO {
     }
 
     // 인자 조회
-    public List<GroupDTO> selectOneCreatingBulletin(GroupDTO groupDTO) {
+    public GroupDTO selectOneGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<GroupDTO> list = null;
+        GroupDTO item = null;
         try {
-            list = sqlSession.selectList("mapper. GroupMapper.selectOne", groupDTO);
+            item = sqlSession.selectOne("mapper.GroupMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,14 +41,14 @@ public class GroupDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
-    public void insertCreatingBulletin(GroupDTO groupDTO) {
+    public void insertGroup(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. GroupMapper.insertOne", groupDTO);
+            sqlSession.insert("mapper.GroupMapper.insertOne", groupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,10 +59,10 @@ public class GroupDAO {
     }
 
     // 수정
-    public void updateCreatingBulletin(GroupDTO groupDTO) {
+    public void updateGroup(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. GroupMapper.updateOne", groupDTO);
+            sqlSession.update("mapper.GroupMapper.updateOne", groupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,10 +73,10 @@ public class GroupDAO {
     }
 
     // 삭제
-    public void deleteCreatingBulletin(GroupDTO groupDTO) {
+    public void deleteGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. GroupMapper.deleteOne", groupDTO);
+            sqlSession.delete("mapper.GroupMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

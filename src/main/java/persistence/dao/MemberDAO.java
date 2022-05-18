@@ -71,10 +71,10 @@ public class MemberDAO {
         }
     }
 
-    public void deleteMember(MemberDTO memberDTO) {
+    public void deleteMember(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.MemberMapper.updateOne", memberDTO);
+            sqlSession.delete("mapper.MemberMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

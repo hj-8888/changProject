@@ -70,10 +70,10 @@ public class LocalInfoDAO {
         }
     }
 
-    public void deleteLocalInfo(LocalInfoDTO localInfoDTO) {
+    public void deleteLocalInfo(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.LocalInfoMapper.updateOne", localInfoDTO);
+            sqlSession.delete("mapper.LocalInfoMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

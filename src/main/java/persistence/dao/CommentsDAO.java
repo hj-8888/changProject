@@ -29,11 +29,11 @@ public class CommentsDAO {
     }
 
     // 인자 조회
-    public List<CommentsDTO> selectOneCormments(CommentsDTO commentsDTO) {
+    public CommentsDTO selectOneCormments(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<CommentsDTO> list = null;
+        CommentsDTO item = null;
         try {
-            list = sqlSession.selectList("mapper.commentsMapper.selectOne", commentsDTO);
+            item = sqlSession.selectOne("mapper.commentsMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class CommentsDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
@@ -62,7 +62,7 @@ public class CommentsDAO {
     public void updateCormments(CommentsDTO commentsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.commentsMapper.updateOne", commentsDTO);
+            sqlSession.update("mapper.commentsMapper.updateOne", commentsDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,10 +73,10 @@ public class CommentsDAO {
     }
 
     // 삭제
-    public void deleteCormments(CommentsDTO commentsDTO) {
+    public void deleteCormments(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.commentsMapper.deleteOne", commentsDTO);
+            sqlSession.delete("mapper.commentsMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

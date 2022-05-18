@@ -31,11 +31,11 @@ public class BulletinDAO {
     }
 
     // 인자 조회
-    public List<BulletinDTO> selectOneBulletin(BulletinDTO bulletinDTO) {
+    public BulletinDTO selectOneBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<BulletinDTO> list = null;
+        BulletinDTO item = null;
         try {
-            list = sqlSession.selectList("mapper.BulletinMapper.selectOne", bulletinDTO);
+            item = sqlSession.selectOne("mapper.BulletinMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class BulletinDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
@@ -64,7 +64,7 @@ public class BulletinDAO {
     public void updateBulletin(BulletinDTO bulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.BulletinMapper.updateOne", bulletinDTO);
+            sqlSession.update("mapper.BulletinMapper.updateOne", bulletinDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,10 +75,10 @@ public class BulletinDAO {
     }
 
     // 삭제
-    public void deleteBulletin(BulletinDTO bulletinDTO) {
+    public void deleteBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.BulletinMapper.deleteOne", bulletinDTO);
+            sqlSession.delete("mapper.BulletinMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
