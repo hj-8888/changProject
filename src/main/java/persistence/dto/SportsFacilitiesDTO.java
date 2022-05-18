@@ -13,6 +13,7 @@ public class SportsFacilitiesDTO {
     private String latitude;
     private String sportsFacilitiesTel;
     private int sportsFacilitiesTypeCode;
+    private int sportsFacilitiesType;
     private String largeCategoryLocal;
     private String middleCategoryLocal;
     private String smallCategoryLocal;
