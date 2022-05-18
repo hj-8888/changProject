@@ -12,7 +12,7 @@ import java.sql.Date;
 
 public class GroupScheduleDTO {
     private int groupScheduleIndex;
-    private int groupNumber;
+    private int groupIndex;
     private String scheduleName;
     private Date startDay;
     private Date endDay;

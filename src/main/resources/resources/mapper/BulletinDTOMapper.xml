@@ -32,13 +32,12 @@
             `회원_회원인덱스`
         )
         VALUES (
-            #{bulletinTitle},
-            #{bulletinContent},
-            #{attachedPicture},
-            #{bulletinPW},
-            #{uploadDate},
-            #{memberIndex}
-        );
+        #{bulletinTitle},
+        #{bulletinContent},
+        #{attachedPicture},
+        #{bulletinPW},
+        #{uploadDate}),
+        #{memberIndex});
     </insert>
 
     <update id="updateOne" parameterType="Bulletin">
