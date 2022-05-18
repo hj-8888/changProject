@@ -2,6 +2,8 @@ package persistence.dao;
 
 import persistence.dto.BulletinDTO;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Test {
@@ -15,6 +17,7 @@ public class Test {
         bulletinDTO.setBulletinContent("내내요요용");
         bulletinDTO.setAttachedPicture("사사진진");
         bulletinDTO.setBulletinPW("비비번번");
+        bulletinDTO.setUploadDate(Timestamp.valueOf(LocalDateTime.now()));
         bulletinDTO.setMemberIndex(1);
         bulletinDAO.insertBulletin(bulletinDTO);
 
