@@ -4,13 +4,28 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class ServerMain {
-    public static void main(String[] args) {
+class ServerMain {
+    // 스레드 sleep 함수 (sleep 함수의 Exception 제거용)
+    private static void sleep() {
+        try {
+// 스레드 1초 대기
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    // 실행 함수
+    public static void main(String[] main) {
         System.out.println("****************************************");
         System.out.println("다중 접속 서버 시작...");
         System.out.println("****************************************");
 
+// 스레드를 50개만 사용 가능한 스레드풀을 생성한다.
+        ExecutorService service = Executors.newFixedThreadPool(50);
+// 스레드풀에 스레드를 돌린다.
         ServerSocket server = null;
         int connectCount=0;
 
@@ -25,21 +40,17 @@ public class ServerMain {
                 int port = connectedClientSocket.getLocalPort();// 접속에 사용된 서버측 PORT
                 String ip = ia.getHostAddress(); // 접속된 원격 Client IP
 
-                ++connectCount;  //접속자수 카운트
-                System.out.print("현제 접속자 수: " + connectCount);
-                System.out.print(" 접속-Local Port: "+ port);
-                System.out.println(" Client IP: " + ip);
 
                 //Handler 클래스로 client 소켓 전송
                 network.Server handler = new network.Server(connectedClientSocket);
                 //스레드 시작, run()호출
-                handler.start(); // start() --> run() 호출
-
-                if(handler.isAlive()){
-                    System.out.println("접속자 1명 종료");
-                    connectCount--;
-                }
-
+                service.execute(() -> {
+                    try {
+                        handler.start(service); // start() --> run() 호출
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         } catch(IOException ioe) {
             System.err.println("Exception generated...");
@@ -48,5 +59,7 @@ public class ServerMain {
                 server.close();
             } catch(IOException ignored) {}
         }
+
     }
 }
+
