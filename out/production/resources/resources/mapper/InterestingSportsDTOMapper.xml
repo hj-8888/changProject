@@ -22,9 +22,7 @@
         `종목명`,
         )
         VALUES (
-        #{sportName})
-        WHERE
-        `종목인덱스` = #{sportIndex};
+        #{sportName});
     </insert>
 
     <update id="updateOne" parameterType="LocalInfo">

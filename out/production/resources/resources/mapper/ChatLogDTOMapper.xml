@@ -30,9 +30,7 @@
         #{chatRoomIndex},
         #{uploadDate},
         #{writer},
-        #{chatContent})
-        WHERE
-        `로그인덱스` = #{logIndex};
+        #{chatContent});
     </insert>
 
     <update id="updateOne" parameterType="ChatLog">

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 public class BulletinDTO {
+    private int bulletinIndex;
     private String bulletinTitle;
     private String bulletinContent;
     private String attachedPicture;

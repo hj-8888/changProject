@@ -13,14 +13,14 @@ public class Test {
         Date date = new Date(System.currentTimeMillis());
         BulletinDAO bulletinDAO = new BulletinDAO();
         BulletinDTO bulletinDTO = new BulletinDTO();
+        bulletinDTO.setBulletinIndex(2);
         bulletinDTO.setBulletinTitle("그그그금오");
         bulletinDTO.setBulletinContent("내내요요용");
         bulletinDTO.setAttachedPicture("사사진진");
         bulletinDTO.setBulletinPW("비비번번");
         bulletinDTO.setUploadDate(Timestamp.valueOf(LocalDateTime.now()));
         bulletinDTO.setMemberIndex(1);
-        bulletinDAO.insertBulletin(bulletinDTO);
-
+        bulletinDAO.deleteBulletin(bulletinDTO);
     }
 
 }

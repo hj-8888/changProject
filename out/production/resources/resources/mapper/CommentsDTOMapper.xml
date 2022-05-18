@@ -19,9 +19,9 @@
         SELECT * FROM `댓글`;
     </select>
 
-    <select id="selectOne" resultMap="CommentsResultmap">
-        SELECT * FROM `댓글` WHERE `게시글_게시글인덱스` = #{bulletinIndex};
-    </select>
+<!--    <select id="selectOne" resultMap="CommentsResultmap">-->
+<!--        SELECT * FROM `댓글` WHERE `게시글_게시글인덱스` = #{bulletinIndex};-->
+<!--    </select>-->
 
     <insert id="insertOne" parameterType="Comments">
         INSERT INTO `댓글`(
@@ -37,7 +37,7 @@
         #{commentsLayer}.
         #{commentsOrder},
         #{memberIndex},
-        #{bulletinIndex}
+        #{bulletinIndex});
     </insert>
 
 <!--    <update id="updateOne" parameterType="Comments">-->

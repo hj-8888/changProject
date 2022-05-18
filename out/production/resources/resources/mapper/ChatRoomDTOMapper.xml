@@ -24,9 +24,7 @@
         `채팅방인원`)
         VALUES (
         #{chatRoomName},
-        #{charRoomHeadCount}
-        WHERE
-        `채딩방인덱스` = #{charRoomIndex};
+        #{charRoomHeadCount});
     </insert>
 
     <update id="updateOne" parameterType="ChatRoom">
