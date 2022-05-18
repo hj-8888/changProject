@@ -23,12 +23,12 @@
     </select>
 
     <insert id="insertOne" parameterType="Bulletin">
-        INSERT INTO `게시글`(
-        `게시글 제목`,
-        `게시글 내용`,
-        `첨부 사진`,
-        `게시글 비밀번호`,
-        `작성날짜`,
+        INSERT INTO '게시글'(
+        '게시글 제목',
+        '게시글 내용',
+        '첨부 사진',
+        '게시글 비밀번호',
+        '작성날짜',
         '회원_회원인덱스'
         )
         VALUES (
@@ -36,22 +36,20 @@
         #{bulletinContent},
         #{attachedPicture},
         #{bulletinPW},
-        #{uploadDate}),
-        #{memberIndex})
-        WHERE
-        `게시글인덱스` = #{bulletinIndex};
+        #{uploadDate},
+        #{memberIndex});
     </insert>
 
     <update id="updateOne" parameterType="Bulletin">
         UPDATE `게시글` SET
-        `게시글 제목` = #{bulletinTitle},
-        `게시글 내용` = #{bulletinContent},
-        `첨부 사진` = #{attachedPicture},
-        `게시글 비밀번호` = #{bulletinPW},
-        `작성날짜` = #{uploadDate},
+        '게시글 제목' = #{bulletinTitle},
+        '게시글 내용' = #{bulletinContent},
+        '첨부 사진' = #{attachedPicture},
+        '게시글 비밀번호' = #{bulletinPW},
+        '작성날짜' = #{uploadDate},
         '회원_회원인덱스' = #{memberIndex})
         WHERE
-        `게시글인덱스` = #{bulletinIndex};
+        '게시글인덱스' = #{bulletinIndex};
     </update>
 
     <delete id="deleteOne" parameterType="Bulletin">
