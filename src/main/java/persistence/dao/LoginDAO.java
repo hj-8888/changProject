@@ -2,22 +2,23 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
-import persistence.dto.InterestingSportsDTO;
+import persistence.dto.MemberDTO;
 
-import jaa.util.List;
+import java.util.List;
 
-public class InterestingSportsDAO {
+public class LoginDAO {
     private MyBatisConnectionFactory myBatisConnectionFactory = null;
 
-    public InterestingSportsDAO() {
+    public LoginDAO() {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<InterestingSportsDTO> selecInterestingSports() {
+    // 로그인 아이디와 비번을 받아서 로그인 성공인지 실패인지만 결정
+    public List<MemberDTO> login(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<InterestingSportsDTO> list = null;
+        List<MemberDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.InterestingSportsMapper.selectAll");
+            list = sqlSession.selectList("mapper.MemberMapper.selectAll_ID", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -27,4 +28,5 @@ public class InterestingSportsDAO {
         }
         return list;
     }
+
 }

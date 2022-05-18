@@ -1,6 +1,10 @@
 package persistence.dao;
 
+import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
+import persistence.dto.MemberDTO;
+
+import java.util.List;
 
 public class MemberDAO {
 
@@ -12,5 +16,17 @@ public class MemberDAO {
     // 회원가입
     // 지역 인덱스 가져오기
     // 관심종목 인덱스 가져오기
-
+    // 중복 확인 하기
+    public void insertMember(MemberDTO memberDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.insert("mapper.MemberMapper.insertOne", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
 }
