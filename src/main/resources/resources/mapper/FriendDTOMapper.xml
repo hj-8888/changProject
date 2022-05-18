@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.FriendMapper">
+
+    <resultMap id="FriendResultmap" type="Friend">
+        <result column="친구인덱스" property="friendIndex"/>
+        <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="친구_회원인덱스" property="friend_memberIndex"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="FriendResultmap">
+        SELECT * FROM `친구`;
+    </select>
+
+    <select id="selectOne" resultMap="FriendResultmap">
+        SELECT * FROM `친구` WHERE `회원_회원인덱스` = #{memberIndex};
+    </select>
+
+    <insert id="insertOne" parameterType="Friend">
+        INSERT INTO `친구`(
+        `회원_회원인덱스`,
+        `친구_회원인덱스`)
+        VALUES (
+        #{memberIndex},
+        #{friend_memberIndex})
+    </insert>
+
+    <delete id="deleteOne" parameterType="Friend">
+        DELETE FROM `친구` WHERE `친구_회원인덱스` = #{friend_memberIndex}
+        WHERE `회원_회원인덱스` = #{memberIndex};
+    </delete>
+
+</mapper>
