@@ -28,10 +28,51 @@ public class SportsFacilitiesDAO {
         return list;
     }
 
+    public SportsFacilitiesDTO selectOneSportsFacilities(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        SportsFacilitiesDTO item = null;
+        try {
+            item = sqlSession.selectOne("mapper.SportsFacilitiesMapper.selectOne", index);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item;
+    }
+
     public void insertSportsFacilities(SportsFacilitiesDTO sportsFacilitiesDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper.SportsFacilitiesMapper.insertOne", sportsFacilitiesDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public void updateSportsFacilities(SportsFacilitiesDTO sportsFacilitiesDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.update("mapper.SportsFacilitiesMapper.updateOne", sportsFacilitiesDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public void deleteSportsFacilities(SportsFacilitiesDTO sportsFacilitiesDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.SportsFacilitiesMapper.updateOne", sportsFacilitiesDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

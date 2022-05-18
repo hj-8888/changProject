@@ -2,23 +2,23 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
-import persistence.dto.InterestingSportsDTO;
+import persistence.dto.JoinGroupDTO;
 
 import java.util.List;
 
-public class InterestingSportsDAO {
+public class JoinGroupDAO {
 
     private MyBatisConnectionFactory myBatisConnectionFactory = null;
 
-    public InterestingSportsDAO() {
+    public JoinGroupDAO() {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<InterestingSportsDTO> selectAllInterestingSports() {
+    public List<JoinGroupDTO> selectAllJoinGroup() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<InterestingSportsDTO> list = null;
+        List<JoinGroupDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.InterestingSportsMapper.selectAll");
+            list = sqlSession.selectList("mapper.JoinGroupMapper.selectAll");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,11 +29,11 @@ public class InterestingSportsDAO {
         return list;
     }
 
-    public InterestingSportsDTO selectOneInterestingSports(int index) {
+    public JoinGroupDTO selectOneJoinGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        InterestingSportsDTO item = null;
+        JoinGroupDTO item = null;
         try {
-            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectOne", index);
+            item = sqlSession.selectOne("mapper.JoinGroupMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,10 +44,10 @@ public class InterestingSportsDAO {
         return item;
     }
 
-    public void insertInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void insertJoinGroup(JoinGroupDTO joinGroupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.InterestingSportsMapper.insertOne", interestingSportsDTO);
+            sqlSession.insert("mapper.JoinGroupMapper.insertOne", joinGroupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,10 +57,10 @@ public class InterestingSportsDAO {
         }
     }
 
-    public void updateInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void updateJoinGroup(JoinGroupDTO joinGroupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.update("mapper.InterestingSportsMapper.updateOne", interestingSportsDTO);
+            sqlSession.update("mapper.JoinGroupMapper.updateOne", joinGroupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,10 +70,10 @@ public class InterestingSportsDAO {
         }
     }
 
-    public void deleteInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void deleteJoinGroup(JoinGroupDTO joinGroupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.InterestingSportsMapper.updateOne", interestingSportsDTO);
+            sqlSession.delete("mapper.JoinGroupMapper.updateOne", joinGroupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

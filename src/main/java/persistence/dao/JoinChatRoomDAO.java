@@ -2,23 +2,23 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
-import persistence.dto.InterestingSportsDTO;
+import persistence.dto.JoinChatRoomDTO;
 
 import java.util.List;
 
-public class InterestingSportsDAO {
+public class JoinChatRoomDAO {
 
     private MyBatisConnectionFactory myBatisConnectionFactory = null;
 
-    public InterestingSportsDAO() {
+    public JoinChatRoomDAO() {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<InterestingSportsDTO> selectAllInterestingSports() {
+    public List<JoinChatRoomDTO> selectAllJoinChatRoom() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<InterestingSportsDTO> list = null;
+        List<JoinChatRoomDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.InterestingSportsMapper.selectAll");
+            list = sqlSession.selectList("mapper.JoinChatRoomMapper.selectAll");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,11 +29,11 @@ public class InterestingSportsDAO {
         return list;
     }
 
-    public InterestingSportsDTO selectOneInterestingSports(int index) {
+    public JoinChatRoomDTO selectOneJoinChatRoom(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        InterestingSportsDTO item = null;
+        JoinChatRoomDTO item = null;
         try {
-            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectOne", index);
+            item = sqlSession.selectOne("mapper.JoinChatRoomMapper.selectOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,10 +44,10 @@ public class InterestingSportsDAO {
         return item;
     }
 
-    public void insertInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void insertJoinChatRoom(JoinChatRoomDTO joinChatRoomDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper.InterestingSportsMapper.insertOne", interestingSportsDTO);
+            sqlSession.insert("mapper.JoinChatRoomMapper.insertOne", joinChatRoomDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,10 +57,10 @@ public class InterestingSportsDAO {
         }
     }
 
-    public void updateInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void updateJoinChatRoom(JoinChatRoomDTO joinChatRoomDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.update("mapper.InterestingSportsMapper.updateOne", interestingSportsDTO);
+            sqlSession.update("mapper.JoinChatRoomMapper.updateOne", joinChatRoomDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,10 +70,10 @@ public class InterestingSportsDAO {
         }
     }
 
-    public void deleteInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+    public void deleteJoinChatRoom(JoinChatRoomDTO joinChatRoomDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.InterestingSportsMapper.updateOne", interestingSportsDTO);
+            sqlSession.delete("mapper.JoinChatRoomMapper.updateOne", joinChatRoomDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

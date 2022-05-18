@@ -19,9 +19,11 @@
         <result column="체육시설명" property="sportsFacilitiesName"/>
         <result column="시설좌표_경도" property="longitude"/>
         <result column="시설좌표_위도" property="latitude"/>
-        <result column="시설 연락처" property="sportsFacilitiesTel"/>
-        <result column="시설 유형코드" property="sportsFacilitiesTypeCode"/>
-        <result column="지역정보_지역정보 인덱스" property="localInfoIndex"/>
+        <result column="시설연락처" property="sportsFacilitiesTel"/>
+        <result column="시설유형코드" property="sportsFacilitiesTypeCode"/>
+        <result column="지역대분류" property="largeCategoryLocal"/>
+        <result column="지역중분류" property="middleCategoryLocal"/>
+        <result column="지역소분류" property="smallCategoryLocal"/>
     </resultMap>
 
     <select id="selectAll" resultMap="SportsFacilitiesResultmap">
@@ -34,21 +36,23 @@
 
     <insert id="insertOne" parameterType="SportsFacilities">
         INSERT INTO `체육시설`(
-        `체육시설인덱스`,
         `체육시설명`,
         `시설좌표_경도`,
         `시설좌표_위도`,
-        `시설 연락처`,
-        `시설 유형코드`,
-        `지역정보_지역정보 인덱스`)
+        `시설연락처`,
+        `시설유형코드`,
+        `지역대분류`,
+        `지역중분류`,
+        `지역소분류`)
         VALUES (
-        #{sportsFacilitiesIndex},
         #{sportsFacilitiesName},
         #{longitude},
         #{latitude},
         #{sportsFacilitiesTel},
         #{sportsFacilitiesTypeCode},
-        #{localInfoIndex});
+        #{largeCategoryLocal},
+        #{middleCategoryLocal},
+        #{smallCategoryLocal});
     </insert>
 
     <update id="updateOne" parameterType="SportsFacilities">
@@ -56,9 +60,11 @@
         `체육시설명` = #{sportsFacilitiesName},
         `시설좌표_경도` = #{longitude},
         `시설좌표_위도` = #{latitude},
-        `시설 연락처` = #{sportsFacilitiesTel},
-        `시설 유형코드` = #{sportsFacilitiesTypeCode},
-        `지역정보_지역정보 인덱스` = #{localInfoIndex}
+        `시설연락처` = #{sportsFacilitiesTel},
+        `시설유형코드` = #{sportsFacilitiesTypeCode},
+        `지역대분류` = #{largeCategoryLocal},
+        `지역중분류` = #{middleCategoryLocal},
+        `지역소분류` = #{smallCategoryLocal}
         WHERE
         `체육시설인덱스` = #{sportsFacilitiesIndex};
     </update>
