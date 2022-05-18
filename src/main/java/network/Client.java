@@ -1,5 +1,6 @@
 package network;
 
+import java.io.OutputStream;
 import java.net.*;
 
 public class Client {
