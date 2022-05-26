@@ -24,8 +24,8 @@
         <result column="직업" property="job"/>
         <result column="프로필사진" property="profileURL"/>
         <result column="닉네임" property="nickname"/>
-        <result column="관심종목_종목인덱스" property="sportsIndex"/>
         <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
+        <result column="관심종목_종목인덱스" property="sportsIndex"/>
     </resultMap>
 
     <select id="selectAll" resultMap="MemberResultmap">

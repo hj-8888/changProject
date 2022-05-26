@@ -24,7 +24,7 @@
         `채팅방_채팅방인덱스`)
         VALUES (
         #{memberIndex},
-        #{chatRoomIndex})
+        #{chatRoomIndex});
     </insert>
 
     <update id="updateOne" parameterType="JoinChatRoom">

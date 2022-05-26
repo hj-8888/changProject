@@ -70,24 +70,12 @@ public class GroupScheduleDAO {
         }
     }
 
-<<<<<<< Updated upstream
-    public void deleteGroupSchedule(GroupScheduleDTO groupScheduleDTO) {
-        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        try {
-            sqlSession.delete("mapper.GroupScheduleMapper.updateOne", groupScheduleDTO);
-=======
-<<<<<<< Updated upstream
-    public void deleteGroupSchedule(int index) {
-        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        try {
-            sqlSession.delete("mapper.GroupScheduleMapper.deleteOne", index);
-=======
+
+
     public void deleteGroupSchedule(int groupScheduleIndex) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.delete("mapper.GroupScheduleMapper.deleteOne", groupScheduleIndex);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

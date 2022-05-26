@@ -8,14 +8,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 public class BulletinDTO {
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
     private int bulletinIndex;
-=======
-    private int bulletinIndex
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     private String bulletinTitle;
     private String bulletinContent;
     private String attachedPicture;

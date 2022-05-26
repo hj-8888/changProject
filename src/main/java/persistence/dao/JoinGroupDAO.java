@@ -70,18 +70,10 @@ public class JoinGroupDAO {
         }
     }
 
-    public void deleteJoinGroup(JoinGroupDTO joinGroupDTO) {
+    public void deleteJoinGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-<<<<<<< Updated upstream
-            sqlSession.delete("mapper.JoinGroupMapper.updateOne", joinGroupDTO);
-=======
-<<<<<<< Updated upstream
             sqlSession.delete("mapper.JoinGroupMapper.deleteOne", index);
-=======
-            sqlSession.delete("mapper.JoinGroupMapper.deleteOne", joinGroupDTO);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

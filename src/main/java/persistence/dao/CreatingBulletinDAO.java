@@ -17,7 +17,7 @@ public class CreatingBulletinDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<CreatingBulletinDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper. creatingBulletinMapper.selectAll");
+            list = sqlSession.selectList("mapper.creatingBulletinMapper.selectAll");
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,19 +29,11 @@ public class CreatingBulletinDAO {
     }
 
     // 인자 조회
-    public List<CreatingBulletinDTO> selectOneCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
+    public CreatingBulletinDTO selectOneCreatingBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<CreatingBulletinDTO> list = null;
+        CreatingBulletinDTO item = null;
         try {
-<<<<<<< Updated upstream
-            list = sqlSession.selectList("mapper. creatingBulletinMapper.selectOne", creatingBulletinDTO);
-=======
-<<<<<<< Updated upstream
             item = sqlSession.selectOne("mapper.creatingBulletinMapper.selectOne", index);
-=======
-            list = sqlSession.selectOne("mapper. creatingBulletinMapper.selectOne", creatingBulletinDTO);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,14 +41,14 @@ public class CreatingBulletinDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     // 생성
     public void insertCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. creatingBulletinMapper.insertOne", creatingBulletinDTO);
+            sqlSession.insert("mapper.creatingBulletinMapper.insertOne", creatingBulletinDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,15 +62,7 @@ public class CreatingBulletinDAO {
     public void updateCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-<<<<<<< Updated upstream
-            sqlSession.insert("mapper. creatingBulletinMapper.updateOne", creatingBulletinDTO);
-=======
-<<<<<<< Updated upstream
             sqlSession.update("mapper.creatingBulletinMapper.updateOne", creatingBulletinDTO);
-=======
-            sqlSession.update("mapper. creatingBulletinMapper.updateOne", creatingBulletinDTO);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,12 +72,12 @@ public class CreatingBulletinDAO {
         }
     }
 
-<<<<<<< Updated upstream
+
     // 삭제
-    public void deleteCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
+    public void deleteCreatingBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.insert("mapper. creatingBulletinMapper.deleteOne", creatingBulletinDTO);
+            sqlSession.delete("mapper.creatingBulletinMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,19 +86,5 @@ public class CreatingBulletinDAO {
             sqlSession.close();
         }
     }
-=======
-    // 삭제 -> cascade로 bulltien 삭제 시 삭제
-//    public void deleteCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
-//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-//        try {
-//            sqlSession.delete("mapper. creatingBulletinMapper.deleteOne", creatingBulletinDTO);
-//            sqlSession.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            sqlSession.rollback();
-//        } finally {
-//            sqlSession.close();
-//        }
-//    }
->>>>>>> Stashed changes
+
 }

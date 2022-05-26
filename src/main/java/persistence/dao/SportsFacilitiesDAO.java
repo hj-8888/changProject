@@ -69,10 +69,10 @@ public class SportsFacilitiesDAO {
         }
     }
 
-    public void deleteSportsFacilities(SportsFacilitiesDTO sportsFacilitiesDTO) {
+    public void deleteSportsFacilities(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.SportsFacilitiesMapper.updateOne", sportsFacilitiesDTO);
+            sqlSession.delete("mapper.SportsFacilitiesMapper.deleteOne", index);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

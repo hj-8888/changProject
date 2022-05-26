@@ -20,7 +20,7 @@
         <result column="시설좌표_경도" property="longitude"/>
         <result column="시설좌표_위도" property="latitude"/>
         <result column="시설연락처" property="sportsFacilitiesTel"/>
-        <result column="시설유형코드" property="sportsFacilitiesTypeCode"/>
+        <result column="시설유형" property="sportsFacilitiesType"/>
         <result column="지역대분류" property="largeCategoryLocal"/>
         <result column="지역중분류" property="middleCategoryLocal"/>
         <result column="지역소분류" property="smallCategoryLocal"/>
@@ -40,7 +40,7 @@
         `시설좌표_경도`,
         `시설좌표_위도`,
         `시설연락처`,
-        `시설유형코드`,
+        `시설유형`,
         `지역대분류`,
         `지역중분류`,
         `지역소분류`)
@@ -49,7 +49,7 @@
         #{longitude},
         #{latitude},
         #{sportsFacilitiesTel},
-        #{sportsFacilitiesTypeCode},
+        #{sportsFacilitiesType},
         #{largeCategoryLocal},
         #{middleCategoryLocal},
         #{smallCategoryLocal});
@@ -61,7 +61,7 @@
         `시설좌표_경도` = #{longitude},
         `시설좌표_위도` = #{latitude},
         `시설연락처` = #{sportsFacilitiesTel},
-        `시설유형코드` = #{sportsFacilitiesTypeCode},
+        `시설유형` = #{sportsFacilitiesType},
         `지역대분류` = #{largeCategoryLocal},
         `지역중분류` = #{middleCategoryLocal},
         `지역소분류` = #{smallCategoryLocal}
