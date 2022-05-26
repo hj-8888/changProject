@@ -83,12 +83,12 @@ public class LocalInfoDAO {
         }
     }
 
-    public List<LocalInfoDTO> selectSmallCategory(String lage, String middle) {
+    public List<LocalInfoDTO> selectSmallCategory(String large, String middle) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<LocalInfoDTO> list = null;
         LocalInfoDTO local = new LocalInfoDTO();
         try {
-            local.setLargeCategoryLocal(lage);
+            local.setLargeCategoryLocal(large);
             local.setMiddleCategoryLocal(middle);
             list = sqlSession.selectList("mapper.LocalInfoMapper.selectSmallCategory", local);
             sqlSession.commit();
@@ -101,11 +101,11 @@ public class LocalInfoDAO {
         return list;
     }
 
-    public List<LocalInfoDTO> selectMiddleCategory(String lage) {
+    public List<LocalInfoDTO> selectMiddleCategory(String large) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<LocalInfoDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.LocalInfoMapper.selectMiddleCategory", lage);
+            list = sqlSession.selectList("mapper.LocalInfoMapper.selectMiddleCategory", large);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

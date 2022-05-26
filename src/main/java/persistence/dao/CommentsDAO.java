@@ -73,6 +73,7 @@ public class CommentsDAO {
     }
 
     // 삭제
+
     public void deleteCormments(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {

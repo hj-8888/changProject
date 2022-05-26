@@ -18,7 +18,7 @@ public class LoginDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.MemberMapper.selectAll_ID", id);
+            list = sqlSession.selectList("mapper.MemberMapper.selectOne", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

@@ -44,6 +44,7 @@ public class InterestingSportsDAO {
         return item;
     }
 
+<<<<<<< Updated upstream
     public void insertInterestingSports(InterestingSportsDTO interestingSportsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
@@ -82,5 +83,46 @@ public class InterestingSportsDAO {
             sqlSession.close();
         }
     }
+=======
+    //update, insert, delete는 수정할 일이 없어서 아마 미사용
+//    public void insertInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+//        try {
+//            sqlSession.insert("mapper.InterestingSportsMapper.insertOne", interestingSportsDTO);
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//    }
+//
+//    public void updateInterestingSports(InterestingSportsDTO interestingSportsDTO) {
+//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+//        try {
+//            sqlSession.update("mapper.InterestingSportsMapper.updateOne", interestingSportsDTO);
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//    }
+//
+//    public void deleteInterestingSports(int index) {
+//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+//        try {
+//            sqlSession.delete("mapper.InterestingSportsMapper.deleteOne", index);
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//    }
+>>>>>>> Stashed changes
 
 }

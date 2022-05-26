@@ -74,6 +74,7 @@ public class JoinChatRoomDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.delete("mapper.JoinChatRoomMapper.deleteOne", index);
+
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

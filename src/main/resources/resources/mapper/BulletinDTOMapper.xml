@@ -12,6 +12,8 @@
         <result column="게시글 비밀번호" property="bulletinPW"/>
         <result column="작성날짜" property="uploadDate"/>
         <result column="회원_회원인덱스" property="memberIndex"/>
+        <result column="그룹_그룹인덱스" property="groupIndex"/>
+        <result column="그룹_채팅방_채팅방인덱스" property="charRoomIndex"/>
     </resultMap>
 
     <select id="selectAll" resultMap="BulletinResultmap">
@@ -27,7 +29,6 @@
             `게시글 제목`,
             `게시글 내용`,
             `첨부 사진`,
-            `게시글 비밀번호`,
             `작성날짜`,
             `회원_회원인덱스`
         )
@@ -45,7 +46,6 @@
         '게시글 제목' = #{bulletinTitle},
         '게시글 내용' = #{bulletinContent},
         '첨부 사진' = #{attachedPicture},
-        '게시글 비밀번호' = #{bulletinPW},
         '작성날짜' = #{uploadDate},
         '회원_회원인덱스' = #{memberIndex})
         WHERE

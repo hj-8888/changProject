@@ -19,7 +19,7 @@
         <result column="그룹명" property="groupName"/>
         <result column="그룹장(닉네임)" property="groupLeader"/>
         <result column="종목" property="sports"/>
-        <result column="채팅방_채팅방번호" property="chatRoomNumber"/>
+        <result column="채팅방_채팅방인덱스" property="chatRoomNumber"/>
         <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
     </resultMap>
 

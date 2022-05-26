@@ -12,8 +12,9 @@ public class BulletinDTO {
     private String bulletinTitle;
     private String bulletinContent;
     private String attachedPicture;
-    private String bulletinPW;
     private Timestamp uploadDate;
     private int memberIndex;
+    private int groupIndex;
+    private int chatRoomIndex
 }
 

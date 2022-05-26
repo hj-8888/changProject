@@ -29,6 +29,7 @@ public class GroupDAO {
     }
 
     // 인자 조회
+
     public GroupDTO selectOneGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         GroupDTO item = null;
@@ -62,7 +63,7 @@ public class GroupDAO {
     public void updateGroup(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.update("mapper.GroupMapper.updateOne", groupDTO);
+            sqlSession.insert("mapper. GroupMapper.updateOne", groupDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +74,7 @@ public class GroupDAO {
     }
 
     // 삭제
+
     public void deleteGroup(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {

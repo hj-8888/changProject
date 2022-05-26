@@ -29,11 +29,11 @@ public class GroupScheduleDAO {
         return list;
     }
 
-    public GroupScheduleDTO selectOneGroupSchedule(int index) {
+    public GroupScheduleDTO selectOneGroupSchedule(int groupScheduleIndex) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         GroupScheduleDTO item = null;
         try {
-            item = sqlSession.selectOne("mapper.GroupScheduleMapper.selectOne", index);
+            item = sqlSession.selectOne("mapper.GroupScheduleMapper.selectOne", groupScheduleIndex);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,10 +70,12 @@ public class GroupScheduleDAO {
         }
     }
 
-    public void deleteGroupSchedule(int index) {
+
+
+    public void deleteGroupSchedule(int groupScheduleIndex) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
-            sqlSession.delete("mapper.GroupScheduleMapper.deleteOne", index);
+            sqlSession.delete("mapper.GroupScheduleMapper.deleteOne", groupScheduleIndex);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

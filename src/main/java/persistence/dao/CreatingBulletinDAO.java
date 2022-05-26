@@ -72,6 +72,7 @@ public class CreatingBulletinDAO {
         }
     }
 
+
     // 삭제
     public void deleteCreatingBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
@@ -85,4 +86,5 @@ public class CreatingBulletinDAO {
             sqlSession.close();
         }
     }
+
 }

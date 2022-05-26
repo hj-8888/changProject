@@ -75,6 +75,10 @@ public class BulletinDAO {
     }
 
     // 삭제
+
+
+
+
     public void deleteBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {

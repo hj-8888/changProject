@@ -73,6 +73,7 @@ public class ChatRoomDAO {
     }
 
     // 삭제
+
     public void deleteChatRoom(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
