@@ -74,7 +74,15 @@ public class MemberDAO {
     public void deleteMember(MemberDTO memberDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
+<<<<<<< Updated upstream
             sqlSession.delete("mapper.MemberMapper.updateOne", memberDTO);
+=======
+<<<<<<< Updated upstream
+            sqlSession.delete("mapper.MemberMapper.deleteOne", index);
+=======
+            sqlSession.delete("mapper.MemberMapper.deleteOne", memberDTO);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

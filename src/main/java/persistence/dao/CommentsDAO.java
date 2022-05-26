@@ -73,10 +73,24 @@ public class CommentsDAO {
     }
 
     // 삭제
+<<<<<<< Updated upstream
     public void deleteCormments(CommentsDTO commentsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper.commentsMapper.deleteOne", commentsDTO);
+=======
+<<<<<<< Updated upstream
+    public void deleteCormments(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.commentsMapper.deleteOne", index);
+=======
+    public void deleteCormments(int commentsIndex) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.commentsMapper.deleteOne", commentsIndex);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

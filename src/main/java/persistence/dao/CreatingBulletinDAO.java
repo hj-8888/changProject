@@ -33,7 +33,15 @@ public class CreatingBulletinDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<CreatingBulletinDTO> list = null;
         try {
+<<<<<<< Updated upstream
             list = sqlSession.selectList("mapper. creatingBulletinMapper.selectOne", creatingBulletinDTO);
+=======
+<<<<<<< Updated upstream
+            item = sqlSession.selectOne("mapper.creatingBulletinMapper.selectOne", index);
+=======
+            list = sqlSession.selectOne("mapper. creatingBulletinMapper.selectOne", creatingBulletinDTO);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +70,15 @@ public class CreatingBulletinDAO {
     public void updateCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
+<<<<<<< Updated upstream
             sqlSession.insert("mapper. creatingBulletinMapper.updateOne", creatingBulletinDTO);
+=======
+<<<<<<< Updated upstream
+            sqlSession.update("mapper.creatingBulletinMapper.updateOne", creatingBulletinDTO);
+=======
+            sqlSession.update("mapper. creatingBulletinMapper.updateOne", creatingBulletinDTO);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +88,7 @@ public class CreatingBulletinDAO {
         }
     }
 
+<<<<<<< Updated upstream
     // 삭제
     public void deleteCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
@@ -85,4 +102,19 @@ public class CreatingBulletinDAO {
             sqlSession.close();
         }
     }
+=======
+    // 삭제 -> cascade로 bulltien 삭제 시 삭제
+//    public void deleteCreatingBulletin(CreatingBulletinDTO creatingBulletinDTO) {
+//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+//        try {
+//            sqlSession.delete("mapper. creatingBulletinMapper.deleteOne", creatingBulletinDTO);
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//    }
+>>>>>>> Stashed changes
 }

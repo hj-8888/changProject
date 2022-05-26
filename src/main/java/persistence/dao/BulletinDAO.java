@@ -75,10 +75,24 @@ public class BulletinDAO {
     }
 
     // 삭제
+<<<<<<< Updated upstream
     public void deleteBulletin(BulletinDTO bulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper.BulletinMapper.deleteOne", bulletinDTO);
+=======
+<<<<<<< Updated upstream
+    public void deleteBulletin(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.BulletinMapper.deleteOne", index);
+=======
+    public void deleteBulletin(int bulletinIndex) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.BulletinMapper.deleteOne", bulletinIndex);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

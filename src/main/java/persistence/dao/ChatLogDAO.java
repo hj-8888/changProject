@@ -74,6 +74,7 @@ public class ChatLogDAO {
         }
     }
 
+<<<<<<< Updated upstream
     // 삭제
     public void deleteBulletin(ChatLogDTO chatLogDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
@@ -87,4 +88,19 @@ public class ChatLogDAO {
             sqlSession.close();
         }
     }
+=======
+//    // 삭제
+//    public void deleteChatLog(ChatLogDTO chatLogDTO) {
+//        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+//        try {
+//            sqlSession.delete("mapper.ChatLogMapper.deleteOne", chatLogDTO);
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        } finally {
+//            sqlSession.close();
+//        }
+//    }
+>>>>>>> Stashed changes
 }

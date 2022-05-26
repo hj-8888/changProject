@@ -73,7 +73,15 @@ public class JoinChatRoomDAO {
     public void deleteJoinChatRoom(JoinChatRoomDTO joinChatRoomDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
+<<<<<<< Updated upstream
             sqlSession.delete("mapper.JoinChatRoomMapper.updateOne", joinChatRoomDTO);
+=======
+<<<<<<< Updated upstream
+            sqlSession.delete("mapper.JoinChatRoomMapper.deleteOne", index);
+=======
+            sqlSession.delete("mapper.JoinChatRoomMapper.deleteOne", joinChatRoomDTO);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

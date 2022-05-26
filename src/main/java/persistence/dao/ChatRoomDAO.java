@@ -73,10 +73,24 @@ public class ChatRoomDAO {
     }
 
     // 삭제
+<<<<<<< Updated upstream
     public void deleteChatRoom(ChatRoomDTO chatRoomDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper.ChatRoomMapper.deleteOne", chatRoomDTO);
+=======
+<<<<<<< Updated upstream
+    public void deleteChatRoom(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.ChatRoomMapper.deleteOne", index);
+=======
+    public void deleteChatRoom(int chatRoomIndex) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.ChatRoomMapper.deleteOne", chatRoomIndex);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

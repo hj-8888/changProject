@@ -32,10 +32,9 @@
         SELECT * FROM `회원`;
     </select>
 
-    <select id="selectAll_ID" resultMap="MemberResultmap">
+    <select id="selectOne" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
-
 
     <insert id="insertOne" parameterType="Member">
         INSERT INTO `회원`(

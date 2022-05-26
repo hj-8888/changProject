@@ -29,11 +29,27 @@ public class GroupDAO {
     }
 
     // 인자 조회
+<<<<<<< Updated upstream
     public List<GroupDTO> selectOneCreatingBulletin(GroupDTO groupDTO) {
+=======
+<<<<<<< Updated upstream
+    public GroupDTO selectOneGroup(int index) {
+=======
+    public List<GroupDTO> selectOneCreatingBulletin(int groupIndex) {
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<GroupDTO> list = null;
         try {
+<<<<<<< Updated upstream
             list = sqlSession.selectList("mapper. GroupMapper.selectOne", groupDTO);
+=======
+<<<<<<< Updated upstream
+            item = sqlSession.selectOne("mapper.GroupMapper.selectOne", index);
+=======
+            list = sqlSession.selectOne("mapper. GroupMapper.selectOne", groupIndex);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +78,15 @@ public class GroupDAO {
     public void updateCreatingBulletin(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
+<<<<<<< Updated upstream
             sqlSession.insert("mapper. GroupMapper.updateOne", groupDTO);
+=======
+<<<<<<< Updated upstream
+            sqlSession.update("mapper.GroupMapper.updateOne", groupDTO);
+=======
+            sqlSession.update("mapper. GroupMapper.updateOne", groupDTO);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,10 +97,24 @@ public class GroupDAO {
     }
 
     // 삭제
+<<<<<<< Updated upstream
     public void deleteCreatingBulletin(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper. GroupMapper.deleteOne", groupDTO);
+=======
+<<<<<<< Updated upstream
+    public void deleteGroup(int index) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper.GroupMapper.deleteOne", index);
+=======
+    public void deleteCreatingBulletin(int groupIndex) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        try {
+            sqlSession.delete("mapper. GroupMapper.deleteOne", groupIndex);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
