@@ -15,6 +15,6 @@ public class BulletinDTO {
     private Timestamp uploadDate;
     private int memberIndex;
     private int groupIndex;
-    private int chatRoomIndex
+    private int chatRoomIndex;
 }
 

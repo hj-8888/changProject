@@ -1,34 +1,32 @@
-package network;
+package test;
 
-import test.Protocol;
-import test.User;
-
+import java.net.*;
 import java.io.*;
-import java.net.Socket;
+public class LoginClient {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException{
+        if(args.length < 2) System.out.println("사용법 : " + "java LoginClient 주소 포트번호");
 
-public class Client {
-    public static void main(String[] args) throws Exception, ClassNotFoundException, InterruptedException {
         Socket socket = new Socket("127.0.0.1", 4444);
         OutputStream os = socket.getOutputStream();
         InputStream is = socket.getInputStream();
 
-        test.Protocol protocol = null;
+        Protocol protocol = null;
         ObjectOutputStream out = new ObjectOutputStream(os);
         ObjectInputStream in = new ObjectInputStream(is);
 
 
         while(true){
             // 프로토콜에 객체가 담겨있음
-            protocol = (test.Protocol) in.readObject();
+            protocol = (Protocol) in.readObject();
             int packetType = protocol.getProtocolType();
 
-            if(packetType == test.Protocol.PT_EXIT){
+            if(packetType == Protocol.PT_EXIT){
                 System.out.println("클라이언트 종료");
                 break;
             }
 
             switch(packetType){
-                case test.Protocol.PT_REQ_LOGIN:
+                case Protocol.PT_REQ_LOGIN:
                     User user = null;
                     System.out.println("서버가 로그인 정보 요청");
                     BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
@@ -38,15 +36,15 @@ public class Client {
                     String pwd = userIn.readLine();
                     user = new User(id,pwd);
                     // 로그인 정보 생성 및 패킷 전송
-                    protocol = new test.Protocol(test.Protocol.PT_RES_LOGIN);
+                    protocol = new Protocol(Protocol.PT_RES_LOGIN);
                     protocol.setObj(user);
                     System.out.println("로그인 정보 전송");
                     out.writeObject(protocol);
                     break;
 
-                case test.Protocol.PT_LOGIN_RESULT:
+                case Protocol.PT_LOGIN_RESULT:
                     System.out.println("서버가 로그인 결과 전송.");
-                    protocol = new test.Protocol(Protocol.PT_EXIT);
+                    protocol = new Protocol(Protocol.PT_EXIT);
                     System.out.println("종료 패킷 전송");
                     out.writeObject(protocol);
                     break;
@@ -55,7 +53,5 @@ public class Client {
         os.close();
         is.close();
         socket.close();
-
-
     }
 }
