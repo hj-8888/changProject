@@ -39,55 +39,8 @@ public class Server extends Thread {
             int packetCode= buf[1];
             protocol.setPacket(packetType,packetCode, buf);
 
-            if(packetType == Protocol.EXIT){
-                protocol = new Protocol(Protocol.EXIT,Protocol.EXIT);
-                os.write(protocol.getPacket());
-                System.out.println("서버종료");
-                break;
-            }
 
 
-            switch(packetType){
-
-                //클라이언트가 로그인 정보 응답 패킷인 경우 (클라이언트의 로그인 정보 전송일 경우)
-                case Protocol.PT_MEMBBER_CREATE:
-                    switch (packetCode){
-                        case Protocol.CD_REQ_largeCategoryLocal:
-                            System.out.println("클라이언트가 회원가입 일반 정보를 보냈습니다.");
-                            String id = protocol.getId();
-                            String password = protocol.getPassword();
-                            System.out.println(id+" / "+password);
-
-                            protocol = new Protocol(Protocol.PT_MEMBBER_CREATE, Protocol.CD_RES_largeCategoryLocal);
-                            protocol.setLocation("제주특별자치도");
-                            os.write(protocol.getPacket()); //socket의 OutputStream 에 기록한다.
-                            break;
-                        case Protocol.CD_REQ_middleCategoryLocal:
-                            System.out.println("클라이언트가 대분류 정보를 보냈습니다.");
-
-                            protocol = new Protocol(Protocol.PT_MEMBBER_CREATE, Protocol.CD_RES_middleCategoryLocal);
-                            protocol.setLocation("제주시");
-                            os.write(protocol.getPacket()); //socket의 OutputStream 에 기록한다.
-                            break;
-                        case Protocol.CD_REQ_smallCategoryLocal:
-                            System.out.println("클라이언트가 중분류 정보를 보냈습니다.");
-
-                            protocol = new Protocol(Protocol.PT_MEMBBER_CREATE, Protocol.CD_RES_smallCategoryLocal);
-                            protocol.setLocation("노형동");
-                            os.write(protocol.getPacket()); //socket의 OutputStream 에 기록한다.
-                            break;
-                        case Protocol.CD_REQ_SPORTS:
-                            System.out.println("클라이언트가 소분류 정보를 보냈습니다.");
-
-                            protocol = new Protocol(Protocol.PT_MEMBBER_CREATE, Protocol.CD_RES_SPORTS);
-                            protocol.setLocation("축구");
-                            os.write(protocol.getPacket()); //socket의 OutputStream 에 기록한다.
-                            break;
-
-                    }
-
-
-            }//end switch
 
         }//end while
 
