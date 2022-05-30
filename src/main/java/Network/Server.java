@@ -75,6 +75,9 @@ public class Server extends Thread {
                             }
                             out.writeObject(protocol);
                             break;
+                        default:
+                            System.out.println("없는 코드 수신");
+                            break;
                     }
                 case Protocol.PT_SIGNUP:
                     // 회원 정보 수신
@@ -98,8 +101,8 @@ public class Server extends Thread {
                             break;
 
                         case Protocol.CD_SIGNUP_MIDDLE_LOCATION_REQ:
-                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             System.out.println("대분류 데이터 수신");
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             // locatList 프로토콜에 저장
                             list = memberService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
                             if( list.size() > 0 ){
@@ -118,8 +121,9 @@ public class Server extends Thread {
                             localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             System.out.println("중분류 데이터 수신");
 
+                            System.out.println(localInfoDTO.toString());
                             // locatList 프로토콜에 저장
-                            list = memberService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getSmallCategoryLocal());
+                            list = memberService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
                             if( list.size() > 0 ){
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_SMALL_LOCATION_RES);
                                 protocol.setObj(list);
@@ -148,13 +152,21 @@ public class Server extends Thread {
                             }
                             out.writeObject(protocol);
                             break;
+                        case Protocol.CD_SIGNUP_REQ:
+                            memberDTO = (MemberDTO) protocol.getObj();
+                            System.out.println("회원가입정보 데이터 수신");
+                            memberService.signup(memberDTO);
+                            break;
                         default:
                             System.out.println("없는 코드 수신");
                             break;
-
                     }
+                    os.flush();
+                    break;
+
                 default:
-                    System.out.println("없는 타입 수신");
+                    System.out.println("없는 타입 수신 (타입): " + protocol.getProtocolType());
+                    System.out.println("없는 타입 수신 (코드): " + protocol.getProtocolCode());
                     break;
 
             }

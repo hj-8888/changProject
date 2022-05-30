@@ -32,6 +32,10 @@
         SELECT * FROM `회원`;
     </select>
 
+    <select id="selectOne" resultMap="MemberResultmap">
+        SELECT `회원인덱스` FROM `회원` WHERE `id` = #{memberID};
+    </select>
+
     <select id="selectOneId" resultMap="MemberResultmap">
         SELECT `회원인덱스` FROM `회원` WHERE `id` = #{memberID};
     </select>

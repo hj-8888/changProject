@@ -77,9 +77,14 @@ public class MemberService {
     }
 
     public List<LocalInfoDTO> transmit_smallLocation(String lLocation, String mLocation){
-        System.out.println("대분류 수신 : " + mLocation);
+        System.out.println("대분류 수신 : " + lLocation + " 중분류 수신 : " + mLocation);
         List<LocalInfoDTO> list = localInfoDAO.selectSmallCategory(lLocation, mLocation);
         return  list;
+    }
+
+    public void signup(MemberDTO memberDTO){
+        memberDAO.insertMember(memberDTO);
+        System.out.println("회원 가입 완료");
     }
 
 }

@@ -57,7 +57,9 @@ class ServerMain {
         } finally {
             try {
                 server.close();
-            } catch(IOException ignored) {}
+            } catch(IOException ignored) {
+                System.out.println("예외발생");
+            }
         }
 
     }
