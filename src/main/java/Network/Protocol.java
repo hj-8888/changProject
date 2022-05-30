@@ -3,7 +3,7 @@ package Network;
 import java.io.Serializable;
 
 public class Protocol implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     //type
     public static final int PT_EXIT = 999;	// 타입이 지정되어 있지 않은 경우
     public static final int PT_UNDEFINED = 0;	// 타입이 지정되어 있지 않은 경우
@@ -21,7 +21,7 @@ public class Protocol implements Serializable {
 
     // 회원가입
     // 요청
-    public static final int CD_SIGNUP_DUPLICATION_REQ = 200; // 아이디 중복 검사 요청
+    public static final int CD_SIGNUP_ID_DUPLICATION_REQ = 200; // 아이디 중복 검사 요청
     public static final int CD_SIGNUP_MIDDLE_LOCATION_REQ = 201; // 중분류 요청
     public static final int CD_SIGNUP_SMALL_LOCATION_REQ = 202; // 소분류 요청
     public static final int CD_SIGNUP_NICK_DUPLICATION_REQ = 203; // 닉네임 중복 검사 요청
@@ -33,7 +33,7 @@ public class Protocol implements Serializable {
     public static final int CD_SIGNUP_SMALL_LOCATION_RES = 207; // 소분류 응답
     public static final int CD_SIGNUP_NICK_DUPLICATION_RES = 208; // 닉네임 중복 검사 응답
     public static final int CD_SIGNUP_RES = 209; // 회원가입 결과 응답
-    public static final int CD_SIGNUP_FAIL = 299; // 아이디 검사 실패
+    public static final int CD_SIGNUP_FAIL = 299; // 회원 가입 실패 응답
 
 
     protected int protocolType;

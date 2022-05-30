@@ -1,11 +1,13 @@
 package Network;
 
 import lombok.SneakyThrows;
+import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
 import service.MemberService;
 
 import java.io.*;
 import java.net.*;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 public class Server extends Thread {
@@ -32,10 +34,13 @@ public class Server extends Thread {
 
         // DTO
         MemberDTO memberDTO;
-
+        LocalInfoDTO localInfoDTO;
         // 서비스
         MemberService memberService = new MemberService();
 
+
+        //List
+        List<LocalInfoDTO> list;
         int result; // 검사 결과 메뉴
         while(true)
         {
@@ -73,11 +78,10 @@ public class Server extends Thread {
                     }
                 case Protocol.PT_SIGNUP:
                     // 회원 정보 수신
-                    memberDTO = (MemberDTO) protocol.getObj();
-
                     switch (protocolCode)
                     {
-                        case Protocol.CD_SIGNUP_DUPLICATION_REQ:
+                        case Protocol.CD_SIGNUP_ID_DUPLICATION_REQ:
+                            memberDTO = (MemberDTO) protocol.getObj();
                             System.out.println("아이디 데이터 수신");
                             result = memberService.isDuplication_id(memberDTO.getMemberID());
                             if(result == 0)
@@ -94,13 +98,64 @@ public class Server extends Thread {
                             break;
 
                         case Protocol.CD_SIGNUP_MIDDLE_LOCATION_REQ:
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             System.out.println("대분류 데이터 수신");
-                            result = memberService.isDuplication_id(memberDTO.getMemberID());
-
+                            // locatList 프로토콜에 저장
+                            list = memberService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
+                            if( list.size() > 0 ){
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_MIDDLE_LOCATION_RES);
+                                protocol.setObj(list);
+                                System.out.println("중분류 리스트 전송");
+                            }
+                            else{
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_FAIL);
+                                System.out.println("대분류 존재안함");
+                            }
                             out.writeObject(protocol);
                             break;
 
+                        case Protocol.CD_SIGNUP_SMALL_LOCATION_REQ:
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            System.out.println("중분류 데이터 수신");
+
+                            // locatList 프로토콜에 저장
+                            list = memberService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getSmallCategoryLocal());
+                            if( list.size() > 0 ){
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_SMALL_LOCATION_RES);
+                                protocol.setObj(list);
+                                System.out.println("소분류 리스트 전송");
+                            }
+                            else{
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_FAIL);
+                                System.out.println("소분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_SIGNUP_NICK_DUPLICATION_REQ:
+                            memberDTO = (MemberDTO) protocol.getObj();
+                            System.out.println("닉네임 데이터 수신");
+                            result = memberService.isDuplication_nick(memberDTO.getNickname());
+                            if(result == 0)
+                            {
+                                System.out.println("닉네임 중복 성공 결과 전송");
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
+                            }
+                            else
+                            {
+                                System.out.println("닉네임 중복 실패 결과 전송");
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
+                            }
+                            out.writeObject(protocol);
+                            break;
+                        default:
+                            System.out.println("없는 코드 수신");
+                            break;
+
                     }
+                default:
+                    System.out.println("없는 타입 수신");
+                    break;
 
             }
 

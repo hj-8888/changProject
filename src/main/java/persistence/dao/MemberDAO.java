@@ -30,11 +30,11 @@ public class MemberDAO {
         return list;
     }
 
-    public List<MemberDTO> selectOneMember(String id) {
+    public List<MemberDTO> selectOneId(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<MemberDTO> item = null;
+        List<MemberDTO> list = null;
         try {
-            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", id);
+            list = sqlSession.selectList("mapper.MemberMapper.selectOneId", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +42,22 @@ public class MemberDAO {
         } finally {
             sqlSession.close();
         }
-        return item;
+        return list;
+    }
+
+    public List<MemberDTO> selectOneNick(String nick){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.MemberMapper.selectOneNick", nick);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
     }
 
     public void insertMember(MemberDTO memberDTO) {
