@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 
 public class CreatingBulletinDTO {
+    private static final long serialVersionUID = 1L;
     private int creatingBulletinIndex;
     private int memberIndex;
     private int bulletinIndex;

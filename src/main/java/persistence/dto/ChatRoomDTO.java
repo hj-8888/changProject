@@ -7,7 +7,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class ChatRoomDTO {
     private int chatRoomIndex;
     private String chatRoomName;

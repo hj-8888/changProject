@@ -7,6 +7,7 @@ import lombok.*;
 @ToString
 
 public class SportsFacilitiesDTO {
+    private static final long serialVersionUID = 1L;
     private int sportsFacilitiesIndex;
     private String sportsFacilitiesName;
     private String longitude;

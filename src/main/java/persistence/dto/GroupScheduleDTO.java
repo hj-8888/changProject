@@ -11,6 +11,7 @@ import java.sql.Date;
 @ToString
 
 public class GroupScheduleDTO {
+    private static final long serialVersionUID = 1L;
     private int groupScheduleIndex;
     private int groupIndex;
     private String scheduleName;

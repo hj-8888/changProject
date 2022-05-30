@@ -13,6 +13,7 @@ import lombok.ToString;
     그룹에서 지역 소,중,대분류를 구분지어놨는데 지역정보의 기본키를 외래키로 받아오면 되지 않나
  */
 public class GroupDTO {
+    private static final long serialVersionUID = 1L;
     private int groupIndex;
     private String groupName;
     private String groupLeader;

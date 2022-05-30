@@ -11,6 +11,7 @@ import java.sql.Date;
 @ToString
 
 public class CommentsDTO {
+    private static final long serialVersionUID = 1L;
     private int commentsIndex;
     private String commentsContent;
     private Date uploadDate;

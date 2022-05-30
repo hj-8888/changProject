@@ -30,11 +30,11 @@ public class MemberDAO {
         return list;
     }
 
-    public MemberDTO selectOneMember(int index) {
+    public List<MemberDTO> selectOneMember(String id) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        MemberDTO item = null;
+        List<MemberDTO> item = null;
         try {
-            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", index);
+            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();

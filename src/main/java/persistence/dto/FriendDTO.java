@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 
 public class FriendDTO {
+    private static final long serialVersionUID = 1L;
     private int friendIndex;
     private int memberIndex;
     private int friend_memberIndex;

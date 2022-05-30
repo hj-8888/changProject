@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class InterestingSportsDTO {
+    private static final long serialVersionUID = 1L;
     private int sportIndex;
     private String sportName;
 }

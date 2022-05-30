@@ -2,12 +2,14 @@ package persistence.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @ToString
-public class BulletinDTO {
+
+public class BulletinDTO implements Serializable {
     private int bulletinIndex;
     private String bulletinTitle;
     private String bulletinContent;
