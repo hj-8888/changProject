@@ -16,6 +16,7 @@ public class Protocol implements Serializable {
     public static final int PT_PROFILE = 4;   // 프로필
 
     public static final int PT_MEMBER_SEARCH = 5;   // 인물 검색
+    public static final int PT_BULLETIN = 6;   // 게시판
 
 
     // code
@@ -82,7 +83,7 @@ public class Protocol implements Serializable {
     public static final int CD_MEMBER_SEARCH_FAIL = 599; // 인물 실패 응답
 
 
-    // 게시판 코드
+    // 게시판 코드 BULLETIN
     // 요청
 
     // 응답

@@ -8,9 +8,15 @@ import persistence.dto.SportsFacilitiesDTO;
 import service.LocalInfoService;
 import service.MemberService;
 import persistence.dto.PackingDTO;
+import persistence.dto.SportsFacilitiesDTO;
+import service.LocalInfoService;
+import service.MemberService;
 import service.ProfileService;
 import service.SportsFacilitesService;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
@@ -21,10 +27,19 @@ public class Server extends Thread {
 
     private Socket socket;
     private NetworkLog networkLog;
+    private MemberDTO loginedMember;
 
     public Server(Socket connectedClientSocket) {
         this.socket = connectedClientSocket;
         networkLog = new NetworkLog();
+    }
+
+    public void send() {
+
+    }
+
+    public void receive(Protocol protocol, ObjectInputStream in) {
+
     }
 
     @SneakyThrows
@@ -50,12 +65,14 @@ public class Server extends Thread {
         // 서비스
         MemberService memberService = new MemberService();
         LocalInfoService localInfoService = new LocalInfoService();
+        SportsFacilitesService sportsFacilitiesService = new SportsFacilitesService();
         SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
         ProfileService profileService = new ProfileService();
-
+        //List
         int result; // 검사 결과 메뉴
         while (true) {
             System.out.println(networkLog.streamWaitLog());
+
             protocol = (Protocol) in.readObject();
             protocolType = protocol.getProtocolType();
             protocolCode = protocol.getProtocolCode();
@@ -64,8 +81,8 @@ public class Server extends Thread {
                 System.out.println("종료합니다.");
                 break;
             }
+
             switch (protocolType) {
-                // 로그인
                 case Protocol.PT_LOGIN:
                     switch (protocolCode) {
                         case Protocol.CD_LOGIN_REQ:
@@ -75,6 +92,7 @@ public class Server extends Thread {
                             if (result == 1) {
                                 // 로그인 성공
                                 protocol = new Protocol(Protocol.PT_LOGIN, Protocol.CD_RES_LOGIN_SUCCESS);
+                                loginedMember = memberDTO;
                                 System.out.println("로그인 성공 결과 전송");
                             } else {
                                 // 로그인 실패
@@ -87,8 +105,8 @@ public class Server extends Thread {
                             System.out.println("없는 코드 수신");
                             break;
                     }
-                    // 회원 가입
                 case Protocol.PT_SIGNUP:
+                    // 회원 정보 수신
                     switch (protocolCode) {
                         case Protocol.CD_SIGNUP_ID_DUPLICATION_REQ:
                             memberDTO = (MemberDTO) protocol.getObj();
@@ -96,11 +114,10 @@ public class Server extends Thread {
                             result = memberService.isDuplication_id(memberDTO.getMemberID());
                             if (result == 0) {
                                 System.out.println("아이디 중복 성공 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             } else {
                                 System.out.println("아이디 중복 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
@@ -145,26 +162,39 @@ public class Server extends Thread {
                             System.out.println("닉네임 데이터 수신");
                             result = memberService.isDuplication_nick(memberDTO.getNickname());
                             if (result == 0) {
-                                System.out.println("닉네임 중복 없음... 성공 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
-                            } else {
-                                System.out.println("닉네임 중복.. 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
+                                System.out.println("닉네임 중복 성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
+                            } else {
+                                System.out.println("닉네임 중복 실패 결과 전송");
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
+
                         case Protocol.CD_SIGNUP_REQ:
                             Object[] arrDTO = (Object[]) protocol.getObj();
                             interestingSportsDTO = (InterestingSportsDTO) arrDTO[0];
                             localInfoDTO = (LocalInfoDTO) arrDTO[1];
                             memberDTO = (MemberDTO) arrDTO[2];
-                            BufferedImage img = (BufferedImage) arrDTO[3];
+
+                            ByteArrayInputStream byteStream = new ByteArrayInputStream((byte[]) arrDTO[3]);
 
                             System.out.println("회원가입정보 데이터 수신");
-                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, img);
+                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, byteStream);
                             protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
                             out.writeObject(protocol);
+
+//                            ByteArrayInputStream input_stream = new ByteArrayInputStream((byte[])protocol.getObj());
+//                            BufferedImage final_buffered_image = ImageIO.read(input_stream);
+//                            ImageIO.write(final_buffered_image , "png", new File("./temp.png") );
+
+//                            InputStream dataStream = new BufferedInputStream(socket.getInputStream());
+//                            BufferedImage bimg = ImageIO.read(dataStream);
+//
+//                            System.out.println("회원가입정보 데이터 수신");
+//                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, bimg);
+//                            protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
+//                            out.writeObject(protocol);
 
                             break;
                         default:
@@ -173,7 +203,6 @@ public class Server extends Thread {
                     }
                     break;
 
-                    // 체육 시설 검색
                 case Protocol.PT_SPORTSFACILITIE_SEARCH:
                     switch (protocolCode) {
                         case Protocol.CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_REQ:
@@ -210,6 +239,7 @@ public class Server extends Thread {
                                 System.out.println("소분류 존재안함");
                             }
                             out.writeObject(protocol);
+                            out.flush();
                             break;
 
                         case Protocol.CD_SPORTSFACILITIE_SEARCH_REQ:
@@ -228,11 +258,9 @@ public class Server extends Thread {
                             }
                             out.writeObject(protocol);
                             break;
-
                     }
                     break;
 
-                    // 프로필
                 case Protocol.PT_PROFILE:
                     switch (protocolCode) {
                         case Protocol.CD_PT_PROFILE_REQ:
@@ -245,6 +273,7 @@ public class Server extends Thread {
                             System.out.println("회원 데이터 전송");
                             out.writeObject(protocol);
                             break;
+
                         case Protocol.CD_PT_PROFILE_UPDATE_REQ:
                             packingDTO = (PackingDTO) protocol.getObj();
                             System.out.println("회원 프로필 수정 데이터 수신");
@@ -252,23 +281,23 @@ public class Server extends Thread {
                             System.out.println("회원 수정 완료");
                             protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_UPDATE_RES);
                             break;
+
                         case Protocol.CD_PROFILE_NICK_DUPLICATION_REQ:
                             memberDTO = (MemberDTO) protocol.getObj();
                             System.out.println("닉네임 데이터 수신");
                             result = memberService.isDuplication_nick(memberDTO.getNickname());
                             if (result == 0) {
-                                System.out.println("닉네임 중복 없음.. 성공 결과 전송");
+                                System.out.println("닉네임 중복 성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_NOT_DUPLICATION_RES);
                             } else {
-                                System.out.println("닉네임 중복.. 실패 결과 전송");
+                                System.out.println("닉네임 중복 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
                     }
                     break;
-
-                    // 인물 검색
+                // 인물 검색
                 case Protocol.PT_MEMBER_SEARCH:
                     switch (protocolCode) {
                         case Protocol.CD_MEMBER_SEARCH_MIDDLE_LOCATION_REQ:
