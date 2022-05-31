@@ -11,13 +11,10 @@ public class MemberService {
     private MemberDAO memberDAO;
     private LoginDAO loginDAO;
 
-    private MemberDTO memberDTO;
-    private LocalInfoDAO localInfoDAO;
 
     public MemberService() {
         this.memberDAO = new MemberDAO();
         this.loginDAO = new LoginDAO();
-        this.localInfoDAO = new LocalInfoDAO();
     }
 
 
@@ -56,6 +53,7 @@ public class MemberService {
         }
     }
 
+    // 닉네임 중복 검사
     public int isDuplication_nick(String nick){
         System.out.println("닉네임 : "+ nick);
         List<MemberDTO> list = memberDAO.selectOneNick(nick);
@@ -69,22 +67,10 @@ public class MemberService {
         }
     }
 
-    // 대분류 전달 받고, 중분류 전송
-    public List<LocalInfoDTO> transmit_middleLocation(String lLocation){
-        System.out.println("대분류 수신 : " + lLocation);
-        List<LocalInfoDTO> list = localInfoDAO.selectMiddleCategory(lLocation);
-        return  list;
-    }
-
-    public List<LocalInfoDTO> transmit_smallLocation(String lLocation, String mLocation){
-        System.out.println("대분류 수신 : " + lLocation + " 중분류 수신 : " + mLocation);
-        List<LocalInfoDTO> list = localInfoDAO.selectSmallCategory(lLocation, mLocation);
-        return  list;
-    }
-
+    // 회원 가입
     public void signup(MemberDTO memberDTO){
         memberDAO.insertMember(memberDTO);
-        System.out.println("회원 가입 완료");
+        System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
 }

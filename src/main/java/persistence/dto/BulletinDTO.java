@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @ToString
 
 public class BulletinDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int bulletinIndex;
     private String bulletinTitle;
     private String bulletinContent;

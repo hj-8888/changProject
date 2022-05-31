@@ -38,20 +38,11 @@ public class LoginServer{
 
                 case Protocol.PT_RES_LOGIN:		// 로그인 정보 수신
                     System.out.println("클라이언트가 " + "로그인 정보를 보냈습니다");
-                    User user = (User)protocol.getObj();
-                    String id = user.getId();
-                    String password = user.getPw();
-                    System.out.println(id+ " "+password);
+                    Facking facking = (Facking)protocol.getObj();
+                    System.out.println(facking.getCar().toString());
+                    System.out.println(facking.getUser().toString());
 
-                    if(id.equals("software")){
-                        if(password.equals("1234")){	//로그인 성공
-                            System.out.println("로그인 성공");
-                        }else{	//암호 틀림
-                            System.out.println("암호 틀림");
-                        }
-                    }else{	//아이디 존재 안함
-                        System.out.println("아이디 존재안함");
-                    }
+
 
                     protocol = new Protocol(Protocol.PT_LOGIN_RESULT);
                     System.out.println("로그인 처리 결과 전송");

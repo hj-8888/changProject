@@ -36,9 +36,14 @@ public class LoginClient {
                     String pwd = userIn.readLine();
                     user = new User(id,pwd);
                     // 로그인 정보 생성 및 패킷 전송
+
                     protocol = new Protocol(Protocol.PT_RES_LOGIN);
-                    protocol.setObj(user);
-                    System.out.println("로그인 정보 전송");
+
+                    Car car = new Car("바퀴", 50);
+                    Facking facking = new Facking(car, user);
+                    protocol.setObj(facking);
+                    System.out.println("팩킹 정보 전송");
+
                     out.writeObject(protocol);
                     break;
 

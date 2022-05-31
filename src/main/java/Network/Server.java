@@ -3,7 +3,10 @@ package Network;
 import lombok.SneakyThrows;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
+import persistence.dto.SportsFacilitiesDTO;
+import service.LocalInfoService;
 import service.MemberService;
+import service.SportsFacilitesService;
 
 import java.io.*;
 import java.net.*;
@@ -35,12 +38,14 @@ public class Server extends Thread {
         // DTO
         MemberDTO memberDTO;
         LocalInfoDTO localInfoDTO;
+        SportsFacilitiesDTO sportsFacilitiesDTO;
+
         // 서비스
         MemberService memberService = new MemberService();
-
+        LocalInfoService localInfoService = new LocalInfoService();
+        SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
 
         //List
-        List<LocalInfoDTO> list;
         int result; // 검사 결과 메뉴
         while(true)
         {
@@ -90,12 +95,12 @@ public class Server extends Thread {
                             if(result == 0)
                             {
                                 System.out.println("아이디 중복 성공 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
                             }
                             else
                             {
                                 System.out.println("아이디 중복 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
@@ -104,7 +109,8 @@ public class Server extends Thread {
                             System.out.println("대분류 데이터 수신");
                             localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             // locatList 프로토콜에 저장
-                            list = memberService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
+                            List<LocalInfoDTO> list;
+                            list = localInfoService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
                             if( list.size() > 0 ){
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_MIDDLE_LOCATION_RES);
                                 protocol.setObj(list);
@@ -123,7 +129,7 @@ public class Server extends Thread {
 
                             System.out.println(localInfoDTO.toString());
                             // locatList 프로토콜에 저장
-                            list = memberService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
+                            list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
                             if( list.size() > 0 ){
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_SMALL_LOCATION_RES);
                                 protocol.setObj(list);
@@ -143,34 +149,91 @@ public class Server extends Thread {
                             if(result == 0)
                             {
                                 System.out.println("닉네임 중복 성공 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
                             }
                             else
                             {
                                 System.out.println("닉네임 중복 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
                         case Protocol.CD_SIGNUP_REQ:
                             memberDTO = (MemberDTO) protocol.getObj();
                             System.out.println("회원가입정보 데이터 수신");
+                            protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
                             memberService.signup(memberDTO);
                             break;
                         default:
                             System.out.println("없는 코드 수신");
                             break;
                     }
-                    os.flush();
                     break;
 
+                case Protocol.PT_SPORTSFACILITIE_SEARCH:
+                    switch (protocolCode){
+                        case Protocol.CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_REQ:
+                            System.out.println("대분류 데이터 수신");
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> lList;
+                            lList = localInfoService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
+                            if( lList.size() > 0 ){
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_RES);
+                                protocol.setObj(lList);
+                                System.out.println("중분류 리스트 전송");
+                            }
+                            else{
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_FAIL);
+                                System.out.println("대분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_REQ:
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            System.out.println("중분류 데이터 수신");
+
+                            System.out.println(localInfoDTO.toString());
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> list;
+                            list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
+                            if( list.size() > 0 ){
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES);
+                                protocol.setObj(list);
+                                System.out.println("소분류 리스트 전송");
+                            }
+                            else{
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SPORTSFACILITIE_SEARCH_FAIL);
+                                System.out.println("소분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_SPORTSFACILITIE_SEARCH_REQ:
+                            sportsFacilitiesDTO = (SportsFacilitiesDTO) protocol.getObj();
+                            System.out.println("체육시설 검색 데이터 수신");
+                            List<SportsFacilitiesDTO>  slist;
+                            slist = sportsFaciliitesService.searchSportsFacilites(sportsFacilitiesDTO);
+
+                            if(slist != null){
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_RES);
+                                protocol.setObj(slist);
+                                System.out.println("체육시설 검색 결과 전송");
+                            }
+                            else {
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_FAIL);
+                                System.out.println("체육시설 검색 실패");
+                            }
+                            out.writeObject(protocol);
+                            break;
+                    }
+                    break;
                 default:
                     System.out.println("없는 타입 수신 (타입): " + protocol.getProtocolType());
                     System.out.println("없는 타입 수신 (코드): " + protocol.getProtocolCode());
                     break;
-
             }
-
         }
 
     is.close();

@@ -8,7 +8,7 @@
         <result column="지역정보인덱스" property="localInfoIndex"/>
         <result column="지역대분류" property="largeCategoryLocal"/>
         <result column="지역중분류" property="middleCategoryLocal"/>
-        <result column="지역 분류" property="smallCategoryLocal"/>
+        <result column="지역소분류" property="smallCategoryLocal"/>
     </resultMap>
 
     <select id="selectID" resultMap="LocalInfoResultmap" parameterType="LocalInfo">
