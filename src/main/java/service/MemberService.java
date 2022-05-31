@@ -4,6 +4,7 @@ import persistence.dao.*;
 import persistence.dto.InterestingSportsDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
+import persistence.dto.PackingDTO;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ public class MemberService {
     private InterestingSportsDAO interestingSportsDAO;
     private LoginDAO loginDAO;
 
-
+    private MemberDTO memberDTO;
     public MemberService() {
         this.memberDAO = new MemberDAO();
         this.localInfoDAO = new LocalInfoDAO();
@@ -111,8 +113,6 @@ public class MemberService {
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
-<<<<<<< Updated upstream
-=======
     private int getLocalInfoIndex(LocalInfoDTO localInfoDTO){
         return localInfoDAO.selectID(localInfoDTO);
     }
@@ -132,7 +132,7 @@ public class MemberService {
         List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
         return null;
     }
->>>>>>> Stashed changes
+
     private void storeImg(ImageIO imgIO) {
 
     }

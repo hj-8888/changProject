@@ -1,37 +1,47 @@
 package test;
 
-import java.io.Serializable;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Car implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private String wheel;
-    private int fual;
+    public byte[] imageFileConvertToByteArray(String filePath) throws Exception
+    {
+        byte[] returnValue = null;
 
-    public Car(){
+        ByteArrayOutputStream baos = null;
+        FileInputStream fis = null;
+
+        try
+        {
+            baos = new ByteArrayOutputStream();
+            fis = new FileInputStream(filePath);
+
+            byte[] buf = new byte[1024];
+            int read = 0;
+
+            while ((read = fis.read(buf, 0, buf.length)) != -1) {
+                baos.write(buf, 0, read);
+            }
+            returnValue = baos.toByteArray();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if(baos != null){
+                baos.close();
+            }
+        }
+        if (fis != null)
+        {
+            fis.close();
+        }
+
+        return returnValue;
     }
 
-    public Car(String wheel, int fual){
-        this.wheel = wheel;
-        this.fual = fual;
-    }
 
-    public String getWheel() {
-        return wheel;
-    }
 
-    public void setWheel(String wheel) {
-        this.wheel = wheel;
-    }
-
-    public int getFual() {
-        return fual;
-    }
-
-    public void setFual(int fual) {
-        this.fual = fual;
-    }
-
-    public String toString() {
-        return "(" + wheel + ", " + fual;
-    }
 }

@@ -1,5 +1,9 @@
 package test;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 public class LoginClient {
@@ -27,24 +31,18 @@ public class LoginClient {
 
             switch(packetType){
                 case Protocol.PT_REQ_LOGIN:
-                    User user = null;
+
                     System.out.println("서버가 로그인 정보 요청");
-                    BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
-                    System.out.print("아이디 : ");
-                    String id = userIn.readLine();
-                    System.out.print("암호 : ");
-                    String pwd = userIn.readLine();
-                    user = new User(id,pwd);
-                    // 로그인 정보 생성 및 패킷 전송
-
                     protocol = new Protocol(Protocol.PT_RES_LOGIN);
+                    Car car = new Car();
+                    try {
+                        byte[] bytes = car.imageFileConvertToByteArray("C:\\Users\\xcxc4\\Documents\\GitHub\\changProject\\src\\main\\java\\service\\43124.PNG");
+                        protocol.setObj(bytes);
+                        out.writeObject(protocol);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-                    Car car = new Car("바퀴", 50);
-                    Facking facking = new Facking(car, user);
-                    protocol.setObj(facking);
-                    System.out.println("팩킹 정보 전송");
-
-                    out.writeObject(protocol);
                     break;
 
                 case Protocol.PT_LOGIN_RESULT:
@@ -59,4 +57,6 @@ public class LoginClient {
         is.close();
         socket.close();
     }
+
+
 }

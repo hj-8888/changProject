@@ -14,17 +14,17 @@
             column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
     -->
     <resultMap id="JoinGroupResultMap" type="JoinGroup">
-        <result column="그룹가입인덱스" property="groupScheduleIndex"/>
+        <result column="회원_그룹인덱스" property="groupScheduleIndex"/>
         <result column="회원_회원인덱스" property="memberIndex"/>
         <result column="그룹_그룹인덱스" property="groupIndex"/>
     </resultMap>
 
     <select id="selectAll" resultMap="JoinGroupResultMap">
-        SELECT * FROM `그룹 가입`;
+        SELECT * FROM `회원_그룹`;
     </select>
 
     <select id="selectOne" resultMap="JoinGroupResultMap">
-        SELECT * FROM `그룹 가입`
+        SELECT * FROM `회원_그룹`
         WHERE `그룹_그룹인덱스` = #{groupIndex};
 
         <!--        1 = 1 수정-->
@@ -35,7 +35,7 @@
     </select>
 
     <insert id="insertOne" parameterType="JoinGroup">
-        INSERT INTO `그룹 가입`{
+        INSERT INTO `회원_그룹`{
         `회원_회원인덱스`,
         `그룹_그룹인덱스`)
         VALUES(
@@ -43,8 +43,8 @@
         #{groupIndex};
     </insert>
 
-    <delete id="deleteOne" parameterType="GroupSchedule">
-        DELETE FROM `그룹 가입`
+    <delete id="deleteOne" parameterType="JoinGroup">
+        DELETE FROM `회원_그룹`
         WHERE  `그룹_그룹인덱스` = #{groupIndex}
         AND `회원_회원인덱스` = #{memberIndex};
     </delete>
