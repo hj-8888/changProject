@@ -8,16 +8,8 @@ import persistence.dto.SportsFacilitiesDTO;
 import service.LocalInfoService;
 import service.MemberService;
 import persistence.dto.PackingDTO;
-import persistence.dto.SportsFacilitiesDTO;
-import service.LocalInfoService;
-import service.MemberService;
 import service.ProfileService;
 import service.SportsFacilitesService;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -186,18 +178,6 @@ public class Server extends Thread {
                             protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
                             out.writeObject(protocol);
 
-//                            ByteArrayInputStream input_stream = new ByteArrayInputStream((byte[])protocol.getObj());
-//                            BufferedImage final_buffered_image = ImageIO.read(input_stream);
-//                            ImageIO.write(final_buffered_image , "png", new File("./temp.png") );
-
-//                            InputStream dataStream = new BufferedInputStream(socket.getInputStream());
-//                            BufferedImage bimg = ImageIO.read(dataStream);
-//
-//                            System.out.println("회원가입정보 데이터 수신");
-//                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, bimg);
-//                            protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
-//                            out.writeObject(protocol);
-
                             break;
                         default:
                             System.out.println("없는 코드 수신");
@@ -210,7 +190,7 @@ public class Server extends Thread {
                         case Protocol.CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_REQ:
                             System.out.println("대분류 데이터 수신");
                             localInfoDTO = (LocalInfoDTO) protocol.getObj();
-                            // locatList 프로토콜에 저장
+
                             List<LocalInfoDTO> lList;
                             lList = localInfoService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
                             if (lList.size() > 0) {
@@ -229,7 +209,7 @@ public class Server extends Thread {
                             System.out.println("중분류 데이터 수신");
 
                             System.out.println(localInfoDTO.toString());
-                            // locatList 프로토콜에 저장
+
                             List<LocalInfoDTO> list;
                             list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
                             if (list.size() > 0) {
@@ -299,6 +279,7 @@ public class Server extends Thread {
                             break;
                     }
                     break;
+
                 // 인물 검색
                 case Protocol.PT_MEMBER_SEARCH:
                     switch (protocolCode) {
