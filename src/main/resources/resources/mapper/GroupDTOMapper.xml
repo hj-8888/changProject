@@ -22,6 +22,9 @@
         SELECT * FROM `그룹` WHERE `그룹인덱스` = #{groupIndex};
     </select>
 
+    <select id="selectOneByName" resultMap="GroupResultmap">
+        SELECT * FROM `그룹` WHERE `그룹명` = #{groupName};
+    </select>
 
     <insert id="insertOne" parameterType="Group">
         INSERT INTO `그룹`(

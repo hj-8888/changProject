@@ -30,6 +30,10 @@
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
+    <select id="selectOneById" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
+    </select>
+
     <select id="selectOneNick" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `닉네임` = #{nickname};
     </select>
