@@ -44,7 +44,7 @@ public class MemberDAO {
         return item;
     }
 
-    public List<MemberDTO> selectAllBySportIndexAndlLocalInfoIndex(MemberDTO memberDTO){
+    public List<MemberDTO> selectAllBySportIndexAndLocalInfoIndex(MemberDTO memberDTO){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
         try {
