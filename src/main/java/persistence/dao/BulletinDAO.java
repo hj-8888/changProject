@@ -45,6 +45,35 @@ public class BulletinDAO {
         return item;
     }
 
+    public List<BulletinDTO> selectAllByTitle(BulletinDTO bulletinDTO){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession() ;
+        List<BulletinDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.BulletinMapper.selectAllByTitle", bulletinDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public int selectOneByTitle(String title){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession() ;
+        BulletinDTO item = null;
+        try {
+            item = sqlSession.selectOne("mapper.BulletinMapper.selectOneByTitle", title);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item.getBulletinIndex();
+    }
     // 생성
     public void insertBulletin(BulletinDTO bulletinDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();

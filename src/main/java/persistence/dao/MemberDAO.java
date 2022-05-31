@@ -44,7 +44,7 @@ public class MemberDAO {
         return item;
     }
 
-    public List<MemberDTO> selectAllBySportIndexAndlLocalInfoIndex(MemberDTO memberDTO){
+    public List<MemberDTO> selectAllBySportIndexAndLocalInfoIndex(MemberDTO memberDTO){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
         try {
@@ -57,6 +57,35 @@ public class MemberDAO {
             sqlSession.close();
         }
         return list;
+    }
+
+    public int selectOneById(String id){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        MemberDTO item = null;
+        try {
+            item= sqlSession.selectOne("mapper.MemberMapper.selectOneById", id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item.getMemberIndex();
+    }
+    public String selectOneNickNameById(String id){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        MemberDTO item = null;
+        try {
+            item= sqlSession.selectOne("mapper.MemberMapper.selectOneById", id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item.getNickname();
     }
 
     public List<MemberDTO> selectOneId(String id){
