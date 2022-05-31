@@ -60,6 +60,21 @@ public class GroupDAO {
         return item.getGroupIndex();
     }
 
+    public List<GroupDTO> selectAllByName(String groupName){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<GroupDTO> list = null;
+        try{
+            list = sqlSession.selectOne("mapper.GroupMapper,selectOneByName", groupName);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     // 생성
     public void insertGroup(GroupDTO groupDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
