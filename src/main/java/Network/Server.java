@@ -49,6 +49,7 @@ public class Server extends Thread {
         InterestingSportsDTO interestingSportsDTO;
         PackingDTO packingDTO;
         GroupDTO groupDTO;
+        BulletinDTO bulletinDTO;
 
         // 서비스
         MemberService memberService = new MemberService();
@@ -57,6 +58,7 @@ public class Server extends Thread {
         SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
         ProfileService profileService = new ProfileService();
         GroupService groupService = new GroupService();
+        BulletinService bulletinService = new BulletinService();
 
         int result; // 검사 결과 메뉴
         while (true) {
@@ -333,7 +335,7 @@ public class Server extends Thread {
                             break;
                     }
                     break;
-                    // 그룹
+                // 그룹
                 case Protocol.PT_GROUP:
                     switch (protocolCode){
                         case Protocol.CD_GROUP_NAME_DUPLICATION_REQ:
@@ -355,6 +357,48 @@ public class Server extends Thread {
                             groupService.createGroup(packingDTO);
                             System.out.println("그룹 생성 완료");
                             protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_GROUP_CREATE_RES);
+                            break;
+                    }
+                    break;
+                // 그룹
+                case Protocol.PT_BULLETIN:
+                    switch (protocolCode){
+                        // 그룹 리스트 요청
+                        case Protocol.CD_GROUP_LIST_REQ:
+                            System.out.println("그룹 리스트 요청 수신");
+                            List<GroupDTO> gList = groupService.selectAll();
+
+                            protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_GROUP_LIST_RES);
+                            protocol.setObj(gList);
+                            System.out.println("그룹 리스트 전송");
+
+                            out.writeObject(protocol);
+                            break;
+                        // 게시판 리스트 전달
+                        case Protocol.CD_BULLETIN_LIST_REQ:
+                            groupDTO = (GroupDTO) protocol.getObj();
+                            System.out.println("그룹 인덱스 데이터 수신");
+                            List<BulletinDTO> bList = bulletinService.searchBulletin_groupIndex(groupDTO.getGroupIndex());
+                            if(bList != null){
+                                System.out.println("그룹 게시판 전송 완료");
+                                protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_BULLETIN_LIST_RES);
+                            }
+                            else{
+                                System.out.println("게시판 없음");
+                                protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_BULLETIN_FAIL);
+                            }
+                            out.writeObject(protocol);
+                            break;
+                        // 특정 게시글 요청
+                        case Protocol.CD_BULLETIN_REQ:
+                            bulletinDTO = (BulletinDTO) protocol.getObj();
+                            System.out.println(bulletinDTO.toString());
+                            System.out.println("게시글 인덱스 데이터 수신");
+                            bulletinDTO = bulletinService.searchBulletin_index(bulletinDTO.getBulletinIndex());
+                            protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_BULLETIN_RES);
+                            protocol.setObj(bulletinDTO);
+                            System.out.println("게시글 정보 전송");
+                            out.writeObject(protocol);
                             break;
                     }
                     break;

@@ -50,6 +50,11 @@ public class GroupService {
         System.out.println("그룹 index : " + groupDTO.getGroupIndex() + " 그룹장" + groupDTO.getGroupLeader());
     }
 
+    public List<GroupDTO> selectAll(){
+        List<GroupDTO> list = groupDAO.selectAllGroup();
+        return list;
+    }
+
     public void joinGroup(MemberDTO memberDTO, GroupDTO groupDTO, JoinGroupDTO joinGroupDTO){
         int primary_member = memberDAO.selectOneById(memberDTO.getMemberID());
         int primary_group = groupDAO.selectOneByName(groupDTO.getGroupName());
