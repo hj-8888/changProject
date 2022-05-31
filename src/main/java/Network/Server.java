@@ -400,6 +400,15 @@ public class Server extends Thread {
                             System.out.println("게시글 정보 전송");
                             out.writeObject(protocol);
                             break;
+                        // 게시글 생성 요청
+                        case Protocol.CD_BULLETIN_CREATE_REQ:
+                            packingDTO = (PackingDTO) protocol.getObj();
+                            System.out.println("게시글 생성 데이터 수신");
+//                          bulletinService.createBulletin(packingDTO);
+                            protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_BULLETIN_CREATE_RES);
+                            System.out.println("게시글 정보 전송");
+                            out.writeObject(protocol);
+                            break;
                     }
                     break;
                 default:

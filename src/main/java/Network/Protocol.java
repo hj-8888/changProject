@@ -97,11 +97,13 @@ public class Protocol implements Serializable {
     public static final int CD_GROUP_LIST_REQ = 700; // 그룹 리스트 요청
     public static final int CD_BULLETIN_LIST_REQ = 701; // 그룹 게시글 리스트 요청
     public static final int CD_BULLETIN_REQ = 702; // 특정 게시글 요청
+    public static final int CD_BULLETIN_CREATE_REQ = 703; // 게시글 생성 요청
 
     // 응답
-    public static final int CD_GROUP_LIST_RES = 703; // 그룹 리스트 응답
-    public static final int CD_BULLETIN_LIST_RES = 704; // 그룹 게시글 리스트 응답
-    public static final int CD_BULLETIN_RES = 705; // 특정 게시글 응답
+    public static final int CD_GROUP_LIST_RES = 704; // 그룹 리스트 응답
+    public static final int CD_BULLETIN_LIST_RES = 705; // 그룹 게시글 리스트 응답
+    public static final int CD_BULLETIN_RES = 706; // 특정 게시글 응답
+    public static final int CD_BULLETIN_CREATE_RES = 707; // 게시글 생성 응답
     public static final int CD_BULLETIN_FAIL = 799; // 그룹 생성 응답
 
     protected int protocolType;

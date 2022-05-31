@@ -6,6 +6,7 @@ import persistence.dao.MemberDAO;
 import persistence.dto.BulletinDTO;
 import persistence.dto.CreatingBulletinDTO;
 import persistence.dto.MemberDTO;
+import persistence.dto.PackingDTO;
 
 import java.util.List;
 
@@ -15,15 +16,17 @@ public class BulletinService {
     private MemberDAO memberDAO;
 
     private BulletinDTO bulletinDTO;
+    private CreatingBulletinDTO creatingBulletinDTO;
     public BulletinService(){
         this.bulletinDAO  = new BulletinDAO();
         this.creatingBulletinDAO = new CreatingBulletinDAO();
         this.memberDAO = new MemberDAO();
     }
 
-    public void createBulletin(BulletinDTO bulletinDTO, CreatingBulletinDTO creatingBulletinDTO, MemberDTO memberDTO){
-        int primary_member = memberDAO.selectOneById(memberDTO.getMemberID());
-        int primary_bulletin = bulletinDAO.selectOneByTitle(bulletinDTO.getBulletinTitle());
+    // 회원 아이디와, 게시글 내용으로 게시글 생성
+    public void createBulletin(PackingDTO packingDTO){
+        int primary_member = memberDAO.selectOneById(packingDTO.getMemberDTO().getMemberID());
+        int primary_bulletin = bulletinDAO.selectOneByTitle(packingDTO.getBulletinDTO().getBulletinTitle());
 
         bulletinDAO.insertBulletin(bulletinDTO);
         creatingBulletinDTO.setBulletinIndex(primary_bulletin);
