@@ -13,6 +13,8 @@ public class Car implements Serializable {
         ByteArrayOutputStream baos = null;
         FileInputStream fis = null;
 
+        int car_sex;
+
         try
         {
             baos = new ByteArrayOutputStream();
