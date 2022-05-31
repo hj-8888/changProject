@@ -9,6 +9,8 @@ import persistence.dto.JoinGroupDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
 
+import java.util.List;
+
 public class GroupService {
     private MemberDAO memberDAO;
     private GroupDAO groupDAO;
@@ -20,6 +22,19 @@ public class GroupService {
         this.groupDAO = new GroupDAO();
         this.joinGroupDAO = new JoinGroupDAO();
         this.localInfoDAO = new LocalInfoDAO();
+    }
+
+    public int isDuplication_id(String name){
+        System.out.println("그룹 명 : "+ name);
+        List<GroupDTO> list = groupDAO.selectAllByName(name);
+        if(list.size() > 0){
+            System.out.println("중복 아이디 존재");
+            return 0;
+        }
+        else {
+            System.out.println("중복 아이디 없음");
+            return 1;
+        }
     }
 
     public void createGroup(MemberDTO memberDTO, GroupDTO groupDTO, JoinGroupDTO joinGroupDTO, LocalInfoDTO localInfoDTO){

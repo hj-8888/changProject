@@ -111,6 +111,28 @@ public class MemberService {
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
+<<<<<<< Updated upstream
+=======
+    private int getLocalInfoIndex(LocalInfoDTO localInfoDTO){
+        return localInfoDAO.selectID(localInfoDTO);
+    }
+
+    // 관심 종목 인덱스리턴
+    private int getSportIndex(InterestingSportsDTO interestingSportsDTO){
+        return interestingSportsDAO.selectOneIndex(interestingSportsDTO).getSportIndex();
+    }
+
+    // 인물 검색
+    // 종목 인덱스, 지역 인덱스를 포함한 회원 리스트 리턴
+    public List<MemberDTO> searchMember(PackingDTO packingDTO){
+        int sportIndex = getLocalInfoIndex(packingDTO.getLocalInfoDTO());
+        int localIndex = getSportIndex(packingDTO.getInterestingSportsDTO());
+        memberDTO.setSportsIndex(sportIndex);
+        memberDTO.setLocalInfoIndex(localIndex);
+        List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
+        return null;
+    }
+>>>>>>> Stashed changes
     private void storeImg(ImageIO imgIO) {
 
     }
