@@ -30,11 +30,15 @@
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
+    <select id="selectOneById" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
+    </select>
+
     <select id="selectOneNick" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `닉네임` = #{nickname};
     </select>
 
-    <select id="selectAllBySportIndexAndlLocalInfoIndex" resultMap="MemberResultmap">
+    <select id="selectAllBySportIndexAndLocalInfoIndex" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `관심종목_종목인덱스` = #{sportsIndex} AND `지역정보_지역정보인덱스` = #{localInfoIndex};
     </select>
 

@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 package service;
 
 import persistence.dao.GroupDAO;
@@ -64,5 +63,3 @@ public class GroupService {
         System.out.println("그룹 가입 index : " + joinGroupDTO.getJoinGroupIndex());
     }
 }
-=======
->>>>>>> Stashed changes

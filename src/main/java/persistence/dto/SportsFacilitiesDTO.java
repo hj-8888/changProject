@@ -2,11 +2,13 @@ package persistence.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 
-public class SportsFacilitiesDTO {
+public class SportsFacilitiesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private int sportsFacilitiesIndex;
     private String sportsFacilitiesName;

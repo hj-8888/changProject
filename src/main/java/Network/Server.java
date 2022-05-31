@@ -213,11 +213,11 @@ public class Server extends Thread {
                             List<LocalInfoDTO> list;
                             list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
                             if (list.size() > 0) {
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES);
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES);
                                 protocol.setObj(list);
                                 System.out.println("소분류 리스트 전송");
                             } else {
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SPORTSFACILITIE_SEARCH_FAIL);
+                                protocol = new Protocol(Protocol.PT_SPORTSFACILITIE_SEARCH, Protocol.CD_SPORTSFACILITIE_SEARCH_FAIL);
                                 System.out.println("소분류 존재안함");
                             }
                             out.writeObject(protocol);

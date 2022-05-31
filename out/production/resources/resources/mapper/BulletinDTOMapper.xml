@@ -6,9 +6,8 @@
 
     <resultMap id="BulletinResultmap" type="Bulletin">
         <result column="게시글인덱스" property="bulletinIndex"/>
-        <result column="게시글 제목" property="bulletinTitle"/>
-        <result column="게시글 내용" property="bulletinContent"/>
-        <result column="게시글 비밀번호" property="bulletinPW"/>
+        <result column="게시글제목" property="bulletinTitle"/>
+        <result column="게시글내용" property="bulletinContent"/>
         <result column="작성날짜" property="uploadDate"/>
         <result column="회원_회원인덱스" property="memberIndex"/>
         <result column="그룹_그룹인덱스" property="groupIndex"/>
@@ -23,10 +22,18 @@
         SELECT * FROM `게시글` WHERE `게시글인덱스` = #{bulletinIndex};
     </select>
 
+    <select id="selectAllByTitle" resultMap="BulletinResultmap">
+        SELECT * FROM `게시글` WHERE `게시글제목` LIKE #{%bulletinIndex%};
+    </select>
+
+    <select id="selectOneByTitle" resultMap="BulletinResultmap">
+        SELECT * FROM `게시글` WHERE `게시글제목` = #{bulletinIndex};
+    </select>
+
     <insert id="insertOne" parameterType="Bulletin">
         INSERT INTO `게시글`(
-            `게시글 제목`,
-            `게시글 내용`,
+            `게시글제목`,
+            `게시글내용`,
             `작성날짜`,
             `회원_회원인덱스`
         )
@@ -40,8 +47,8 @@
 
     <update id="updateOne" parameterType="Bulletin">
         UPDATE `게시글` SET
-        '게시글 제목' = #{bulletinTitle},
-        '게시글 내용' = #{bulletinContent},
+        '게시글제목' = #{bulletinTitle},
+        '게시글내용' = #{bulletinContent},
         '작성날짜' = #{uploadDate},
         '회원_회원인덱스' = #{memberIndex})
         WHERE
