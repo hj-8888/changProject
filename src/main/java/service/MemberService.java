@@ -8,10 +8,7 @@ import persistence.dto.PackingDTO;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -79,19 +76,22 @@ public class MemberService {
         }
     }
 
-    public void signup(MemberDTO memberDTO, LocalInfoDTO localInfoDTO, InterestingSportsDTO interestingSportsDTO, BufferedImage img){
+    public void signup(MemberDTO memberDTO, LocalInfoDTO localInfoDTO, InterestingSportsDTO interestingSportsDTO, ByteArrayInputStream byteStream){
         int primary_LocalInfo = localInfoDAO.selectID(localInfoDTO);
         int primary_InterestingSport = interestingSportsDAO.selectOneBySportName(interestingSportsDTO.getSportName()).getSportIndex();
         String imgName = memberDTO.getMemberID();
 
         OutputStream out = null; //파일로 출력하기위해 파일출력스트림 생성
         String path = "./image/";
-        String localPath = "path" + imgName + ".png";
+        String localPath = path + imgName + ".png";
 
         try {
             out = new FileOutputStream(localPath);
-            ImageIO.write(img, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
-
+            BufferedImage final_buffered_image = ImageIO.read(byteStream);
+            //ImageIO.write(final_buffered_image, "png", new File(path + imgName + ".png"));
+            ImageIO.write(final_buffered_image, "png", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
+//            out = new FileOutputStream(localPath);
+//            ImageIO.write(bimg, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -113,6 +113,11 @@ public class MemberService {
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
+    private void storeImg(ImageIO imgIO) {
+
+    }
+
+
     private int getLocalInfoIndex(LocalInfoDTO localInfoDTO){
         return localInfoDAO.selectID(localInfoDTO);
     }
@@ -131,10 +136,6 @@ public class MemberService {
         memberDTO.setLocalInfoIndex(localIndex);
         List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
         return null;
-    }
-
-    private void storeImg(ImageIO imgIO) {
-
     }
 
 }
