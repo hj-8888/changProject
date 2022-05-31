@@ -97,12 +97,12 @@ public class Server extends Thread {
                             result = memberService.isDuplication_id(memberDTO.getMemberID());
                             if(result == 0)
                             {
-                                System.out.println("아이디 중복 성공 결과 전송");
+                                System.out.println("아이디 중복 없음.. 성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
                             }
                             else
                             {
-                                System.out.println("아이디 중복 실패 결과 전송");
+                                System.out.println("아이디 중복.. 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
@@ -151,12 +151,12 @@ public class Server extends Thread {
                             result = memberService.isDuplication_nick(memberDTO.getNickname());
                             if(result == 0)
                             {
-                                System.out.println("닉네임 중복 성공 결과 전송");
+                                System.out.println("닉네임 중복 없음..성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
                             }
                             else
                             {
-                                System.out.println("닉네임 중복 실패 결과 전송");
+                                System.out.println("닉네임 중복.. 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
@@ -257,12 +257,12 @@ public class Server extends Thread {
                             result = memberService.isDuplication_nick(memberDTO.getNickname());
                             if(result == 0)
                             {
-                                System.out.println("닉네임 중복 성공 결과 전송");
+                                System.out.println("닉네임 중복 없음.. 성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_NOT_DUPLICATION_RES);
                             }
                             else
                             {
-                                System.out.println("닉네임 중복 실패 결과 전송");
+                                System.out.println("닉네임 중복.. 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);

@@ -48,7 +48,7 @@ public class MemberService {
             return 0;
         }
         else {
-            System.out.println("중복 아이디 없음");
+            System.out.println("중복 없는 아이디");
             return 1;
         }
     }
@@ -58,11 +58,11 @@ public class MemberService {
         System.out.println("닉네임 : "+ nick);
         List<MemberDTO> list = memberDAO.selectOneNick(nick);
         if(list.size() > 0){
-            System.out.println("닉네임 존재");
+            System.out.println("중복 닉네임 존재");
             return 0;
         }
         else {
-            System.out.println("중복 닉네임 없음");
+            System.out.println("중복 없는 닉네임");
             return 1;
         }
     }
