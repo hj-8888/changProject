@@ -1,5 +1,7 @@
 package test;
 
+import javax.swing.*;
+import java.awt.*;
 import java.net.*;
 import java.io.*;
 public class LoginClient {
@@ -39,10 +41,12 @@ public class LoginClient {
 
                     protocol = new Protocol(Protocol.PT_RES_LOGIN);
 
-                    Car car = new Car("바퀴", 50);
-                    Facking facking = new Facking(car, user);
-                    protocol.setObj(facking);
-                    System.out.println("팩킹 정보 전송");
+                    ImageIcon icon = new ImageIcon(
+                            TestFrame.class.getResource("C:\Users\xcxc4\Desktop")
+                    );
+
+                    // ImageIcon 객체에서 Image 추출
+                    Image img = icon.getImage();
 
                     out.writeObject(protocol);
                     break;

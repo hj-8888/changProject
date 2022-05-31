@@ -27,14 +27,6 @@ public class Server extends Thread {
         networkLog = new NetworkLog();
     }
 
-    public void send() {
-
-    }
-
-    public void receive(Protocol protocol, ObjectInputStream in) {
-
-    }
-
     @SneakyThrows
     public void start(ExecutorService service) throws IOException {
         System.out.println("클라이언트 접속 ( " + socket.getInetAddress() + ")");
@@ -43,7 +35,6 @@ public class Server extends Thread {
         InputStream is = socket.getInputStream();
         ObjectOutputStream out = new ObjectOutputStream(os);
         ObjectInputStream in = new ObjectInputStream(is);
-
 
         Protocol protocol = null;
         int protocolType;
@@ -59,11 +50,9 @@ public class Server extends Thread {
         // 서비스
         MemberService memberService = new MemberService();
         LocalInfoService localInfoService = new LocalInfoService();
-        SportsFacilitesService sportsFacilitiesService = new SportsFacilitesService();
-
         SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
         ProfileService profileService = new ProfileService();
-        //List
+
         int result; // 검사 결과 메뉴
         while (true) {
             System.out.println(networkLog.streamWaitLog());
@@ -76,6 +65,7 @@ public class Server extends Thread {
                 break;
             }
             switch (protocolType) {
+                // 로그인
                 case Protocol.PT_LOGIN:
                     switch (protocolCode) {
                         case Protocol.CD_LOGIN_REQ:
@@ -97,8 +87,8 @@ public class Server extends Thread {
                             System.out.println("없는 코드 수신");
                             break;
                     }
+                    // 회원 가입
                 case Protocol.PT_SIGNUP:
-                    // 회원 정보 수신
                     switch (protocolCode) {
                         case Protocol.CD_SIGNUP_ID_DUPLICATION_REQ:
                             memberDTO = (MemberDTO) protocol.getObj();
@@ -165,8 +155,6 @@ public class Server extends Thread {
                             out.writeObject(protocol);
                             break;
                         case Protocol.CD_SIGNUP_REQ:
-                            System.out.println("test");
-
                             Object[] arrDTO = (Object[]) protocol.getObj();
                             interestingSportsDTO = (InterestingSportsDTO) arrDTO[0];
                             localInfoDTO = (LocalInfoDTO) arrDTO[1];
@@ -185,6 +173,7 @@ public class Server extends Thread {
                     }
                     break;
 
+                    // 체육 시설 검색
                 case Protocol.PT_SPORTSFACILITIE_SEARCH:
                     switch (protocolCode) {
                         case Protocol.CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_REQ:
@@ -239,9 +228,11 @@ public class Server extends Thread {
                             }
                             out.writeObject(protocol);
                             break;
+
                     }
                     break;
 
+                    // 프로필
                 case Protocol.PT_PROFILE:
                     switch (protocolCode) {
                         case Protocol.CD_PT_PROFILE_REQ:
@@ -271,6 +262,64 @@ public class Server extends Thread {
                             } else {
                                 System.out.println("닉네임 중복.. 실패 결과 전송");
                                 protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_DUPLICATION_RES);
+                            }
+                            out.writeObject(protocol);
+                            break;
+                    }
+                    break;
+
+                    // 인물 검색
+                case Protocol.PT_MEMBER_SEARCH:
+                    switch (protocolCode) {
+                        case Protocol.CD_MEMBER_SEARCH_MIDDLE_LOCATION_REQ:
+                            System.out.println("대분류 데이터 수신");
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> lList;
+                            lList = localInfoService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
+                            if (lList.size() > 0) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_MIDDLE_LOCATION_RES);
+                                protocol.setObj(lList);
+                                System.out.println("중분류 리스트 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("대분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_MEMBER_SEARCH_SMALL_LOCATION_REQ:
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            System.out.println("중분류 데이터 수신");
+
+                            System.out.println(localInfoDTO.toString());
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> list;
+                            list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
+                            if (list.size() > 0) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_SMALL_LOCATION_RES);
+                                protocol.setObj(list);
+                                System.out.println("소분류 리스트 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("소분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_MEMBER_SEARCH_REQ:
+                            packingDTO = (PackingDTO) protocol.getObj();
+                            System.out.println("인물 검색 데이터 수신/ InterestingSportsDTO, Local");
+                            List<MemberDTO> mlist;
+                            mlist = memberService.searchSportsFacilites(packingDTO);
+
+                            if (mlist != null) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_RES);
+                                protocol.setObj(mlist);
+                                System.out.println("인물 검색 결과 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("인물 검색 실패");
                             }
                             out.writeObject(protocol);
                             break;

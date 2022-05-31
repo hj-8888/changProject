@@ -4,6 +4,7 @@ import persistence.dao.*;
 import persistence.dto.InterestingSportsDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
+import persistence.dto.PackingDTO;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +22,7 @@ public class MemberService {
     private InterestingSportsDAO interestingSportsDAO;
     private LoginDAO loginDAO;
 
-
+    private MemberDTO memberDTO;
     public MemberService() {
         this.memberDAO = new MemberDAO();
         this.localInfoDAO = new LocalInfoDAO();
@@ -111,6 +113,25 @@ public class MemberService {
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
+    private int getLocalInfoIndex(LocalInfoDTO localInfoDTO){
+        return localInfoDAO.selectID(localInfoDTO);
+    }
+
+    // 관심 종목 인덱스리턴
+    private int getSportIndex(InterestingSportsDTO interestingSportsDTO){
+        return interestingSportsDAO.selectOneIndex(interestingSportsDTO).getSportIndex();
+    }
+
+    // 인물 검색
+    // 종목 인덱스, 지역 인덱스를 포함한 회원 리스트 리턴
+    public List<MemberDTO> searchMember(PackingDTO packingDTO){
+        int sportIndex = getLocalInfoIndex(packingDTO.getLocalInfoDTO());
+        int localIndex = getSportIndex(packingDTO.getInterestingSportsDTO());
+        memberDTO.setSportsIndex(sportIndex);
+        memberDTO.setLocalInfoIndex(localIndex);
+        List<MemberDTO> list ;
+        return null;
+    }
     private void storeImg(ImageIO imgIO) {
 
     }
