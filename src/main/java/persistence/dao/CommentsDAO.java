@@ -13,7 +13,7 @@ public class CommentsDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public List<CommentsDTO> selectAllCormments() {
+    public List<CommentsDTO> selectAllComments() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<CommentsDTO> list = null;
         try {
@@ -29,7 +29,7 @@ public class CommentsDAO {
     }
 
     // 인자 조회
-    public CommentsDTO selectOneCormments(int index) {
+    public CommentsDTO selectOneCommentsByIndex(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         CommentsDTO item = null;
         try {
@@ -45,7 +45,7 @@ public class CommentsDAO {
     }
 
     // 생성
-    public void insertCormments(CommentsDTO commentsDTO) {
+    public void insertComments(CommentsDTO commentsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.insert("mapper.commentsMapper.insertOne", commentsDTO);
@@ -59,7 +59,7 @@ public class CommentsDAO {
     }
 
     // 수정
-    public void updateCormments(CommentsDTO commentsDTO) {
+    public void updateComments(CommentsDTO commentsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.update("mapper.commentsMapper.updateOne", commentsDTO);
@@ -74,7 +74,7 @@ public class CommentsDAO {
 
     // 삭제
 
-    public void deleteCormments(int index) {
+    public void deleteComments(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {
             sqlSession.delete("mapper.commentsMapper.deleteOne", index);

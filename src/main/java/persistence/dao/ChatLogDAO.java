@@ -46,6 +46,22 @@ public class ChatLogDAO {
         return item;
     }
 
+    //채팅방인덱스에 해당하는 채팅로그
+    public List<ChatLogDTO> selectChatRoomChatLogByChatRoomIndex(int chatroomIndex){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<ChatLogDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.ChatLogMapper.selectChatRoomChatLogByChatRoomIndex");
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     // 생성
     public void insertChatLog(ChatLogDTO chatLogDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();

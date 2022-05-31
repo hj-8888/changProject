@@ -29,7 +29,7 @@ public class CreatingBulletinDAO {
     }
 
     // 인자 조회
-    public CreatingBulletinDTO selectOneCreatingBulletin(int index) {
+    public CreatingBulletinDTO selectOneCreatingBulletinByIndex(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         CreatingBulletinDTO item = null;
         try {

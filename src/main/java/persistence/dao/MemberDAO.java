@@ -3,7 +3,6 @@ package persistence.dao;
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.MemberDTO;
-import persistence.dto.MemberDTO;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class MemberDAO {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         MemberDTO list = null;
         try {
-            list = sqlSession.selectOne("mapper.MemberMapper.selectAll", id);
+            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +41,7 @@ public class MemberDAO {
         } finally {
             sqlSession.close();
         }
-        return list;
+        return item;
     }
 
     public List<MemberDTO> selectOneId(String id){

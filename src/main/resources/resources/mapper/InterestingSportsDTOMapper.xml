@@ -26,7 +26,16 @@
         SELECT * FROM `관심종목` WHERE `종목명` = #{sportName};
     </select>
 
-    <insert id="insertOne" parameterType="LocalInfo">
+
+    <select id="selectIndex" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명`=#{sportIndex};
+    </select>
+
+    <select id="selectOneBySportName" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명` = #{sportName};
+    </select>
+
+    <insert id="insertOne" parameterType="InterestingSports">
         INSERT INTO `관심종목`(
         `종목명`
         )
@@ -34,14 +43,14 @@
         #{sportName});
     </insert>
 
-    <update id="updateOne" parameterType="LocalInfo">
+    <update id="updateOne" parameterType="InterestingSports">
         UPDATE `관심종목` SET
         `종목명` = #{sportName},
         WHERE
         `종목인덱스` = #{sportIndex};
     </update>
 
-    <delete id="deleteOne" parameterType="LocalInfo">
+    <delete id="deleteOne" parameterType="InterestingSports">
         DELETE FROM `관심종목` WHERE `종목인덱스` = #{sportIndex};
     </delete>
 
