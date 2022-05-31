@@ -16,11 +16,8 @@ public class Protocol implements Serializable {
     public static final int PT_PROFILE = 4;   // 프로필
 
     public static final int PT_MEMBER_SEARCH = 5;   // 인물 검색
-<<<<<<< Updated upstream
-    public static final int PT_BULLETIN = 6;   // 게시판
-=======
     public static final int PT_GROUP = 6;   // 인물 검색
->>>>>>> Stashed changes
+    public static final int PT_BULLETIN = 7;   // 게시판
 
 
     // code
@@ -86,11 +83,14 @@ public class Protocol implements Serializable {
 
     // 그룹 코드 GROUP
     // 요청
-    public static final int CD_GROUP_ID_DUPLICATION_RES = 205; // 아이디 중복 검사 응답
-    public static final int CD_GROUP_ID_NOT_DUPLICATION_RES = 206; // 아이디 중복 검사 응답 (중복아님)
-    public static final int CD_MEMBER_SEARCH_SMALL_LOCATION_RES = 504; // 소분류 응답
-    // 응답
+    public static final int CD_GROUP_NAME_DUPLICATION_REQ = 600; // 그룹 이름 중복 검사 요청
+    public static final int CD_GROUP_CREATE_REQ = 602; // 그룹 생성 요청
 
+    // 응답
+    public static final int CD_GROUP_NAME_DUPLICATION_RES = 605; // 그룹 이름 검사 응답
+    public static final int CD_GROUP_NAME_NOT_DUPLICATION_RES = 601; // 그룹 이름 중복 검사 응답 (중복아님)
+    public static final int CD_GROUP_CREATE_RES = 602; // 그룹 생성 응답
+    public static final int CD_GROUP_FAIL = 699; // 그룹 생성 응답
 
     // 게시판 코드 BULLETIN
     // 요청

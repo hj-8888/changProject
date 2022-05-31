@@ -1,15 +1,10 @@
 package Network;
 
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.SneakyThrows;
-import persistence.dto.InterestingSportsDTO;
-import persistence.dto.LocalInfoDTO;
-import persistence.dto.MemberDTO;
-import persistence.dto.SportsFacilitiesDTO;
-import service.LocalInfoService;
-import service.MemberService;
-import persistence.dto.PackingDTO;
-import service.ProfileService;
-import service.SportsFacilitesService;
+import persistence.dto.*;
+import service.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -53,6 +48,7 @@ public class Server extends Thread {
         SportsFacilitiesDTO sportsFacilitiesDTO;
         InterestingSportsDTO interestingSportsDTO;
         PackingDTO packingDTO;
+        GroupDTO groupDTO;
 
         // 서비스
         MemberService memberService = new MemberService();
@@ -60,7 +56,8 @@ public class Server extends Thread {
         SportsFacilitesService sportsFacilitiesService = new SportsFacilitesService();
         SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
         ProfileService profileService = new ProfileService();
-        //List
+        GroupService groupService = new GroupService();
+
         int result; // 검사 결과 메뉴
         while (true) {
             System.out.println(networkLog.streamWaitLog());
@@ -333,6 +330,31 @@ public class Server extends Thread {
                                 System.out.println("인물 검색 실패");
                             }
                             out.writeObject(protocol);
+                            break;
+                    }
+                    break;
+                    // 그룹
+                case Protocol.PT_GROUP:
+                    switch (protocolCode){
+                        case Protocol.CD_GROUP_NAME_DUPLICATION_REQ:
+                            groupDTO = (GroupDTO) protocol.getObj();
+                            System.out.println("그룹 이름 데이터 수신");
+                            result = groupService.isDuplication_id(groupDTO.getGroupName());
+                            if (result == 0) {
+                                System.out.println("닉네임 중복 성공 결과 전송");
+                                protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_GROUP_NAME_DUPLICATION_RES);
+                            } else {
+                                System.out.println("닉네임 중복 실패 결과 전송");
+                                protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_GROUP_NAME_NOT_DUPLICATION_RES);
+                            }
+                            out.writeObject(protocol);
+                            break;
+                        case Protocol.CD_GROUP_CREATE_REQ:
+                            packingDTO = (PackingDTO) protocol.getObj();
+                            System.out.println("그룹 생성 데이터 수신");
+                            groupService.createGroup(packingDTO);
+                            System.out.println("그룹 생성 완료");
+                            protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_GROUP_CREATE_RES);
                             break;
                     }
                     break;
