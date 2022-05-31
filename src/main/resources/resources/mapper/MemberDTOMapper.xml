@@ -29,7 +29,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="MemberResultmap">
-        SELECT * FROM `회원`;
+        SELECT * FROM `회원` WHERE `id` = #{nickname};
     </select>
 
     <select id="selectOne" resultMap="MemberResultmap">
@@ -52,7 +52,7 @@
         `나이`,
         `성별`,
         `직업`,
-        `프로필 사진`,
+        `프로필사진`,
         `닉네임`,
         `관심종목_종목인덱스`,
         `지역정보_지역정보인덱스`)
@@ -71,7 +71,6 @@
 
     <update id="updateOne" parameterType="Member">
         UPDATE 회원 SET
-        `id` = #{memberID},
         `pw` = #{memberPW},
         `이름` = #{memberName},
         `나이` = #{age},
@@ -82,7 +81,7 @@
         `관심종목_종목인덱스` = #{sportsIndex},
         `지역정보_지역정보인덱스` = #{localInfoIndex}
         WHERE
-        `회원인덱스` = #{memberIndex};
+        `id` = #{memberID};
     </update>
 
     <delete id="deleteOne" parameterType="Member">

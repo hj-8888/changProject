@@ -10,6 +10,7 @@ public class Protocol implements Serializable {
     public static final int PT_LOGIN = 1;   // 로그인
     public static final int PT_SIGNUP = 2;   // 회원가입
     public static final int PT_SPORTSFACILITIE_SEARCH = 3;   // 체육시설 검색
+    public static final int PT_PROFILE = 4;   // 프로필
 
 
     // code
@@ -48,6 +49,24 @@ public class Protocol implements Serializable {
     public static final int CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES = 304; // 소분류 응답
     public static final int CD_SPORTSFACILITIE_SEARCH_RES = 305; // 스포츠센터 결과 응답
     public static final int CD_SPORTSFACILITIE_SEARCH_FAIL = 399; // 스포츠센터 실패 응답
+
+    // 프로필 코드
+
+
+    //응답
+    public static final int CD_PT_PROFILE_REQ = 400; // 프로필 정보 요청
+    public static final int CD_PT_PROFILE_UPDATE_REQ = 401; // 수정 요청
+    public static final int CD_PROFILE_NICK_DUPLICATION_REQ = 402; // 수정 요청
+
+
+    // 요청
+    public static final int CD_PROFILE_RES = 403; // 프로필 정보 응답
+    public static final int CD_PROFILE_UPDATE_RES = 404; // 수정 응답
+    public static final int CD_PROFILE_NICK_NOT_DUPLICATION_RES = 405; // 닉네임 중복 없음 응답
+    public static final int CD_PROFILE_NICK_DUPLICATION_RES = 406; // 닉네임 중복 있음 응답
+    public static final int CD_PROFILE_FAIL = 499; // 프로필 실패 응답
+
+
     protected int protocolType;
     protected int protocolCode;
 

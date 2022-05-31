@@ -27,6 +27,10 @@
         SELECT DISTINCT `지역소분류` FROM `지역정보` WHERE `지역대분류` = #{largeCategoryLocal} AND `지역중분류` = #{middleCategoryLocal};
     </select>
 
+    <select id="selectOne" resultMap="LocalInfoResultmap">
+        SELECT * FROM `지역정보` WHERE `지역정보인덱스` = #{localInfoIndex};
+    </select>
+
     <insert id="insertOne" parameterType="LocalInfo">
         INSERT INTO `지역정보`(
         `지역대분류`,

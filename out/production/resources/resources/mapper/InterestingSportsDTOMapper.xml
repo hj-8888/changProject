@@ -14,7 +14,12 @@
     </select>
 
     <select id="selectOne" resultMap="InterestingSportsResultmap">
-        SELECT * FROM `관심종목`;
+        SELECT * FROM `관심종목` WHERE `종목인덱스`=#{sportIndex};
+    </select>
+
+
+    <select id="selectIndex" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명`=#{sportName};
     </select>
 
     <insert id="insertOne" parameterType="LocalInfo">

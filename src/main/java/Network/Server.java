@@ -3,9 +3,11 @@ package Network;
 import lombok.SneakyThrows;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
+import persistence.dto.PackingDTO;
 import persistence.dto.SportsFacilitiesDTO;
 import service.LocalInfoService;
 import service.MemberService;
+import service.ProfileService;
 import service.SportsFacilitesService;
 
 import java.io.*;
@@ -39,12 +41,13 @@ public class Server extends Thread {
         MemberDTO memberDTO;
         LocalInfoDTO localInfoDTO;
         SportsFacilitiesDTO sportsFacilitiesDTO;
+        PackingDTO packingDTO;
 
         // 서비스
         MemberService memberService = new MemberService();
         LocalInfoService localInfoService = new LocalInfoService();
         SportsFacilitesService sportsFaciliitesService = new SportsFacilitesService();
-
+        ProfileService profileService = new ProfileService();
         //List
         int result; // 검사 결과 메뉴
         while(true)
@@ -229,13 +232,49 @@ public class Server extends Thread {
                             break;
                     }
                     break;
+                case Protocol.PT_PROFILE:
+                    switch (protocolCode){
+                        case Protocol.CD_PT_PROFILE_REQ:
+                            memberDTO = (MemberDTO) protocol.getObj();
+                            System.out.println("회원 아이디 수신");
+
+                            packingDTO = profileService.getProfile(memberDTO);
+                            protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_RES);
+                            protocol.setObj(packingDTO);
+                            System.out.println("회원 데이터 전송");
+                            out.writeObject(protocol);
+                            break;
+                        case Protocol.CD_PT_PROFILE_UPDATE_REQ:
+                            packingDTO = (PackingDTO)protocol.getObj();
+                            System.out.println("회원 프로필 수정 데이터 수신");
+                            profileService.updateProfile(packingDTO);
+                            System.out.println("회원 수정 완료");
+                            protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_UPDATE_RES);
+                            break;
+                        case Protocol.CD_PROFILE_NICK_DUPLICATION_REQ:
+                            memberDTO = (MemberDTO) protocol.getObj();
+                            System.out.println("닉네임 데이터 수신");
+                            result = memberService.isDuplication_nick(memberDTO.getNickname());
+                            if(result == 0)
+                            {
+                                System.out.println("닉네임 중복 성공 결과 전송");
+                                protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_NOT_DUPLICATION_RES);
+                            }
+                            else
+                            {
+                                System.out.println("닉네임 중복 실패 결과 전송");
+                                protocol = new Protocol(Protocol.PT_PROFILE, Protocol.CD_PROFILE_NICK_DUPLICATION_RES);
+                            }
+                            out.writeObject(protocol);
+                            break;
+                    }
+                    break;
                 default:
                     System.out.println("없는 타입 수신 (타입): " + protocol.getProtocolType());
                     System.out.println("없는 타입 수신 (코드): " + protocol.getProtocolCode());
                     break;
             }
         }
-
     is.close();
     os.close();
     socket.close();

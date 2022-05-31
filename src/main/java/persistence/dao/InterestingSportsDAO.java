@@ -29,11 +29,26 @@ public class InterestingSportsDAO {
         return list;
     }
 
-    public InterestingSportsDTO selectOneInterestingSports(int index) {
+    public InterestingSportsDTO selectOneInterestingSports(int sportIndex) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         InterestingSportsDTO item = null;
         try {
-            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectOne", index);
+            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectOne", sportIndex);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item;
+    }
+
+    public InterestingSportsDTO selectOneIndex(InterestingSportsDTO interestingSportsDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        InterestingSportsDTO item = null;
+        try {
+            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectIndex", interestingSportsDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
