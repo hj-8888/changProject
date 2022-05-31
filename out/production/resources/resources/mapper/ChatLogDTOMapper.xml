@@ -20,6 +20,10 @@
         SELECT * FROM `채팅로그` WHERE `로그인덱스` = #{logIndex};
     </select>
 
+    <select id="selectChatRoomChatLogByChatRoomIndex" resultMap="ChatLogResultmap">
+        SELECT * FROM `채팅로그` WHERE `채팅방_채팅방인덱스` = #{chatRoomIndex};
+    </select>
+
     <insert id="insertOne" parameterType="ChatLog">
         INSERT INTO `채팅로그`(
         `채팅방_채팅방인덱스`,

@@ -311,8 +311,7 @@ public class Server extends Thread {
                             packingDTO = (PackingDTO) protocol.getObj();
                             System.out.println("인물 검색 데이터 수신/ InterestingSportsDTO, Local");
                             List<MemberDTO> mlist;
-                            mlist = memberService.searchSportsFacilites(packingDTO);
-
+                            mlist = memberService.searchMember(packingDTO);
                             if (mlist != null) {
                                 protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_RES);
                                 protocol.setObj(mlist);

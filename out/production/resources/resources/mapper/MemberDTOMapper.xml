@@ -4,16 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
 
-    <!--
-    resultMap
-        Mysql <-> Java 간의 column(db)과 property(java)를 mapping 해줌 / select 쿼리에 사용됨 / 서로의 네이밍이 다르거나, 데이터 타입이 다른 경우에 사용됨
-        id = 해당 resultMap을 식별하기 위한 id
-        type = java에 담길 DTO
-
-        result
-            column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
-    -->
-
     <resultMap id="MemberResultmap" type="Member">
         <result column="회원인덱스" property="memberIndex"/>
         <result column="id" property="memberID"/>
@@ -29,19 +19,23 @@
     </resultMap>
 
     <select id="selectAll" resultMap="MemberResultmap">
-        SELECT * FROM `회원` WHERE `id` = #{nickname};
+        SELECT * FROM `회원`;
     </select>
 
     <select id="selectOne" resultMap="MemberResultmap">
-        SELECT `회원인덱스` FROM `회원` WHERE `id` = #{memberID};
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
     <select id="selectOneId" resultMap="MemberResultmap">
-        SELECT `회원인덱스` FROM `회원` WHERE `id` = #{memberID};
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
     <select id="selectOneNick" resultMap="MemberResultmap">
-        SELECT `회원인덱스` FROM `회원` WHERE `닉네임` = #{nickname};
+        SELECT * FROM `회원` WHERE `닉네임` = #{nickname};
+    </select>
+
+    <select id="selectAllBySportIndexAndlLocalInfoIndex" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `관심종목_종목인덱스` = #{sportsIndex} AND `지역정보_지역정보인덱스` = #{localInfoIndex};
     </select>
 
     <insert id="insertOne" parameterType="Member">

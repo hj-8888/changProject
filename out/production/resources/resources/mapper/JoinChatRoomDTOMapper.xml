@@ -5,21 +5,21 @@
 <mapper namespace="mapper.JoinChatRoomMapper">
 
     <resultMap id="JoinChatRoomResultmap" type="JoinChatRoom">
-        <result column="채팅방 입장인덱스" property="joinChatRoomIndex"/>
+        <result column="회원_채팅방인덱스" property="joinChatRoomIndex"/>
         <result column="회원_회원인덱스" property="memberIndex"/>
         <result column="채팅방_채팅방인덱스" property="chatRoomIndex"/>
     </resultMap>
 
     <select id="selectAll" resultMap="JoinChatRoomResultmap">
-        SELECT * FROM `채팅방 입장`;
+        SELECT * FROM `회원_채팅방`;
     </select>
 
     <select id="selectOne" resultMap="JoinChatRoomResultmap">
-        SELECT * FROM `채팅방 입장` WHERE `채팅방 입장인덱스` = #{joinChatRoomIndex};
+        SELECT * FROM `회원_채팅방` WHERE `회원_채팅방인덱스` = #{joinChatRoomIndex};
     </select>
 
     <insert id="insertOne" parameterType="JoinChatRoom">
-        INSERT INTO `채팅방 입장`(
+        INSERT INTO `회원_채팅방`(
         `회원_회원인덱스`,
         `채팅방_채팅방인덱스`)
         VALUES (
@@ -28,15 +28,15 @@
     </insert>
 
     <update id="updateOne" parameterType="JoinChatRoom">
-        UPDATE `채팅방 입장인덱스` SET
+        UPDATE `회원_채팅방` SET
         `회원_회원인덱스` = #{memberIndex},
         `채팅방_채팅방인덱스` = #{chatRoomIndex}
         WHERE
-        `채팅방 입장인덱스` = #{joinChatRoomIndex};
+        `회원_채팅방인덱스` = #{joinChatRoomIndex};
     </update>
 
     <delete id="deleteOne" parameterType="JoinChatRoom">
-        DELETE FROM `채팅방 입장` WHERE `채팅방 입장인덱스` = #{joinChatRoomIndex};
+        DELETE FROM `회원_채팅방` WHERE `회원_채팅방인덱스` = #{joinChatRoomIndex};
     </delete>
 
 </mapper>

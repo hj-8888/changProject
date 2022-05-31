@@ -14,7 +14,7 @@ public class Protocol implements Serializable {
     public static final int PT_SIGNUP = 2;   // 회원가입
     public static final int PT_SPORTSFACILITIE_SEARCH = 3;   // 체육시설 검색
     public static final int PT_PROFILE = 4;   // 프로필
-    
+
     public static final int PT_MEMBER_SEARCH = 5;   // 인물 검색
 
 

@@ -1,5 +1,8 @@
 package test;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 
@@ -38,11 +41,10 @@ public class LoginServer{
 
                 case Protocol.PT_RES_LOGIN:		// 로그인 정보 수신
                     System.out.println("클라이언트가 " + "로그인 정보를 보냈습니다");
-                    Facking facking = (Facking)protocol.getObj();
-                    System.out.println(facking.getCar().toString());
-                    System.out.println(facking.getUser().toString());
 
-
+                    ByteArrayInputStream input_stream= new ByteArrayInputStream((byte[])protocol.getObj());
+                    BufferedImage final_buffered_image = ImageIO.read(input_stream);
+                    ImageIO.write(final_buffered_image , "png", new File("./temp.png") );
 
                     protocol = new Protocol(Protocol.PT_LOGIN_RESULT);
                     System.out.println("로그인 처리 결과 전송");

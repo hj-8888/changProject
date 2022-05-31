@@ -129,7 +129,7 @@ public class MemberService {
         int localIndex = getSportIndex(packingDTO.getInterestingSportsDTO());
         memberDTO.setSportsIndex(sportIndex);
         memberDTO.setLocalInfoIndex(localIndex);
-        List<MemberDTO> list ;
+        List<MemberDTO> list = memberDAO.selectAllBySportIndexAndlLocalInfoIndex(memberDTO);
         return null;
     }
     private void storeImg(ImageIO imgIO) {
