@@ -159,10 +159,10 @@ public class Server extends Thread {
                             interestingSportsDTO = (InterestingSportsDTO) arrDTO[0];
                             localInfoDTO = (LocalInfoDTO) arrDTO[1];
                             memberDTO = (MemberDTO) arrDTO[2];
-                            BufferedImage img = (BufferedImage) arrDTO[3];
+                            ByteArrayInputStream byteStream = new ByteArrayInputStream((byte[]) arrDTO[3]);
 
                             System.out.println("회원가입정보 데이터 수신");
-                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, img);
+                            memberService.signup(memberDTO, localInfoDTO, interestingSportsDTO, byteStream);
                             protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_RES);
                             out.writeObject(protocol);
 
