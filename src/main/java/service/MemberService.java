@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package service;
 
 import persistence.dao.*;
@@ -139,3 +140,5 @@ public class MemberService {
     }
 
 }
+=======
+>>>>>>> Stashed changes

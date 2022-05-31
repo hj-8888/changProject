@@ -16,7 +16,11 @@ public class Protocol implements Serializable {
     public static final int PT_PROFILE = 4;   // 프로필
 
     public static final int PT_MEMBER_SEARCH = 5;   // 인물 검색
+<<<<<<< Updated upstream
     public static final int PT_BULLETIN = 6;   // 게시판
+=======
+    public static final int PT_GROUP = 6;   // 인물 검색
+>>>>>>> Stashed changes
 
 
     // code
@@ -57,7 +61,6 @@ public class Protocol implements Serializable {
     public static final int CD_SPORTSFACILITIE_SEARCH_FAIL = 399; // 스포츠센터 실패 응답
 
     // 프로필 코드
-
     //응답
     public static final int CD_PT_PROFILE_REQ = 400; // 프로필 정보 요청
     public static final int CD_PT_PROFILE_UPDATE_REQ = 401; // 수정 요청
@@ -70,7 +73,6 @@ public class Protocol implements Serializable {
     public static final int CD_PROFILE_NICK_DUPLICATION_RES = 406; // 닉네임 중복 있음 응답
     public static final int CD_PROFILE_FAIL = 499; // 프로필 실패 응답
 
-
     // 인물 검색
     // 요청
     public static final int CD_MEMBER_SEARCH_MIDDLE_LOCATION_REQ = 500; // 중분류 요청
@@ -81,6 +83,13 @@ public class Protocol implements Serializable {
     public static final int CD_MEMBER_SEARCH_SMALL_LOCATION_RES = 504; // 소분류 응답
     public static final int CD_MEMBER_SEARCH_RES = 505; // 인물 결과 응답
     public static final int CD_MEMBER_SEARCH_FAIL = 599; // 인물 실패 응답
+
+    // 그룹 코드 GROUP
+    // 요청
+    public static final int CD_GROUP_ID_DUPLICATION_RES = 205; // 아이디 중복 검사 응답
+    public static final int CD_GROUP_ID_NOT_DUPLICATION_RES = 206; // 아이디 중복 검사 응답 (중복아님)
+    public static final int CD_MEMBER_SEARCH_SMALL_LOCATION_RES = 504; // 소분류 응답
+    // 응답
 
 
     // 게시판 코드 BULLETIN
