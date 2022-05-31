@@ -59,6 +59,21 @@ public class InterestingSportsDAO {
         return item;
     }
 
+    public InterestingSportsDTO selectOneBySportName(String sportName) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        InterestingSportsDTO item = null;
+        try {
+            item = sqlSession.selectOne("mapper.InterestingSportsMapper.selectOneBySportName", sportName);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return item;
+    }
+
     public void insertInterestingSports(InterestingSportsDTO interestingSportsDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {

@@ -1,7 +1,10 @@
 package Network;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 
+@ToString
 public class Protocol implements Serializable {
     private static final long serialVersionUID = 1L;
     //type
@@ -66,12 +69,12 @@ public class Protocol implements Serializable {
     public static final int CD_PROFILE_NICK_DUPLICATION_RES = 406; // 닉네임 중복 있음 응답
     public static final int CD_PROFILE_FAIL = 499; // 프로필 실패 응답
 
-
     protected int protocolType;
     protected int protocolCode;
 
     // 전송하는 객체 데이터
     private Object obj = null;
+    private Object[] arrObj = null;
 
     public Protocol() { // 생성자
         this(PT_UNDEFINED, PC_UNDEFINED);
@@ -110,4 +113,13 @@ public class Protocol implements Serializable {
     public Object getObj() {
         return obj;
     }
+
+    public void setArrObj(Object[] arrObj) { this.arrObj = arrObj; }
+
+    public Object[] getArrObj() { return arrObj; };
+
+    public String getInfo() {
+        return "[Protocol Info]: " + toString() + "\n[Object Info]: " + obj.toString();
+    }
+
 }

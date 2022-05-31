@@ -22,9 +22,13 @@
         SELECT * FROM `관심종목` WHERE `종목명`=#{sportName};
     </select>
 
+    <select id="selectOneBySportName" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명` = #{sportName};
+    </select>
+
     <insert id="insertOne" parameterType="LocalInfo">
         INSERT INTO `관심종목`(
-        `종목명`,
+        `종목명`
         )
         VALUES (
         #{sportName});

@@ -1,19 +1,30 @@
 package service;
 
 import persistence.dao.*;
+import persistence.dto.InterestingSportsDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Scanner;
 
 public class MemberService {
     private MemberDAO memberDAO;
+    private LocalInfoDAO localInfoDAO;
+    private InterestingSportsDAO interestingSportsDAO;
     private LoginDAO loginDAO;
 
 
     public MemberService() {
         this.memberDAO = new MemberDAO();
+        this.localInfoDAO = new LocalInfoDAO();
+        this.interestingSportsDAO = new InterestingSportsDAO();
         this.loginDAO = new LoginDAO();
     }
 
@@ -48,29 +59,60 @@ public class MemberService {
             return 0;
         }
         else {
-            System.out.println("중복 없는 아이디");
+            System.out.println("중복 아이디 없음");
             return 1;
         }
     }
 
-    // 닉네임 중복 검사
     public int isDuplication_nick(String nick){
         System.out.println("닉네임 : "+ nick);
         List<MemberDTO> list = memberDAO.selectOneNick(nick);
         if(list.size() > 0){
-            System.out.println("중복 닉네임 존재");
+            System.out.println("닉네임 존재");
             return 0;
         }
         else {
-            System.out.println("중복 없는 닉네임");
+            System.out.println("중복 닉네임 없음");
             return 1;
         }
     }
 
-    // 회원 가입
-    public void signup(MemberDTO memberDTO){
+    public void signup(MemberDTO memberDTO, LocalInfoDTO localInfoDTO, InterestingSportsDTO interestingSportsDTO, BufferedImage img){
+        int primary_LocalInfo = localInfoDAO.selectID(localInfoDTO);
+        int primary_InterestingSport = interestingSportsDAO.selectOneBySportName(interestingSportsDTO.getSportName()).getSportIndex();
+        String imgName = memberDTO.getMemberID();
+
+        OutputStream out = null; //파일로 출력하기위해 파일출력스트림 생성
+        String path = "./image/";
+        String localPath = "path" + imgName + ".png";
+
+        try {
+            out = new FileOutputStream(localPath);
+            ImageIO.write(img, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();  //출력스트림 닫기
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        memberDTO.setProfileURL(localPath);
+        memberDTO.setLocalInfoIndex(primary_LocalInfo);
+        memberDTO.setSportsIndex(primary_InterestingSport);
         memberDAO.insertMember(memberDTO);
+
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
+    }
+
+    private void storeImg(ImageIO imgIO) {
+
     }
 
 }

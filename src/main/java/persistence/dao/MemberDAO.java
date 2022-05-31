@@ -44,6 +44,7 @@ public class MemberDAO {
         }
         return list;
     }
+
     public List<MemberDTO> selectOneId(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
