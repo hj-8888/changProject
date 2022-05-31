@@ -13,6 +13,7 @@ public class ChatRoomDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
+    // 전체 채팅방 조회
     public List<ChatRoomDTO> selectAllChatRoom() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<ChatRoomDTO> list = null;
@@ -28,7 +29,7 @@ public class ChatRoomDAO {
         return list;
     }
 
-    // 인자 조회
+    // 인덱스에 해당하는 하나의 채팅방 조회
     public ChatRoomDTO selectOneChatRoom(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         ChatRoomDTO item = null;

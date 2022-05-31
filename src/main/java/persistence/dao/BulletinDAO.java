@@ -3,7 +3,6 @@ package persistence.dao;
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.BulletinDTO;
-import persistence.dto.LocalInfoDTO;
 
 import java.util.List;
 
@@ -75,10 +74,6 @@ public class BulletinDAO {
     }
 
     // 삭제
-
-
-
-
     public void deleteBulletin(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         try {

@@ -29,6 +29,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="MemberResultmap">
+<<<<<<< Updated upstream
         SELECT * FROM `회원`;
     </select>
 
@@ -36,6 +37,19 @@
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
+=======
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
+    </select>
+
+    <select id="selectOne" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `id` = #{memberID};
+    </select>
+
+    <select id="selectOneNick" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `닉네임` = #{nickname};
+    </select>
+
+>>>>>>> Stashed changes
     <insert id="insertOne" parameterType="Member">
         INSERT INTO `회원`(
         `id`,

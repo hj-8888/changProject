@@ -14,6 +14,7 @@ public class JoinChatRoomDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
+    // 전체 조회
     public List<JoinChatRoomDTO> selectAllJoinChatRoom() {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<JoinChatRoomDTO> list = null;
@@ -29,7 +30,8 @@ public class JoinChatRoomDAO {
         return list;
     }
 
-    public JoinChatRoomDTO selectOneJoinChatRoom(int index) {
+    // 인덱스통한 인자 조회
+    public JoinChatRoomDTO selectOneJoinChatRoomByIndex(int index) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         JoinChatRoomDTO item = null;
         try {
