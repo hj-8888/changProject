@@ -90,8 +90,6 @@ public class MemberService {
             BufferedImage final_buffered_image = ImageIO.read(byteStream);
             //ImageIO.write(final_buffered_image, "png", new File(path + imgName + ".png"));
             ImageIO.write(final_buffered_image, "png", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
-//            out = new FileOutputStream(localPath);
-//            ImageIO.write(bimg, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

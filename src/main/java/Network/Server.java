@@ -299,7 +299,62 @@ public class Server extends Thread {
                             break;
                     }
                     break;
+                // 인물 검색
+                case Protocol.PT_MEMBER_SEARCH:
+                    switch (protocolCode) {
+                        case Protocol.CD_MEMBER_SEARCH_MIDDLE_LOCATION_REQ:
+                            System.out.println("대분류 데이터 수신");
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> lList;
+                            lList = localInfoService.transmit_middleLocation(localInfoDTO.getLargeCategoryLocal());
+                            if (lList.size() > 0) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_MIDDLE_LOCATION_RES);
+                                protocol.setObj(lList);
+                                System.out.println("중분류 리스트 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("대분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
 
+                        case Protocol.CD_MEMBER_SEARCH_SMALL_LOCATION_REQ:
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
+                            System.out.println("중분류 데이터 수신");
+
+                            System.out.println(localInfoDTO.toString());
+                            // locatList 프로토콜에 저장
+                            List<LocalInfoDTO> list;
+                            list = localInfoService.transmit_smallLocation(localInfoDTO.getLargeCategoryLocal(), localInfoDTO.getMiddleCategoryLocal());
+                            if (list.size() > 0) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_SMALL_LOCATION_RES);
+                                protocol.setObj(list);
+                                System.out.println("소분류 리스트 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("소분류 존재안함");
+                            }
+                            out.writeObject(protocol);
+                            break;
+
+                        case Protocol.CD_MEMBER_SEARCH_REQ:
+                            packingDTO = (PackingDTO) protocol.getObj();
+                            System.out.println("인물 검색 데이터 수신/ InterestingSportsDTO, Local");
+                            List<MemberDTO> mlist;
+                            mlist = memberService.searchMember(packingDTO);
+                            if (mlist != null) {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_RES);
+                                protocol.setObj(mlist);
+                                System.out.println("인물 검색 결과 전송");
+                            } else {
+                                protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_FAIL);
+                                System.out.println("인물 검색 실패");
+                            }
+                            out.writeObject(protocol);
+                            break;
+                    }
+                    break;
                 default:
                     System.out.println("없는 타입 수신 (타입): " + protocol.getProtocolType());
                     System.out.println("없는 타입 수신 (코드): " + protocol.getProtocolCode());
