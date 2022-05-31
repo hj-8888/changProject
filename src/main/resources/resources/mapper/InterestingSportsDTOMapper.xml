@@ -14,10 +14,16 @@
     </select>
 
     <select id="selectOne" resultMap="InterestingSportsResultmap">
-<<<<<<< Updated upstream
-        SELECT * FROM `관심종목`;
-=======
         SELECT * FROM `관심종목` WHERE `종목인덱스`=#{sportIndex};
+    </select>
+
+
+    <select id="selectIndex" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명`=#{sportName};
+    </select>
+
+    <select id="selectOneBySportName" resultMap="InterestingSportsResultmap">
+        SELECT * FROM `관심종목` WHERE `종목명` = #{sportName};
     </select>
 
 
@@ -27,12 +33,11 @@
 
     <select id="selectOneBySportName" resultMap="InterestingSportsResultmap">
         SELECT * FROM `관심종목` WHERE `종목명` = #{sportName};
->>>>>>> Stashed changes
     </select>
 
     <insert id="insertOne" parameterType="InterestingSports">
         INSERT INTO `관심종목`(
-        `종목명`,
+        `종목명`
         )
         VALUES (
         #{sportName});

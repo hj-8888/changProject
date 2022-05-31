@@ -29,15 +29,11 @@ public class MemberDAO {
         return list;
     }
 
-    public MemberDTO selectOneMember(int index) {
+    public MemberDTO selectId(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        MemberDTO item = null;
+        MemberDTO list = null;
         try {
-<<<<<<< Updated upstream
-            item = sqlSession.selectOne("mapper.MemberMapper.selectOne", index);
-=======
             item = sqlSession.selectOne("mapper.MemberMapper.selectOne", id);
->>>>>>> Stashed changes
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,15 +42,13 @@ public class MemberDAO {
             sqlSession.close();
         }
         return item;
-<<<<<<< Updated upstream
-=======
     }
 
     public List<MemberDTO> selectOneId(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
         try {
-            list = sqlSession.selectList("mapper.MemberMapper.selectOne", id);
+            list = sqlSession.selectList("mapper.MemberMapper.selectOneId", id);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +72,6 @@ public class MemberDAO {
             sqlSession.close();
         }
         return list;
->>>>>>> Stashed changes
     }
 
     public void insertMember(MemberDTO memberDTO) {

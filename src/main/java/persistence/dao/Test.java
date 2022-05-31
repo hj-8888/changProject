@@ -1,29 +1,40 @@
 package persistence.dao;
 
-import persistence.dto.BulletinDTO;
+import persistence.dto.*;
+import service.ProfileService;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Test {
-
-
     public static void main(String[] args) {
-        String str = "모쟈돌몾뎌ㅑㅊㄹㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로" +
-                "먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕ" +
-                "ㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모" +
-                "쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐ" +
-                "ㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕ" +
-                "ㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾" +
-                "뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로" +
-                "먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌" +
-                "몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ" +
-                "도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹㅐㅁ쟏랴ㅕㅁ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ모쟈돌몾뎌ㅑㅊㄹ댜ㅕ로먀ㅕㅈ도랴ㅕ";
-        byte[] b = str.trim().getBytes(StandardCharsets.UTF_8);
-        System.out.println(str.length());
-        System.out.println(b.length);
+        ProfileService profileService = new ProfileService();
+        MemberDAO memberDAO = new MemberDAO();
+        PackingDTO packingDTO = new PackingDTO();
+        LocalInfoDTO localInfoDTO = new LocalInfoDTO();
+        localInfoDTO.setLargeCategoryLocal("서울특별시");
+        localInfoDTO.setMiddleCategoryLocal("종로구");
+        localInfoDTO.setSmallCategoryLocal("청운동");
+
+
+        InterestingSportsDTO interestingSportsDTO = new InterestingSportsDTO();
+        interestingSportsDTO.setSportName("탁구");
+
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberID("11");
+        memberDTO.setMemberPW("1234");
+        memberDTO.setMemberName("ㄱㅂㅁ");
+        memberDTO.setNickname("ㅈㅈ");
+        memberDTO.setAge(23);
+        memberDTO.setGender("남");
+        memberDTO.setJob("교수");
+        memberDTO.setProfileURL("모름");
+//        memberDTO.setLocalInfoIndex(1);
+//        memberDTO.setSportsIndex(1);
+//        memberDAO.updateMember(memberDTO);
+
+        packingDTO.setMemberDTO(memberDTO);
+        packingDTO.setInterestingSportsDTO(interestingSportsDTO);
+        packingDTO.setLocalInfoDTO(localInfoDTO);
+        profileService.updateProfile(packingDTO);
 
     }
 

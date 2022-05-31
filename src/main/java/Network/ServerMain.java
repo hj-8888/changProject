@@ -1,4 +1,4 @@
-package network;
+package Network;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -42,7 +42,7 @@ class ServerMain {
 
 
                 //Handler 클래스로 client 소켓 전송
-                network.Server handler = new network.Server(connectedClientSocket);
+                Network.Server handler = new Network.Server(connectedClientSocket);
                 //스레드 시작, run()호출
                 service.execute(() -> {
                     try {
@@ -57,7 +57,9 @@ class ServerMain {
         } finally {
             try {
                 server.close();
-            } catch(IOException ignored) {}
+            } catch(IOException ignored) {
+                System.out.println("예외발생");
+            }
         }
 
     }

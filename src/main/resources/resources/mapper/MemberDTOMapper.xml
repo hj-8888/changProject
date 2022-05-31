@@ -4,16 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
 
-    <!--
-    resultMap
-        Mysql <-> Java 간의 column(db)과 property(java)를 mapping 해줌 / select 쿼리에 사용됨 / 서로의 네이밍이 다르거나, 데이터 타입이 다른 경우에 사용됨
-        id = 해당 resultMap을 식별하기 위한 id
-        type = java에 담길 DTO
-
-        result
-            column에는 db의 컬럼명을, property에는 DTO의 속성명을 작성 (1:1 매칭)
-    -->
-
     <resultMap id="MemberResultmap" type="Member">
         <result column="회원인덱스" property="memberIndex"/>
         <result column="id" property="memberID"/>
@@ -29,7 +19,6 @@
     </resultMap>
 
     <select id="selectAll" resultMap="MemberResultmap">
-<<<<<<< Updated upstream
         SELECT * FROM `회원`;
     </select>
 
@@ -37,11 +26,7 @@
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
-=======
-        SELECT * FROM `회원` WHERE `id` = #{memberID};
-    </select>
-
-    <select id="selectOne" resultMap="MemberResultmap">
+    <select id="selectOneId" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `id` = #{memberID};
     </select>
 
@@ -49,7 +34,6 @@
         SELECT * FROM `회원` WHERE `닉네임` = #{nickname};
     </select>
 
->>>>>>> Stashed changes
     <insert id="insertOne" parameterType="Member">
         INSERT INTO `회원`(
         `id`,
@@ -58,7 +42,7 @@
         `나이`,
         `성별`,
         `직업`,
-        `프로필 사진`,
+        `프로필사진`,
         `닉네임`,
         `관심종목_종목인덱스`,
         `지역정보_지역정보인덱스`)
@@ -77,7 +61,6 @@
 
     <update id="updateOne" parameterType="Member">
         UPDATE 회원 SET
-        `id` = #{memberID},
         `pw` = #{memberPW},
         `이름` = #{memberName},
         `나이` = #{age},
@@ -88,7 +71,7 @@
         `관심종목_종목인덱스` = #{sportsIndex},
         `지역정보_지역정보인덱스` = #{localInfoIndex}
         WHERE
-        `회원인덱스` = #{memberIndex};
+        `id` = #{memberID};
     </update>
 
     <delete id="deleteOne" parameterType="Member">

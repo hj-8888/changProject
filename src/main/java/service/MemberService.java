@@ -1,154 +1,118 @@
-//package service;
-//
-//import persistence.dao.*;
-//import persistence.dto.InterestingSportsDTO;
-//import persistence.dto.LocalInfoDTO;
-//import persistence.dto.MemberDTO;
-//import persistence.dto.SportsFacilitiesDTO;
-//
-//import java.util.List;
-//import java.util.Scanner;
-//
-//public class MemberService {
-//    private final MemberDAO memberDAO;
-//    private final MemberDTO memberDTO;
-//    Scanner sc;
-//
-//    public MemberService() {
-//        this.memberDAO = new MemberDAO();
-//        this.memberDTO = new MemberDTO();
-//        sc = new Scanner(System.in);
-//    }
-//
-//    public void create(String id, String pw, String name, int age, String gender, String job, String profileURL, String nickname, int sportsIndex, int localInfoIndex){
-//        memberDTO.setMemberID(id);
-//        memberDTO.setMemberPW(pw);
-//        memberDTO.setMemberName(name);
-//        memberDTO.setAge(age);
-//        memberDTO.setGender(gender);
-//        memberDTO.setJob(job);
-//        memberDTO.setProfileURL(profileURL);
-//        memberDTO.setNickname(nickname);
-//        memberDTO.setSportsIndex(sportsIndex);
-//        memberDTO.setLocalInfoIndex(localInfoIndex);
-//        memberDAO.insertMember(memberDTO);
-//    }
-//
-//    public void input_member(){
-//        InterestingSportsDAO interestingSportsDAO = new InterestingSportsDAO();
-//        LocalInfoDAO localInfoDAO = new LocalInfoDAO();
-//        List<LocalInfoDTO>  Llist = localInfoDAO.selectLargeCategory();
-//        List<LocalInfoDTO>  Mlist;
-//        List<LocalInfoDTO>  Slist;
-//        System.out.println();
-//        System.out.println(" id | pw | name | age | gender | job | profileURL | nickname ");
-//        System.out.print("입력 : ");
-//        String id = sc.next();
-//        String pw = sc.next();
-//        String name = sc.next();
-//        int age = sc.nextInt();
-//        String gender = sc.next();
-//        String job = sc.next();
-//        String profileURL = sc.next();
-//        String nickname = sc.next();
-//
-//
-//        List<InterestingSportsDTO> sList = interestingSportsDAO.selectOneInterestingSports();
-//        for (int i=0; i<sList.size(); i++){
-//            System.out.printf(" %d : %s", sList.get(i).getSportIndex(),sList.get(i).getSportName() );
-//        }
-//        int sportsIndex = sc.nextInt();
-//
-//        String b, m, s;
-//        boolean toggl = false;
-//        while(true){
-//            System.out.print("지역 대분류 입력: ");
-//            Llist.forEach(x -> x.getLargeCategoryLocal());
-//            b = sc.next();
-//            for (int i=0; i<Llist.size(); i++){
-//                if(!Llist.get(i).getLargeCategoryLocal().equals(b)){
-//                    System.out.println("없는 지역, 다시 입력하셈");
-//                    break;
-//                }
-//                toggl = true;
-//            }
-//            if (toggl) {
-//                toggl = false;
-//                break;
-//            }
-//        }
-//
-//        while(true) {
-//            System.out.print("지역 중분류 입력: ");
-//            Mlist = localInfoDAO.selectMiddleCategory(b);
-//            Mlist.forEach(x -> x.getLargeCategoryLocal());
-//            m = sc.next();
-//            for (int i = 0; i < Mlist.size(); i++) {
-//                if(!Mlist.get(i).getLargeCategoryLocal().equals(m)){
-//                    System.out.println("없는 지역, 다시 입력하셈");
-//                    break;
-//                }
-//            }
-//            if (toggl) {
-//                toggl = false;
-//                break;
-//            }
-//        }
-//
-//        while(true) {
-//            System.out.print("지역소분류 입력: ");
-//            Slist = localInfoDAO.selectSmallCategory(b, m);
-//            Slist.forEach(x -> x.getLargeCategoryLocal());
-//            s = sc.next();
-//            for (int i = 0; i < Slist.size(); i++) {
-//                if(!Slist.get(i).getLargeCategoryLocal().equals(s)){
-//                    System.out.println("없는 지역, 다시 입력하셈");
-//                    break;
-//                }
-//            }
-//            if (toggl) {
-//                toggl = false;
-//                break;
-//            }
-//        }
-//
-//
-//        int localInfoIndex = sc.nextInt();
-//        create(id, pw, name, age, gender, job, profileURL, nickname, sportsIndex, localInfoIndex);
-//    }
-//
-//    public void login(){
-//        Scanner sc = new Scanner(System.in);
-//        // 로그인
-//        LoginDAO loginDAO = new LoginDAO();
-//
-//        System.out.println("아이디를 입력하세요");
-//        System.out.print("아이디 입력:");
-//        String id = sc.next();
-//
-//        List<MemberDTO> list = loginDAO.login(id); // 로그인 하면 회원 정보 반환
-//        String pw = null;
-//        if(list.isEmpty()){
-//            System.out.println("해당 아이디가 없습니다. 종료");
-//        }
-//        else{
-//            System.out.println("아이디 일치");
-//            for (int i=0; i<5; i++){
-//                if (i==4){
-//                    System.out.println("ㅄ비번도 못 외우노");
-//                    break;
-//                }
-//                System.out.println("비번을 입력하세요");
-//                System.out.print("비밀번호 :");
-//                pw = sc.next();
-//                if(pw.equals(list.get(0).getMemberPW())){
-//                    System.out.println("로그인 성공");
-//                    break;
-//                }
-//                else{
-//                    System.out.printf("%d회 실패 ( 5회 실패시 종료 )\n", i+1);
-//                }
-//            }
-//        }
-//    }
-//}
+package service;
+
+import persistence.dao.*;
+import persistence.dto.InterestingSportsDTO;
+import persistence.dto.LocalInfoDTO;
+import persistence.dto.MemberDTO;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Scanner;
+
+public class MemberService {
+    private MemberDAO memberDAO;
+    private LocalInfoDAO localInfoDAO;
+    private InterestingSportsDAO interestingSportsDAO;
+    private LoginDAO loginDAO;
+
+
+    public MemberService() {
+        this.memberDAO = new MemberDAO();
+        this.localInfoDAO = new LocalInfoDAO();
+        this.interestingSportsDAO = new InterestingSportsDAO();
+        this.loginDAO = new LoginDAO();
+    }
+
+
+    // 아이디 비번 일치 검사
+    public int login(String id, String pw){
+        // 로그인
+        List<MemberDTO> list = loginDAO.login(id); // 로그인 하면 회원 정보 반환
+        if(list.isEmpty()){
+            System.out.println("해당 아이디가 없습니다.");
+            return 0;
+        }
+        else{
+            System.out.println("아이디 : "+ id +" 일치");
+            if(pw.equals(list.get(0).getMemberPW())){
+                System.out.println("로그인 성공");
+                return 1;
+            }
+            else{
+                System.out.println("비밀번호가 다릅니다.");
+                return 0;
+            }
+        }
+    }
+
+    // 아이디 중복 검사
+    public int isDuplication_id(String id){
+        System.out.println("아이디 : "+ id);
+        List<MemberDTO> list = memberDAO.selectOneId(id);
+        if(list.size() > 0){
+            System.out.println("중복 아이디 존재");
+            return 0;
+        }
+        else {
+            System.out.println("중복 아이디 없음");
+            return 1;
+        }
+    }
+
+    public int isDuplication_nick(String nick){
+        System.out.println("닉네임 : "+ nick);
+        List<MemberDTO> list = memberDAO.selectOneNick(nick);
+        if(list.size() > 0){
+            System.out.println("닉네임 존재");
+            return 0;
+        }
+        else {
+            System.out.println("중복 닉네임 없음");
+            return 1;
+        }
+    }
+
+    public void signup(MemberDTO memberDTO, LocalInfoDTO localInfoDTO, InterestingSportsDTO interestingSportsDTO, BufferedImage img){
+        int primary_LocalInfo = localInfoDAO.selectID(localInfoDTO);
+        int primary_InterestingSport = interestingSportsDAO.selectOneBySportName(interestingSportsDTO.getSportName()).getSportIndex();
+        String imgName = memberDTO.getMemberID();
+
+        OutputStream out = null; //파일로 출력하기위해 파일출력스트림 생성
+        String path = "./image/";
+        String localPath = "path" + imgName + ".png";
+
+        try {
+            out = new FileOutputStream(localPath);
+            ImageIO.write(img, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();  //출력스트림 닫기
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        memberDTO.setProfileURL(localPath);
+        memberDTO.setLocalInfoIndex(primary_LocalInfo);
+        memberDTO.setSportsIndex(primary_InterestingSport);
+        memberDAO.insertMember(memberDTO);
+
+        System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
+    }
+
+    private void storeImg(ImageIO imgIO) {
+
+    }
+
+}

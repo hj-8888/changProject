@@ -2,6 +2,7 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import persistence.MyBatisConnectionFactory;
+import persistence.dto.LocalInfoDTO;
 import persistence.dto.SportsFacilitiesDTO;
 import java.util.List;
 
@@ -41,6 +42,21 @@ public class SportsFacilitiesDAO {
             sqlSession.close();
         }
         return item;
+    }
+
+    public List<SportsFacilitiesDTO> selectOneSportsFacilitie_local (SportsFacilitiesDTO sportsFacilitiesDTO) {
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<SportsFacilitiesDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.SportsFacilitiesMapper.selectOne_local", sportsFacilitiesDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
     }
 
     public void insertSportsFacilities(SportsFacilitiesDTO sportsFacilitiesDTO) {

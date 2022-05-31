@@ -8,7 +8,7 @@
         <result column="지역정보인덱스" property="localInfoIndex"/>
         <result column="지역대분류" property="largeCategoryLocal"/>
         <result column="지역중분류" property="middleCategoryLocal"/>
-        <result column="지역 분류" property="smallCategoryLocal"/>
+        <result column="지역소분류" property="smallCategoryLocal"/>
     </resultMap>
 
     <select id="selectID" resultMap="LocalInfoResultmap" parameterType="LocalInfo">
@@ -25,6 +25,10 @@
 
     <select id="selectSmallCategory" resultMap="LocalInfoResultmap" parameterType="LocalInfo">
         SELECT DISTINCT `지역소분류` FROM `지역정보` WHERE `지역대분류` = #{largeCategoryLocal} AND `지역중분류` = #{middleCategoryLocal};
+    </select>
+
+    <select id="selectOne" resultMap="LocalInfoResultmap">
+        SELECT * FROM `지역정보` WHERE `지역정보인덱스` = #{localInfoIndex};
     </select>
 
     <insert id="insertOne" parameterType="LocalInfo">

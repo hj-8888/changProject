@@ -132,15 +132,11 @@ public class LocalInfoDAO {
         return list;
     }
 
-    public int selectID(String b, String m, String s) {
+    public int selectID(LocalInfoDTO localInfoDTO) {
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
-        List<LocalInfoDTO> list = null;
-        LocalInfoDTO local = new LocalInfoDTO();
+        LocalInfoDTO localId = null;
         try {
-            local.setLargeCategoryLocal(b);
-            local.setMiddleCategoryLocal(m);
-            local.setSmallCategoryLocal(s);
-            list = sqlSession.selectList("mapper.LocalInfoMapper.selectID", local);
+            localId = sqlSession.selectOne("mapper.LocalInfoMapper.selectID", localInfoDTO);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,6 +144,6 @@ public class LocalInfoDAO {
         } finally {
             sqlSession.close();
         }
-        return list.get(0).getLocalInfoIndex();
+        return localId.getLocalInfoIndex();
     }
 }

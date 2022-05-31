@@ -34,6 +34,10 @@
         SELECT * FROM `체육시설` WHERE `체육시설인덱스` = #{sportsFacilitiesIndex};
     </select>
 
+    <select id="selectOne_local" resultMap="SportsFacilitiesResultmap" parameterType="SportsFacilities">
+        SELECT * FROM `체육시설` WHERE `지역대분류` = #{largeCategoryLocal} AND `지역중분류` = #{middleCategoryLocal} AND `지역소분류` = #{smallCategoryLocal};
+    </select>
+
     <insert id="insertOne" parameterType="SportsFacilities">
         INSERT INTO `체육시설`(
         `체육시설명`,
