@@ -11,7 +11,6 @@ import persistence.dto.PackingDTO;
 import service.ProfileService;
 import service.SportsFacilitesService;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -99,7 +98,6 @@ public class Server extends Thread {
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
                             } else {
                                 System.out.println("아이디 중복 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
@@ -149,7 +147,6 @@ public class Server extends Thread {
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
                             } else {
                                 System.out.println("닉네임 중복.. 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
