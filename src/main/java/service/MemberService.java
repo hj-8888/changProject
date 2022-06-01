@@ -16,7 +16,7 @@ public class MemberService {
     private LocalInfoDAO localInfoDAO;
     private InterestingSportsDAO interestingSportsDAO;
     private LoginDAO loginDAO;
-
+    private FriendDAO friendDAO;
     private MemberDTO memberDTO;
 
     public MemberService() {
@@ -24,6 +24,7 @@ public class MemberService {
         this.localInfoDAO = new LocalInfoDAO();
         this.interestingSportsDAO = new InterestingSportsDAO();
         this.loginDAO = new LoginDAO();
+        this.friendDAO = new FriendDAO();
     }
 
 
@@ -128,6 +129,14 @@ public class MemberService {
         memberDTO.setLocalInfoIndex(localIndex);
         List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
         return null;
+    }
+
+    public int getFollowingNum(MemberDTO memberDTO){
+        return friendDAO.selectFollowing(memberDTO.getMemberIndex());
+    }
+
+    public int getFollowerNum(MemberDTO memberDTO){
+        return friendDAO.selectFollower(memberDTO.getMemberIndex());
     }
     private void storeImg(ImageIO imgIO) {
 
