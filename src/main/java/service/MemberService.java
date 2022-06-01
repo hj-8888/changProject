@@ -150,6 +150,19 @@ public class MemberService {
         friendDTO.setFriend_memberIndex(otherDTO.getMemberIndex());
         friendDAO.insertFollowing(friendDTO);
     }
+
+    public boolean isDuplication_Friendindex(MemberDTO otherDTO, int myIndex){
+        System.out.println("다른 사람 인덱스 : " + otherDTO.getMemberIndex() + "내 인덱스 : " + myIndex);
+        List<FriendDTO> list = friendDAO.selectAllByIndexs(otherDTO.getMemberIndex(), myIndex);
+        if(list.size() > 0){
+            System.out.println("중복 인덱스 존재");
+            return false;
+        }
+        else {
+            System.out.println("중복 인덱스 없음");
+            return true;
+        }
+    }
     private void storeImg(ImageIO imgIO) {
 
     }

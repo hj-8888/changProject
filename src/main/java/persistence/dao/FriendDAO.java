@@ -15,6 +15,26 @@ public class FriendDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
+    public List<FriendDTO> selectAllByIndexs(int other, int mine){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        FriendDTO friendDTO = new FriendDTO();
+        friendDTO.setMemberIndex(mine);
+        friendDTO.setFriendIndex(other);
+        List<FriendDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.FriendMapper.selectAllByIndexs", friendDTO);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     public int selectFollowing(int index){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<FriendDTO> list = null;
