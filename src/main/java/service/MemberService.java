@@ -118,6 +118,9 @@ public class MemberService {
         return interestingSportsDAO.selectOneIndex(interestingSportsDTO).getSportIndex();
     }
 
+    public MemberDTO selectOneById(String id){
+        return memberDAO.selectId(id);
+    }
     // 인물 검색
     // 종목 인덱스, 지역 인덱스를 포함한 회원 리스트 리턴
     public List<MemberDTO> searchMember(PackingDTO packingDTO){
