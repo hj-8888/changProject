@@ -2,8 +2,19 @@ package Network;
 
 import jdk.swing.interop.SwingInterOpUtils;
 import lombok.SneakyThrows;
+
+import persistence.dto.InterestingSportsDTO;
+import persistence.dto.LocalInfoDTO;
+import persistence.dto.MemberDTO;
+import persistence.dto.SportsFacilitiesDTO;
+import service.LocalInfoService;
+import service.MemberService;
+import persistence.dto.PackingDTO;
+import service.ProfileService;
+import service.SportsFacilitesService;
 import persistence.dto.*;
 import service.*;
+
 
 import java.io.*;
 import java.net.*;
@@ -108,7 +119,7 @@ public class Server extends Thread {
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             } else {
                                 System.out.println("아이디 중복 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_NOT_DUPLICATION_RES);
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_ID_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
@@ -156,8 +167,8 @@ public class Server extends Thread {
                                 System.out.println("닉네임 중복 성공 결과 전송");
                                 protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
                             } else {
-                                System.out.println("닉네임 중복 실패 결과 전송");
-                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_NOT_DUPLICATION_RES);
+                                System.out.println("닉네임 중복.. 실패 결과 전송");
+                                protocol = new Protocol(Protocol.PT_SIGNUP, Protocol.CD_SIGNUP_NICK_DUPLICATION_RES);
                             }
                             out.writeObject(protocol);
                             break;
