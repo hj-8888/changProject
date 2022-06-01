@@ -16,4 +16,5 @@ public class FriendDTO implements Serializable {
     private int friendIndex;
     private int memberIndex;
     private int friend_memberIndex;
+
 }

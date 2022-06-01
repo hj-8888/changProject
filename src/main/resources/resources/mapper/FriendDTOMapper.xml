@@ -14,8 +14,16 @@
         SELECT * FROM `친구`;
     </select>
 
-    <select id="selectOne" resultMap="FriendResultmap">
+    <select id="selectAllByIndexs" resultMap="FriendResultmap">
+        SELECT * FROM `친구` WHERE `회원_회원인덱스` = #{memberIndex} AND `친구_회원인덱스` = #{friend_memberIndex};
+    </select>
+
+    <select id="selectFollowingByIndex" resultMap="FriendResultmap">
         SELECT * FROM `친구` WHERE `회원_회원인덱스` = #{memberIndex};
+    </select>
+
+    <select id="selectFollowerByIndex" resultMap="FriendResultmap">
+        SELCT* FROM `친구` WHERE `친구_회원인덱스` = #{friend_memberIndex};
     </select>
 
     <insert id="insertOne" parameterType="Friend">

@@ -18,6 +18,14 @@
         <result column="관심종목_종목인덱스" property="sportsIndex"/>
     </resultMap>
 
+    <select id ="selectAllFollowingByIndex" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `회원인덱스` = ANY(SELECT `회원_회원인덱스` FROM `친구` WHERE `친구_회원인덱스` = #{memberIndex};)
+    </select>
+
+    <select id ="selectAllFollowerByIndex" resultMap="MemberResultmap">
+        SELECT * FROM `회원` WHERE `회원인덱스` = ANY(SELECT `친구_회원인덱스` FROM `친구` WHERE `회원_회원인덱스` = #{memberIndex};)
+    </select>
+
     <select id="selectAll" resultMap="MemberResultmap">
         SELECT * FROM `회원`;
     </select>

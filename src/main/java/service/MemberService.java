@@ -1,10 +1,7 @@
 package service;
 
 import persistence.dao.*;
-import persistence.dto.InterestingSportsDTO;
-import persistence.dto.LocalInfoDTO;
-import persistence.dto.MemberDTO;
-import persistence.dto.PackingDTO;
+import persistence.dto.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,14 +13,16 @@ public class MemberService {
     private LocalInfoDAO localInfoDAO;
     private InterestingSportsDAO interestingSportsDAO;
     private LoginDAO loginDAO;
-
+    private FriendDAO friendDAO;
     private MemberDTO memberDTO;
+    private FriendDTO friendDTO;
 
     public MemberService() {
         this.memberDAO = new MemberDAO();
         this.localInfoDAO = new LocalInfoDAO();
         this.interestingSportsDAO = new InterestingSportsDAO();
         this.loginDAO = new LoginDAO();
+        this.friendDAO = new FriendDAO();
     }
 
 
@@ -129,6 +128,41 @@ public class MemberService {
         memberDTO.setLocalInfoIndex(localIndex);
         List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
         return null;
+    }
+
+    public int getFollowingNum(MemberDTO memberDTO){
+        return friendDAO.selectFollowing(memberDTO.getMemberIndex());
+    }
+
+    public int getFollowerNum(MemberDTO memberDTO){
+        return friendDAO.selectFollower(memberDTO.getMemberIndex());
+    }
+
+    public List<MemberDTO> searchFollowing(MemberDTO memberDTO){
+        List<MemberDTO> list = memberDAO.selectAllFollowingByIndex(memberDTO);
+        return list;
+    }
+    public List<MemberDTO> searchFollower(MemberDTO memberDTO){
+        List<MemberDTO> list = memberDAO.selectAllFollowerByIndex(memberDTO);
+        return list;
+    }
+    public void createFollowing(MemberDTO otherDTO, int myIndex){
+        friendDTO.setMemberIndex(myIndex);
+        friendDTO.setFriend_memberIndex(otherDTO.getMemberIndex());
+        friendDAO.insertFollowing(friendDTO);
+    }
+
+    public boolean isDuplication_Friendindex(MemberDTO otherDTO, int myIndex){
+        System.out.println("다른 사람 인덱스 : " + otherDTO.getMemberIndex() + "내 인덱스 : " + myIndex);
+        List<FriendDTO> list = friendDAO.selectAllByIndexs(otherDTO.getMemberIndex(), myIndex);
+        if(list.size() > 0){
+            System.out.println("중복 인덱스 존재");
+            return false;
+        }
+        else {
+            System.out.println("중복 인덱스 없음");
+            return true;
+        }
     }
     private void storeImg(ImageIO imgIO) {
 
