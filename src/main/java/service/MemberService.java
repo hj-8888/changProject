@@ -1,10 +1,7 @@
 package service;
 
 import persistence.dao.*;
-import persistence.dto.InterestingSportsDTO;
-import persistence.dto.LocalInfoDTO;
-import persistence.dto.MemberDTO;
-import persistence.dto.PackingDTO;
+import persistence.dto.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,6 +15,7 @@ public class MemberService {
     private LoginDAO loginDAO;
     private FriendDAO friendDAO;
     private MemberDTO memberDTO;
+    private FriendDTO friendDTO;
 
     public MemberService() {
         this.memberDAO = new MemberDAO();
@@ -137,6 +135,20 @@ public class MemberService {
 
     public int getFollowerNum(MemberDTO memberDTO){
         return friendDAO.selectFollower(memberDTO.getMemberIndex());
+    }
+
+    public List<MemberDTO> searchFollowing(MemberDTO memberDTO){
+        List<MemberDTO> list = memberDAO.selectAllFollowingByIndex(memberDTO);
+        return list;
+    }
+    public List<MemberDTO> searchFollower(MemberDTO memberDTO){
+        List<MemberDTO> list = memberDAO.selectAllFollowerByIndex(memberDTO);
+        return list;
+    }
+    public void createFollowing(MemberDTO otherDTO, int myIndex){
+        friendDTO.setMemberIndex(myIndex);
+        friendDTO.setFriend_memberIndex(otherDTO.getMemberIndex());
+        friendDAO.insertFollowing(friendDTO);
     }
     private void storeImg(ImageIO imgIO) {
 
