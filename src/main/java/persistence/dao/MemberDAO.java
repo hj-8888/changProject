@@ -59,6 +59,36 @@ public class MemberDAO {
         return list;
     }
 
+    public List<MemberDTO> selectAllFollowingByIndex(MemberDTO memberDTO){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.MemberMapper.selectAllFollowingByIndex", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public List<MemberDTO> selectAllFollowerByIndex(MemberDTO memberDTO){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.MemberMapper.selectAllFollowerByIndex", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     public int selectOneById(String id){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         MemberDTO item = null;
