@@ -36,9 +36,9 @@ public class GroupService {
     }
 
     public void createGroup(PackingDTO packingDTO){
-        String nickName = memberDAO.selectOneNickNameById(packingDTO.getMemberDTO().getMemberID());
         int primary_member = memberDAO.selectOneById(packingDTO.getMemberDTO().getMemberID());
         int primary_LocalInfo = localInfoDAO.selectID(packingDTO.getLocalInfoDTO());
+        String nickName = memberDAO.selectOneNickNameById(packingDTO.getMemberDTO().getMemberID());
 
         groupDTO.setGroupLeader(nickName);
         groupDTO.setLocalInfoIndex(primary_LocalInfo);

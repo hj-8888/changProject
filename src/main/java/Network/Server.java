@@ -21,14 +21,6 @@ public class Server extends Thread {
         networkLog = new NetworkLog();
     }
 
-    public void send() {
-
-    }
-
-    public void receive(Protocol protocol, ObjectInputStream in) {
-
-    }
-
     @SneakyThrows
     public void start(ExecutorService service) throws IOException {
         System.out.println("클라이언트 접속 ( " + socket.getInetAddress() + ")");
@@ -404,9 +396,9 @@ public class Server extends Thread {
                         case Protocol.CD_BULLETIN_CREATE_REQ:
                             packingDTO = (PackingDTO) protocol.getObj();
                             System.out.println("게시글 생성 데이터 수신");
-//                          bulletinService.createBulletin(packingDTO);
+                            bulletinService.createBulletin(packingDTO);
                             protocol = new Protocol(Protocol.PT_GROUP, Protocol.CD_BULLETIN_CREATE_RES);
-                            System.out.println("게시글 정보 전송");
+                            System.out.println("게시글 생성 성공 결과 전송");
                             out.writeObject(protocol);
                             break;
                     }

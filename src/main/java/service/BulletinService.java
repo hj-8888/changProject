@@ -23,7 +23,6 @@ public class BulletinService {
         this.memberDAO = new MemberDAO();
     }
 
-    // 회원 아이디와, 게시글 내용으로 게시글 생성
     public void createBulletin(PackingDTO packingDTO){
         int primary_member = memberDAO.selectOneById(packingDTO.getMemberDTO().getMemberID());
         int primary_bulletin = bulletinDAO.selectOneByTitle(packingDTO.getBulletinDTO().getBulletinTitle());

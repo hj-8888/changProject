@@ -29,6 +29,7 @@ public class MemberService {
 
     // 아이디 비번 일치 검사
     public int login(String id, String pw){
+        System.out.println("id : " + id + " pw : " + pw);
         // 로그인
         List<MemberDTO> list = loginDAO.login(id); // 로그인 하면 회원 정보 반환
         if(list.isEmpty()){

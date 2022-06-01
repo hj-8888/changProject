@@ -26,9 +26,6 @@
         SELECT * FROM `게시글` WHERE `게시글제목` LIKE #{%bulletinIndex%};
     </select>
 
-    <select id="selectOneByTitle" resultMap="BulletinResultmap">
-        SELECT * FROM `게시글` WHERE `게시글제목` = #{bulletinIndex};
-    </select>
 
     <select id="selectAllByGroupIndex" resultMap="BulletinResultmap">
         SELECT * FROM `게시글` WHERE `그룹_그룹인덱스` = #{bulletinIndex};
