@@ -14,5 +14,6 @@ public class ChatRoomDTO implements Serializable {
     private int chatRoomIndex;
     private String chatRoomName;
     private int chatRoomHeadCount;
-
+    private String ip;
+    private int port;
 }

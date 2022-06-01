@@ -14,7 +14,7 @@ public class FriendDAO {
         myBatisConnectionFactory = new MyBatisConnectionFactory();
     }
 
-    public int selectFollowing(String index){
+    public int selectFollowing(int index){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<FriendDTO> list = null;
         try {
@@ -31,7 +31,7 @@ public class FriendDAO {
         return list.size();
     }
 
-    public int selectFollower(String index){
+    public int selectFollower(int index){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<FriendDTO> list = null;
         try {
