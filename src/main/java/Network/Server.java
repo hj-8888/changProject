@@ -1,6 +1,7 @@
 package Network;
 
 import lombok.SneakyThrows;
+import persistence.dao.LocalInfoDAO;
 import persistence.dto.InterestingSportsDTO;
 import persistence.dto.LocalInfoDTO;
 import persistence.dto.MemberDTO;
@@ -224,7 +225,8 @@ public class Server extends Thread {
                             out.flush();
                             break;
 
-                        case Protocol.CD_SPORTSFACILITIE_SEARCH_REQ:
+                        case Protocol.CD_SPORTSFACILITIE_SEARCH_LIST_REQ:
+                        case Protocol.CD_SPORTSFACILITIE_SEARCH_MAP_REQ:
                             sportsFacilitiesDTO = (SportsFacilitiesDTO) protocol.getObj();
                             System.out.println("체육시설 검색 데이터 수신");
                             List<SportsFacilitiesDTO> slist;
@@ -320,10 +322,10 @@ public class Server extends Thread {
                             break;
 
                         case Protocol.CD_MEMBER_SEARCH_REQ:
-                            packingDTO = (PackingDTO) protocol.getObj();
+                            localInfoDTO = (LocalInfoDTO) protocol.getObj();
                             System.out.println("인물 검색 데이터 수신/ InterestingSportsDTO, Local");
                             List<MemberDTO> mlist;
-                            mlist = memberService.searchMember(packingDTO);
+                            mlist = memberService.searchMember(localInfoDTO);
                             if (mlist != null) {
                                 protocol = new Protocol(Protocol.PT_MEMBER_SEARCH, Protocol.CD_MEMBER_SEARCH_RES);
                                 protocol.setObj(mlist);

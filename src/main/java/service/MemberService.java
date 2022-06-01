@@ -121,13 +121,13 @@ public class MemberService {
 
     // 인물 검색
     // 종목 인덱스, 지역 인덱스를 포함한 회원 리스트 리턴
-    public List<MemberDTO> searchMember(PackingDTO packingDTO){
-        int sportIndex = getLocalInfoIndex(packingDTO.getLocalInfoDTO());
-        int localIndex = getSportIndex(packingDTO.getInterestingSportsDTO());
-        memberDTO.setSportsIndex(sportIndex);
-        memberDTO.setLocalInfoIndex(localIndex);
-        List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
-        return null;
+    public List<MemberDTO> searchMember(LocalInfoDTO localInfoDTO){
+        int localIndex = localInfoDAO.selectID(localInfoDTO);
+        //int sportIndex = getSportIndex(packingDTO.getInterestingSportsDTO());
+        //memberDTO.setSportsIndex(sportIndex);
+        // memberDTO.setLocalInfoIndex(localIndex);
+        List<MemberDTO> list = memberDAO.selectAllByLocalInfoIndex(localIndex);
+        return list;
     }
     private void storeImg(ImageIO imgIO) {
 

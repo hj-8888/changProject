@@ -51,11 +51,12 @@ public class Protocol implements Serializable {
     // 요청
     public static final int CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_REQ = 300; // 중분류 요청
     public static final int CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_REQ = 301; // 소분류 요청
-    public static final int CD_SPORTSFACILITIE_SEARCH_REQ = 302; // 스포츠센터 검색 결과 요청
+    public static final int CD_SPORTSFACILITIE_SEARCH_LIST_REQ = 302; // 스포츠센터 검색 결과 요청
+    public static final int CD_SPORTSFACILITIE_SEARCH_MAP_REQ = 303; // 스포츠센터 검색 결과 요청
     // 응답
-    public static final int CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_RES = 303; // 중분류 응답
-    public static final int CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES = 304; // 소분류 응답
-    public static final int CD_SPORTSFACILITIE_SEARCH_RES = 305; // 스포츠센터 결과 응답
+    public static final int CD_SPORTSFACILITIE_SEARCH_MIDDLE_LOCATION_RES = 304; // 중분류 응답
+    public static final int CD_SPORTSFACILITIE_SEARCH_SMALL_LOCATION_RES = 305; // 소분류 응답
+    public static final int CD_SPORTSFACILITIE_SEARCH_RES = 306; // 스포츠센터 결과 응답
     public static final int CD_SPORTSFACILITIE_SEARCH_FAIL = 399; // 스포츠센터 실패 응답
 
     // 프로필 코드

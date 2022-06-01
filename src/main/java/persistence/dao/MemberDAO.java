@@ -44,6 +44,21 @@ public class MemberDAO {
         return item;
     }
 
+    public List<MemberDTO> selectAllByLocalInfoIndex(int localInfoIndex){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
+        List<MemberDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.MemberMapper.selectAllByLocalInfoIndex", localInfoIndex);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     public List<MemberDTO> selectAllBySportIndexAndLocalInfoIndex(MemberDTO memberDTO){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession();
         List<MemberDTO> list = null;
