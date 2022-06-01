@@ -16,6 +16,8 @@ public class Protocol implements Serializable {
     public static final int PT_PROFILE = 4;   // 프로필
 
     public static final int PT_MEMBER_SEARCH = 5;   // 인물 검색
+    public static final int PT_GROUP = 6;   // 인물 검색
+    public static final int PT_BULLETIN = 7;   // 게시판
 
 
     // code
@@ -56,7 +58,6 @@ public class Protocol implements Serializable {
     public static final int CD_SPORTSFACILITIE_SEARCH_FAIL = 399; // 스포츠센터 실패 응답
 
     // 프로필 코드
-
     //응답
     public static final int CD_PT_PROFILE_REQ = 400; // 프로필 정보 요청
     public static final int CD_PT_PROFILE_UPDATE_REQ = 401; // 수정 요청
@@ -69,7 +70,6 @@ public class Protocol implements Serializable {
     public static final int CD_PROFILE_NICK_DUPLICATION_RES = 406; // 닉네임 중복 있음 응답
     public static final int CD_PROFILE_FAIL = 499; // 프로필 실패 응답
 
-
     // 인물 검색
     // 요청
     public static final int CD_MEMBER_SEARCH_MIDDLE_LOCATION_REQ = 500; // 중분류 요청
@@ -81,11 +81,31 @@ public class Protocol implements Serializable {
     public static final int CD_MEMBER_SEARCH_RES = 505; // 인물 결과 응답
     public static final int CD_MEMBER_SEARCH_FAIL = 599; // 인물 실패 응답
 
-
-    // 게시판 코드
+    // 그룹 코드 GROUP
     // 요청
+    public static final int CD_GROUP_NAME_DUPLICATION_REQ = 600; // 그룹 이름 중복 검사 요청
+    public static final int CD_GROUP_CREATE_REQ = 602; // 그룹 생성 요청
 
     // 응답
+    public static final int CD_GROUP_NAME_DUPLICATION_RES = 605; // 그룹 이름 검사 응답
+    public static final int CD_GROUP_NAME_NOT_DUPLICATION_RES = 601; // 그룹 이름 중복 검사 응답 (중복아님)
+    public static final int CD_GROUP_CREATE_RES = 602; // 그룹 생성 응답
+    public static final int CD_GROUP_FAIL = 699; // 그룹 생성 응답
+
+    // 게시판 코드 BULLETIN
+    // 요청
+    public static final int CD_GROUP_LIST_REQ = 700; // 그룹 리스트 요청
+    public static final int CD_BULLETIN_LIST_REQ = 701; // 그룹 게시글 리스트 요청
+    public static final int CD_BULLETIN_REQ = 702; // 특정 게시글 요청
+    public static final int CD_BULLETIN_CREATE_REQ = 703; // 게시글 생성 요청
+
+    // 응답
+    public static final int CD_GROUP_LIST_RES = 704; // 그룹 리스트 응답
+    public static final int CD_BULLETIN_LIST_RES = 705; // 그룹 게시글 리스트 응답
+    public static final int CD_BULLETIN_RES = 706; // 특정 게시글 응답
+    public static final int CD_BULLETIN_CREATE_RES = 707; // 게시글 생성 응답
+    public static final int CD_BULLETIN_FAIL = 799; // 그룹 생성 응답
+
     protected int protocolType;
     protected int protocolCode;
 

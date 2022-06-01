@@ -4,10 +4,7 @@ import persistence.dao.GroupDAO;
 import persistence.dao.JoinGroupDAO;
 import persistence.dao.LocalInfoDAO;
 import persistence.dao.MemberDAO;
-import persistence.dto.GroupDTO;
-import persistence.dto.JoinGroupDTO;
-import persistence.dto.LocalInfoDTO;
-import persistence.dto.MemberDTO;
+import persistence.dto.*;
 
 import java.util.List;
 
@@ -16,7 +13,8 @@ public class GroupService {
     private GroupDAO groupDAO;
     private JoinGroupDAO joinGroupDAO;
     private LocalInfoDAO localInfoDAO;
-
+    private JoinGroupDTO joinGroupDTO;
+    private GroupDTO groupDTO;
     public GroupService(){
         this.memberDAO = new MemberDAO();
         this.groupDAO = new GroupDAO();
@@ -37,10 +35,10 @@ public class GroupService {
         }
     }
 
-    public void createGroup(MemberDTO memberDTO, GroupDTO groupDTO, JoinGroupDTO joinGroupDTO, LocalInfoDTO localInfoDTO){
-        String nickName = memberDAO.selectOneNickNameById(memberDTO.getMemberID());
-        int primary_member = memberDAO.selectOneById(memberDTO.getMemberID());
-        int primary_LocalInfo = localInfoDAO.selectID(localInfoDTO);
+    public void createGroup(PackingDTO packingDTO){
+        String nickName = memberDAO.selectOneNickNameById(packingDTO.getMemberDTO().getMemberID());
+        int primary_member = memberDAO.selectOneById(packingDTO.getMemberDTO().getMemberID());
+        int primary_LocalInfo = localInfoDAO.selectID(packingDTO.getLocalInfoDTO());
 
         groupDTO.setGroupLeader(nickName);
         groupDTO.setLocalInfoIndex(primary_LocalInfo);
@@ -50,6 +48,11 @@ public class GroupService {
         joinGroupDTO.setMemberIndex(primary_member);
 
         System.out.println("그룹 index : " + groupDTO.getGroupIndex() + " 그룹장" + groupDTO.getGroupLeader());
+    }
+
+    public List<GroupDTO> selectAll(){
+        List<GroupDTO> list = groupDAO.selectAllGroup();
+        return list;
     }
 
     public void joinGroup(MemberDTO memberDTO, GroupDTO groupDTO, JoinGroupDTO joinGroupDTO){
@@ -63,3 +66,4 @@ public class GroupService {
         System.out.println("그룹 가입 index : " + joinGroupDTO.getJoinGroupIndex());
     }
 }
+

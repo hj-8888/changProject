@@ -9,9 +9,7 @@ import persistence.dto.PackingDTO;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MemberService {
     private MemberDAO memberDAO;
@@ -20,6 +18,7 @@ public class MemberService {
     private LoginDAO loginDAO;
 
     private MemberDTO memberDTO;
+
     public MemberService() {
         this.memberDAO = new MemberDAO();
         this.localInfoDAO = new LocalInfoDAO();
@@ -90,8 +89,6 @@ public class MemberService {
             BufferedImage final_buffered_image = ImageIO.read(byteStream);
             //ImageIO.write(final_buffered_image, "png", new File(path + imgName + ".png"));
             ImageIO.write(final_buffered_image, "png", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
-//            out = new FileOutputStream(localPath);
-//            ImageIO.write(bimg, "PNG", out); //이미지 출력! , 이미지를 파일출력스트림을 통해 JPG타입으로 출력
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -113,11 +110,6 @@ public class MemberService {
         System.out.println("회원 가입 완료 id : " + memberDTO.getMemberID());
     }
 
-    private void storeImg(ImageIO imgIO) {
-
-    }
-
-
     private int getLocalInfoIndex(LocalInfoDTO localInfoDTO){
         return localInfoDAO.selectID(localInfoDTO);
     }
@@ -136,6 +128,9 @@ public class MemberService {
         memberDTO.setLocalInfoIndex(localIndex);
         List<MemberDTO> list = memberDAO.selectAllBySportIndexAndLocalInfoIndex(memberDTO);
         return null;
+    }
+    private void storeImg(ImageIO imgIO) {
+
     }
 
 }

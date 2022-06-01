@@ -60,6 +60,21 @@ public class BulletinDAO {
         return list;
     }
 
+    public List<BulletinDTO> selectAllByGroupIndex(int groupIndex){
+        SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession() ;
+        List<BulletinDTO> list = null;
+        try {
+            list = sqlSession.selectList("mapper.BulletinMapper.selectAllByGroupIndex", groupIndex);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
     public int selectOneByTitle(String title){
         SqlSession sqlSession = myBatisConnectionFactory.getSqlSessionFactory().openSession() ;
         BulletinDTO item = null;
