@@ -16,17 +16,13 @@
         <result column="닉네임" property="nickname"/>
         <result column="지역정보_지역정보인덱스" property="localInfoIndex"/>
         <result column="관심종목_종목인덱스" property="sportsIndex"/>
-
-        <result column="친구인덱스" property="friendIndex"/>
-        <result column="회원_회원인덱스" property="member_memberIndex"/>
-        <result column="친구_회원인덱스" property="friend_memberIndex"/>
     </resultMap>
 
-    <select id ="selectAllFollowingByIndex" resultMap="MemberResultMap">
+    <select id ="selectAllFollowingByIndex" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `회원인덱스` = ANY(SELECT `회원_회원인덱스` FROM `친구` WHERE `친구_회원인덱스` = #{memberIndex};)
     </select>
 
-    <select id ="selectAllFollowerByIndex" resultMap="MemberResultMap">
+    <select id ="selectAllFollowerByIndex" resultMap="MemberResultmap">
         SELECT * FROM `회원` WHERE `회원인덱스` = ANY(SELECT `친구_회원인덱스` FROM `친구` WHERE `회원_회원인덱스` = #{memberIndex};)
     </select>
 
